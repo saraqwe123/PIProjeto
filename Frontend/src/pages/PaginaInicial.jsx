@@ -1,6 +1,17 @@
 import { useState } from "react";
 import { Pagina } from "../components/Pagina";
-import { ArrowBigRight, BadgeQuestionMarkIcon, BellIcon, EyeIcon, EyeOffIcon, FileTextIcon, LineChartIcon, MessageCircleMoreIcon, SearchIcon, SendIcon } from "lucide-react";
+import {
+  ArrowBigRight,
+  BadgeQuestionMarkIcon,
+  BellIcon,
+  EyeIcon,
+  EyeOffIcon,
+  FileTextIcon,
+  LineChartIcon,
+  MessageCircleMoreIcon,
+  SearchIcon,
+  SendIcon,
+} from "lucide-react";
 
 export function PaginaInicial() {
   const [showBalance, setShowBalance] = useState(false);
@@ -8,12 +19,17 @@ export function PaginaInicial() {
   const toggleBalance = () => {
     setShowBalance((prev) => !prev);
   };
+
   return (
     <Pagina>
-      <div className="flex flex-wrap w-full h-full min-h-screen ">        
+      <div className="flex flex-wrap w-full h-full min-h-screen">
         <div className="w-full md:w-2/3 flex flex-col items-center bg-black p-4">
           <div className="flex flex-col md:flex-row w-full items-center justify-between gap-4 mt-3">
-            <img src="" alt="" className="bg-gray-300 rounded-full w-10 h-10" />
+            <img
+              src=""
+              alt=""
+              className="bg-gray-300 rounded-full w-10 h-10"
+            />
 
             <div className="relative w-full md:w-96">
               <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" />
@@ -25,34 +41,37 @@ export function PaginaInicial() {
             </div>
 
             <div className="text-gray-300 flex justify-around items-center w-full md:w-40 h-10">
-              <BadgeQuestionMarkIcon className="hover:text-green-600 transition-colors" />
-              <MessageCircleMoreIcon className="hover:text-green-600 transition-colors" />
-              <BellIcon className="hover:text-green-600 transition-colors" />
+              <BadgeQuestionMarkIcon className="hover:text-[#6dd63a] transition-colors" />
+              <MessageCircleMoreIcon className="hover:text-[#6dd63a] transition-colors" />
+              <BellIcon className="hover:text-[#6dd63a] transition-colors" />
             </div>
           </div>
 
           <h1 className="text-white text-center text-xl md:text-5xl mt-10 px-4">
-            Seja bem-vindo ao Mono<span className="text-green-600 font-bold">Coin</span>!
+            Seja bem-vindo ao Mono
+            <span className="text-[#6dd63a] font-bold">Coin</span>!
           </h1>
 
-          <div className="w-full h-full flex flex-col p-10 justify-end">
+          <div className="w-full h-full flex flex-col p-10 justify-end mb-5">
             <h1 className="text-white p-5 text-4xl">Meu cartão</h1>
-            <div className="w-3/4 h-3/4 bg-white rounded-4xl p-4 flex justify-around">
-              <div className="h-full w-1/2 p-4 flex items-start justify-evenly flex-col">
+
+            <div className="w-full md:w-2/3 lg:h-1/2 h-auto bg-white rounded-4xl p-4 flex flex-col md:flex-row justify-around gap-4">
+              <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col gap-4">
                 Imagem
                 <h1>Nome Completo</h1>
                 <h2>**** **** **** 6789</h2>
+
                 <div className="flex flex-col gap-1 w-full">
                   <div className="flex justify-around w-full">
-                    <div className="h-1 bg-gray-800 rounded w-1/4"></div>
-                    <div className="h-1 bg-gray-800 rounded w-1/4"></div>
-                    <div className="h-1 bg-gray-800 rounded w-1/4"></div>
+                    <div className="h-1 bg-black rounded w-1/4"></div>
+                    <div className="h-1 bg-black rounded w-1/4"></div>
+                    <div className="h-1 bg-black rounded w-1/4"></div>
                   </div>
-                  <div className="h-1 bg-gray-800 rounded w-full"></div>
+                  <div className="h-1 bg-black rounded w-full"></div>
                 </div>
               </div>
 
-              <div className="h-full w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
+              <div className="w-full md:w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
                 <div className="flex flex-col w-full">
                   <span className="text-sm">Saldo disponível</span>
                   <div className="flex items-center justify-between w-full mt-2">
@@ -61,7 +80,7 @@ export function PaginaInicial() {
                     </p>
                     <button
                       onClick={toggleBalance}
-                      className="hover:text-yellow-300 transition-colors"
+                      className="hover:text-[#003c0a] transition-colors"
                       aria-label="Mostrar ou ocultar saldo"
                     >
                       {showBalance ? (
@@ -75,42 +94,65 @@ export function PaginaInicial() {
 
                 <div className="flex flex-col gap-1 w-full">
                   <p className="text-sm">Última atualização: 01/10/2025</p>
-                  <div className="w-full h-1 bg-yellow-400 rounded-full" />
+                  <div className="w-full h-1 bg-[#6dd63a] rounded-full" />
                 </div>
               </div>
             </div>
           </div>
-          
         </div>
 
-        <aside className="w-full md:w-1/3 h-full flex flex-col border-t md:border-t-0 md:border-l border-gray-700">
-          <div className="w-full h-1/3 border-b border-gray-700 relative">
-            <h1 className="flex flex-row self-start items-center justify-start text-2xl p-4 gap-2">
+        <aside className="w-full md:w-1/3 md:flex flex-col hidden md:h-full border-t md:border-t-0 md:border-l border-gray-700">
+          <div className="w-full md:h-1/3 border-b border-gray-700 relative h-28">
+            <h1 className="flex flex-row items-center justify-start text-xl md:text-2xl p-4 gap-2">
               <strong>Área Pix</strong>
-              <ArrowBigRight className="w-6 h-6" />
+              <ArrowBigRight className="w-5 h-5 md:w-6 md:h-6" />
             </h1>
-
-            <SendIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-blue-500 transition-colors text-green-500 w-12 h-12" />
+            <SendIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
           </div>
 
-          <div className="w-full h-1/3 border-b border-gray-700 relative">
-            <h1 className="flex flex-row self-start items-center justify-start text-2xl p-4 gap-2">
+          <div className="w-full md:h-1/3 border-b border-gray-700 relative h-28">
+            <h1 className="flex flex-row items-center justify-start text-xl md:text-2xl p-4 gap-2">
               <strong>Extrato</strong>
-              <ArrowBigRight className="w-6 h-6" />
+              <ArrowBigRight className="w-5 h-5 md:w-6 md:h-6" />
             </h1>
-            <FileTextIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-yellow-500 transition-colors text-blue-500 w-12 h-12" />
+            <FileTextIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
           </div>
 
-          <div className="w-full h-1/3 border-b border-gray-700 relative">
-            <h1 className="flex flex-row self-start items-center justify-start text-2xl p-4 gap-2">
+          <div className="w-full md:h-1/3 border-b border-gray-700 relative h-28">
+            <h1 className="flex flex-row items-center justify-start text-xl md:text-2xl p-4 gap-2">
               <strong>Investimento</strong>
-              <ArrowBigRight className="w-6 h-6" />
+              <ArrowBigRight className="w-5 h-5 md:w-6 md:h-6" />
             </h1>
-            <LineChartIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-green-500 transition-colors text-yellow-500 w-12 h-12" />
+            <LineChartIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
           </div>
         </aside>
+
+        <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-sm border-t border-gray-700 z-40 flex justify-around p-2">
+          <button
+            className="flex flex-col items-center gap-1"
+            aria-label="Área Pix"
+          >
+            <SendIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+            <span className="text-xs text-gray-700">Pix</span>
+          </button>
+
+          <button
+            className="flex flex-col items-center gap-1"
+            aria-label="Extrato"
+          >
+            <FileTextIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+            <span className="text-xs text-gray-700">Extrato</span>
+          </button>
+
+          <button
+            className="flex flex-col items-center gap-1"
+            aria-label="Investimento"
+          >
+            <LineChartIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+            <span className="text-xs text-gray-700">Invest.</span>
+          </button>
+        </div>
       </div>
     </Pagina>
   );
 }
-
