@@ -4,7 +4,7 @@ import './index.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { Layout } from './pages/_Layout';
 import { PaginaInicial } from './pages/PaginaInicial';
-import { Login } from './pages/Logen';
+import { Login } from './pages/Login';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(

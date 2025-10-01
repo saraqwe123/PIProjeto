@@ -1,7 +1,13 @@
+import { useState } from "react";
 import { Pagina } from "../components/Pagina";
-import { ArrowBigRight, BadgeQuestionMarkIcon, BellIcon, FileTextIcon, LineChartIcon, MessageCircleMoreIcon, SearchIcon, SendIcon } from "lucide-react";
+import { ArrowBigRight, BadgeQuestionMarkIcon, BellIcon, EyeIcon, EyeOffIcon, FileTextIcon, LineChartIcon, MessageCircleMoreIcon, SearchIcon, SendIcon } from "lucide-react";
 
 export function PaginaInicial() {
+  const [showBalance, setShowBalance] = useState(false);
+
+  const toggleBalance = () => {
+    setShowBalance((prev) => !prev);
+  };
   return (
     <Pagina>
       <div className="flex flex-wrap w-full h-full min-h-screen ">        
@@ -28,6 +34,53 @@ export function PaginaInicial() {
           <h1 className="text-white text-center text-xl md:text-5xl mt-10 px-4">
             Seja bem-vindo ao Mono<span className="text-green-600 font-bold">Coin</span>!
           </h1>
+
+          <div className="w-full h-full flex flex-col p-10 justify-end">
+            <h1 className="text-white p-5 text-4xl">Meu cartão</h1>
+            <div className="w-3/4 h-3/4 bg-white rounded-4xl p-4 flex justify-around">
+              <div className="h-full w-1/2 p-4 flex items-start justify-evenly flex-col">
+                Imagem
+                <h1>Nome Completo</h1>
+                <h2>**** **** **** 6789</h2>
+                <div className="flex flex-col gap-1 w-full">
+                  <div className="flex justify-around w-full">
+                    <div className="h-1 bg-gray-800 rounded w-1/4"></div>
+                    <div className="h-1 bg-gray-800 rounded w-1/4"></div>
+                    <div className="h-1 bg-gray-800 rounded w-1/4"></div>
+                  </div>
+                  <div className="h-1 bg-gray-800 rounded w-full"></div>
+                </div>
+              </div>
+
+              <div className="h-full w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
+                <div className="flex flex-col w-full">
+                  <span className="text-sm">Saldo disponível</span>
+                  <div className="flex items-center justify-between w-full mt-2">
+                    <p className="text-2xl font-bold tracking-wide">
+                      {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
+                    </p>
+                    <button
+                      onClick={toggleBalance}
+                      className="hover:text-yellow-300 transition-colors"
+                      aria-label="Mostrar ou ocultar saldo"
+                    >
+                      {showBalance ? (
+                        <EyeOffIcon className="w-6 h-6" />
+                      ) : (
+                        <EyeIcon className="w-6 h-6" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1 w-full">
+                  <p className="text-sm">Última atualização: 01/10/2025</p>
+                  <div className="w-full h-1 bg-yellow-400 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
 
         <aside className="w-full md:w-1/3 h-full flex flex-col border-t md:border-t-0 md:border-l border-gray-700">
