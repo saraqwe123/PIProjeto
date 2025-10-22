@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { Pagina } from "../components/Pagina";
 import {
-    ArrowBigRight,
     ArrowBigUp,
     BadgeQuestionMarkIcon,
     BellIcon,
-    EyeIcon,
-    EyeOffIcon,
-    FileTextIcon,
-    LineChartIcon,
     MessageCircleMoreIcon,
-    Plus,
     PlusIcon,
     SearchIcon,
-    SendIcon,
+    SkipBack,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MenuLateral } from "../components/MenuLateral";
@@ -310,6 +304,14 @@ export function Investimentos() {
                         <h1 className="text-white mb-2">Minha Organização</h1>
                         <NavLink className="w-72 h-72 bg-white flex justify-center items-center rounded-2xl">
                             <PlusIcon size={90} className="text-gray-400" />
+                        </NavLink>
+                    </section>
+                    <section className="mt-6 px-4 self-start w-full flex items-center">
+                        <NavLink
+                            to='/inicio'
+                            className="mt-2 w-1/8 p-5 flex justify-center bg-red-700 text-white py-2 border border-red-700/0 cursor-pointer rounded-2xl hover:border-red-700 hover:bg-white hover:text-red-700 transition-colors font-semibold"
+                        >
+                            <SkipBack />
                         </NavLink>
                     </section>
                 </div>
