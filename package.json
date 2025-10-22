@@ -23,6 +23,8 @@
     "concurrently": "^9.2.1"
   },
   "dependencies": {
+    "expres": "^0.0.5",
+    "express": "^5.1.0",
     "lucide-react": "^0.544.0"
   }
 }
