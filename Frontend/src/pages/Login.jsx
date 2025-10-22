@@ -22,11 +22,11 @@ export function Login() {
               <br/>
               <label htmlFor="" className="w-2/3">Usuário</label>
               <br />
-              <input type="text" placeholder="Fulano de Tal" className="border-1 p-1" />
+              <input type="text" placeholder="Fulano de Tal" className="border-1 p-1 rounded-2xl" />
               <br/>
               <label htmlFor="" className="w-2/3">Senha</label>
               <br />
-              <input type="text" placeholder="*********" className="border-1 p-1"/>
+              <input type="text" placeholder="*********" className="border-1 p-1 rounded-2xl"/>
               <br/>
               <button className="w-1/2 h-10 rounded-2xl bg-[#00ec6a]">Entrar</button>
             </form>
