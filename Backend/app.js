@@ -1,22 +1,30 @@
-import express from "express"
-import cors from "cors"
-import axios from "axios"
-import dotenv from "dotenv"
+import fastify from "fastify";
+import cors from "@fastify/cors";
+// import { linkRoutes } from "./modules/links/link.routes.js"; 
+import 'dotenv/config';
 
+import dotenv from 'dotenv'
 dotenv.config()
 
-const app = express()
-const port = process.env.PORT || 3000
+const server = fastify({
+  logger: true
+});
 
-app.use(cors({
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-}))
-app.use(express.json())
+const port = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-    res.send("Servidor ON")
-})
+await server.register(cors, {
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+});
+// await server.register(linkRoutes); 
 
-app.listen(port, () => {
-    console.log(`servidor rodando em localhost:${port}`)
-})
+server.get("/", async (request, reply) => {
+  return reply.send("Servidor on");
+});
+
+server.listen({ port, host: '0.0.0.0' }).then(() => {
+  console.log("Servidor executando na porta", port);  
+}).catch((error) => {
+  console.error("Erro ao iniciar o servidor:", error);
+  process.exit(1);
+});
