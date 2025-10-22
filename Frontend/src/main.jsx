@@ -8,11 +8,13 @@ import { Login } from './pages/Login';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <>
       <Route index element={<Login />} />
       <Route path="login" element={<Login />} />
-      <Route path="inicio" element={<PaginaInicial />} />
-    </Route>
+      <Route path="/" element={<Layout />}>
+        <Route path="inicio" element={<PaginaInicial />} />
+      </Route>
+    </>
   )
 );
 
