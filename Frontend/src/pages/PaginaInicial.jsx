@@ -20,6 +20,7 @@ export function PaginaInicial() {
   const [showMenu, setShowMenu] = useState(false)
   const [showFormUpdate, setShowFormUpdate] = useState(false)
   const [showAccountData, setShowAccountData] = useState(false)
+  const [showChangePix, setShowChangePix] = useState(false)
   const [showChangePhoto, setShowChangePhoto] = useState(false)
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate()
@@ -31,11 +32,11 @@ export function PaginaInicial() {
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
   };
-  
+
   const toggleFormUpdate = () => {
     setShowFormUpdate((prev) => !prev);
   };
-  
+
   const toggleAccountData = () => {
     setShowAccountData((prev) => !prev);
   };
@@ -43,7 +44,11 @@ export function PaginaInicial() {
   const toggleChangePhoto = () => {
     setShowChangePhoto((prev) => !prev);
   };
-  
+
+  const toggleChangePix = () => {
+    setShowChangePix((prev) => !prev);
+  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -74,12 +79,12 @@ export function PaginaInicial() {
                     <li className="hover:text-[#6dd63a] cursor-pointer" onClick={toggleFormUpdate}>Atualizar dados cadastrais</li>
                     <li className="hover:text-[#6dd63a] cursor-pointer" onClick={toggleAccountData}>Dados da conta</li>
                     <li className="hover:text-[#6dd63a] cursor-pointer" onClick={toggleChangePhoto}>Atualizar foto</li>
-                    <li className="hover:text-[#6dd63a] cursor-pointer">Mudar chave pix</li>
+                    <li className="hover:text-[#6dd63a] cursor-pointer" onClick={toggleChangePix}>Mudar chave pix</li>
                     <li className="hover:text-red-500 cursor-pointer" onClick={() => navigate("/")}>Sair</li>
                   </ul>
                 </div>
               )}
-              
+
               {showFormUpdate && (
                 <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
                   <h1 className="text-lg font-bold text-gray-800 mb-2">Atualize seu cadastro</h1>
@@ -91,7 +96,7 @@ export function PaginaInicial() {
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
                       <input
-                        type="text"
+                        type="tel"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
                         placeholder="(xx) xxxxx-xxxx"
                       />
@@ -132,7 +137,43 @@ export function PaginaInicial() {
                   </form>
                 </div>
               )}
-              
+
+              {showChangePix && (
+                <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                  <h1 className="text-lg font-bold text-gray-800 mb-2">Atualize sua chave pix</h1>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Confirme se a nova chave está atualizada.
+                  </p>
+
+                  <form className="flex flex-col gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Nova chave pix</label>
+                      <input
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                        placeholder="exemplodechave@gmail.com "
+                      />
+                    </div>
+
+                    <div className="w-full">
+
+                      <button
+                        type="submit"
+                        className="mt-2 w-full bg-[#6dd63a] text-white py-2 border cursor-pointer rounded-md hover:border-[#57b72e] hover:bg-white hover:text-[#57b72e] transition-colors font-semibold"
+                      >
+                        Atualizar
+                      </button>
+                      <button
+                        onClick={() => setShowChangePix(false)}
+                        className="mt-6 w-full bg-[#e21e1e] text-white py-2 border cursor-pointer rounded-md hover:bg-white hover:border-[#e21e1e] hover:text-[#e21e1e] transition-colors font-semibold"
+                      >
+                        Fechar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+
               {showAccountData && (
                 <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
                   <h1 className="text-lg font-semibold text-gray-800 mb-3">Dados da Conta</h1>
@@ -177,41 +218,48 @@ export function PaginaInicial() {
                   </button>
                 </div>
               )}
-              
+
               {showChangePhoto && (
-              <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
-                <h1 className="text-lg font-semibold text-gray-800 mb-4">Foto de Perfil</h1>
+                <form className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                  <h1 className="text-lg font-semibold text-gray-800 mb-4">Foto de Perfil</h1>
 
-                <label
-                  htmlFor="image-upload"
-                  className="flex flex-col items-center justify-center w-full gap-2 cursor-pointer group"
-                >
-                  <div className="w-32 h-32 rounded-full border-4 border-dashed border-gray-300 group-hover:border-[#6dd63a] overflow-hidden transition-all">
-                    <img
-                      src={imagePreview}
-                      alt=""
-                      className="w-full h-full object-cover"
+                  <label
+                    htmlFor="image-upload"
+                    className="flex flex-col items-center justify-center w-full gap-2 cursor-pointer group"
+                  >
+                    <div className="w-32 h-32 rounded-full border-4 border-dashed border-gray-300 group-hover:border-[#6dd63a] overflow-hidden transition-all">
+                      <img
+                        src={imagePreview}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-sm text-gray-600 group-hover:text-[#6dd63a] transition-colors">
+                      Clique para alterar a imagem
+                    </span>
+                    <input
+                      id="image-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
                     />
-                  </div>
-                  <span className="text-sm text-gray-600 group-hover:text-[#6dd63a] transition-colors">
-                    Clique para alterar a imagem
-                  </span>
-                  <input
-                    id="image-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
-                </label>
+                  </label>
 
-                <button
-                  onClick={() => setShowChangePhoto(false)}
-                  className="mt-6 w-full bg-[#e21e1e] text-white py-2 border cursor-pointer rounded-md hover:bg-white hover:border-[#e21e1e] hover:text-[#e21e1e] transition-colors font-semibold"
-                >
-                  Fechar
-                </button>
-              </div>
+                  <button
+                    type="submit"
+                    className="mt-2 w-full bg-[#6dd63a] text-white py-2 border cursor-pointer rounded-md hover:border-[#57b72e] hover:bg-white hover:text-[#57b72e] transition-colors font-semibold"
+                  >
+                    Atualizar
+                  </button>
+
+                  <button
+                    onClick={() => setShowChangePhoto(false)}
+                    className="mt-6 w-full bg-[#e21e1e] text-white py-2 border cursor-pointer rounded-md hover:bg-white hover:border-[#e21e1e] hover:text-[#e21e1e] transition-colors font-semibold"
+                  >
+                    Fechar
+                  </button>
+                </form>
               )}
 
 
@@ -286,7 +334,7 @@ export function PaginaInicial() {
             </div>
           </div>
         </div>
-        <MenuLateral/>
+        <MenuLateral />
 
       </div>
     </Pagina>

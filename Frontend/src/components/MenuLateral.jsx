@@ -1,4 +1,5 @@
 import { ArrowBigRight, FileTextIcon, LineChartIcon, SendIcon } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export function MenuLateral() {
     return (
@@ -9,7 +10,9 @@ export function MenuLateral() {
                         <strong>Área Pix</strong>
                         <ArrowBigRight className="w-5 h-5 md:w-6 md:h-6" />
                     </h1>
-                    <SendIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
+                    <NavLink to='/areapix'>
+                        <SendIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
+                    </NavLink>
                 </div>
 
                 <div className="w-full md:h-1/3 border-b border-gray-700 relative h-28">
@@ -25,7 +28,9 @@ export function MenuLateral() {
                         <strong>Investimento</strong>
                         <ArrowBigRight className="w-5 h-5 md:w-6 md:h-6" />
                     </h1>
-                    <LineChartIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
+                    <NavLink to="/investimentos">
+                        <LineChartIcon className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:text-[#003c0a] transition-colors text-[#6dd63a] w-10 h-10 md:w-12 md:h-12" />
+                    </NavLink>
                 </div>
             </aside>
 
