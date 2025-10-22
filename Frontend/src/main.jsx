@@ -14,7 +14,7 @@ const rotas = createBrowserRouter(
     <>
       <Route index element={<Login />} />
       <Route path="login" element={<Login />} />
-      <Route path="login" element={<Cadastro />} />
+      <Route path="cadastro" element={<Cadastro />} />
       <Route path="/" element={<Layout />}>
         <Route path="inicio" element={<PaginaInicial />} />
         <Route path="areapix" element={<AreaPix />} />
