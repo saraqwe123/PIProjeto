@@ -11,13 +11,18 @@ export function AreaPix() {
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
-        <div className="w-full h-20 bg-white flex justify-center items-center">
-          <div>
+        <div className="w-full h-20 bg-white flex justify-between items-center px-6">
+          <div className="flex items-center gap-250"> 
             <button><CircleArrowLeft/></button>
             <button><CircleQuestionMark/></button>
           </div>
-          <div>
 
+          <div className="m-0 p-0">
+            <img 
+              src="imagens/logocriancas.png" 
+              alt="Logo2" 
+              className="fixed right-0 top-0 h-60 w-60"
+            />
           </div>
         </div>
 
@@ -50,7 +55,7 @@ export function AreaPix() {
         <hr  className="h-1 bg-[#d9d9d9] border-[#d9d9d9]"/>
 
         <div className="w-full flex-1 bg-[#003c0a] flex justify-center items-center">
-          <p className="text-white text-lg">Histórico</p>
+          <p className="text-white text-lg">Histórico vazio</p>
         </div>
       </div>
 
