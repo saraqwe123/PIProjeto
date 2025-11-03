@@ -11,20 +11,23 @@ export function AreaPix() {
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
-        <div className="w-full h-20 bg-white flex justify-between items-center px-6">
-          <div className="flex items-center gap-250"> 
-            <button><CircleArrowLeft/></button>
-            <button><CircleQuestionMark/></button>
+        <header className="w-full h-20 bg-white flex items-center shadow-md relative z-10 px-6">
+          <div className="flex justify-between items-center w-full">
+            <button className="">
+              <CircleArrowLeft className="" />
+            </button>
+
+            <button className="">
+              <CircleQuestionMark className="w-6 h-6 text-gray-700 mr-50"/>
+            </button>
           </div>
 
-          <div className="m-0 p-0">
-            <img 
-              src="imagens/logocriancas.png" 
-              alt="Logo2" 
-              className="fixed right-0 top-0 h-60 w-60"
-            />
-          </div>
-        </div>
+          <img
+            src="imagens/logocriancas.png"
+            alt="Logo"
+            className="fixed top-3 right-0 w-50 h-50 object-contain z-0"
+          />
+        </header>
 
         <div className="w-full flex-1 bg-[#259337] flex flex-col items-start p-10">
           <p className="text-white font-bold text-xl mb-6 ml-10">Área Pix</p>
