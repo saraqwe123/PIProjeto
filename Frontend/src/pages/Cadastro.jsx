@@ -24,31 +24,31 @@ export function Cadastro() {
 
               <section>
                 <h3 className="font-semibold mb-1">Dados Pessoais</h3>
-                <input type="text" placeholder="Nome completo" className="input" />
+                <input type="text" placeholder="Nome completo" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="CPF" className="input w-1/2 broder-2" />
-                  <input type="text" placeholder="Data Nasc." className="input w-1/2" />
+                  <input type="text" placeholder="CPF" className="w-1/2 broder-2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2 text-sm" />
+                  <input type="text" placeholder="Data Nasc." className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="E-mail" className="input w-1/2" />
-                  <input type="text" placeholder="Telefone" className="input w-1/2" />
+                  <input type="text" placeholder="E-mail" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                  <input type="text" placeholder="Telefone" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold mt-4 mb-1">Endereço</h3>
-                <input type="text" placeholder="Rua" className="input" />
+                <input type="text" placeholder="Rua" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="Número" className="input w-1/2" />
-                  <input type="text" placeholder="Complemento" className="input w-1/2" />
+                  <input type="text" placeholder="Número" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                  <input type="text" placeholder="Complemento" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="Bairro" className="input w-1/2" />
-                  <input type="text" placeholder="Estado" className="input w-1/2" />
+                  <input type="text" placeholder="Bairro" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                  <input type="text" placeholder="Estado" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="Cidade" className="input w-1/2" />
-                  <input type="text" placeholder="CEP" className="input w-1/2" />
+                  <input type="text" placeholder="Cidade" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                  <input type="text" placeholder="CEP" className="w-1/2 bg-gray-100 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent" />
                 </div>
               </section>
 
@@ -66,7 +66,7 @@ export function Cadastro() {
                     <input
                       key={index}
                       placeholder={item}
-                      className="flex items-center bg-gray-100 rounded-lg p-2 shadow-sm text-sm"
+                      className="flex items-center bg-gray-100 rounded-lg p-2 shadow-sm"
                     />
                   ))}
                 </div>
