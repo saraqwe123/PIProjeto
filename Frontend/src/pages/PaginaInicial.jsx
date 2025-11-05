@@ -275,9 +275,9 @@ export function PaginaInicial() {
             </div>
 
             <div className="text-gray-300 flex justify-around items-center w-full md:w-40 h-10">
-              <BadgeQuestionMarkIcon className="hover:text-[#6dd63a] transition-colors" />
-              <MessageCircleMoreIcon className="hover:text-[#6dd63a] transition-colors" />
-              <BellIcon className="hover:text-[#6dd63a] transition-colors" />
+              <BadgeQuestionMarkIcon className="hover:text-[#6dd63a] transition-colors cursor-pointer" />
+              <MessageCircleMoreIcon className="hover:text-[#6dd63a] transition-colors cursor-pointer" />
+              <BellIcon className="hover:text-[#6dd63a] transition-colors cursor-pointer" />
             </div>
           </div>
 
@@ -314,7 +314,7 @@ export function PaginaInicial() {
                     </p>
                     <button
                       onClick={toggleBalance}
-                      className="hover:text-[#003c0a] transition-colors"
+                      className="hover:text-[#6dd63a] transition-colors cursor-pointer"
                       aria-label="Mostrar ou ocultar saldo"
                     >
                       {showBalance ? (
