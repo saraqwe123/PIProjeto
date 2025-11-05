@@ -6,7 +6,7 @@ import { useState } from "react"
 export function Cadastro() {
   const [foto, setFoto] = useState(null);
 
-  const handleFotoChange = (e) => {
+  const adicionarF = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFoto(URL.createObjectURL(file));
@@ -35,7 +35,7 @@ export function Cadastro() {
                 <img
                   src={foto || "imagens/pessoa.svg"}
                   alt="Foto de perfil"
-                  className="w-48 h-48 rounded-full object-contain"
+                  className="w-36 h-36 rounded-full object-cover border-2 border-gray-300 hover:opacity-80 transition"
                 />
               </label>
 
@@ -44,7 +44,7 @@ export function Cadastro() {
                   id="fotoUpload"
                   accept="image/*"
                   className="hidden"
-                  onChange={handleFotoChange}
+                  onChange={adicionarF}
                 />
               </div>
 
