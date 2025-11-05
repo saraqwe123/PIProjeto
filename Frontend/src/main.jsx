@@ -8,6 +8,7 @@ import { Login } from './pages/Login';
 import { AreaPix } from './pages/AreaPix';
 import { Investimentos } from './pages/Investimentos';
 import { Cadastro } from './pages/Cadastro';
+import { Extrato } from './pages/Extrato';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const rotas = createBrowserRouter(
         <Route path="inicio" element={<PaginaInicial />} />
         <Route path="areapix" element={<AreaPix />} />
         <Route path="investimentos" element={<Investimentos />} />
+        <Route path="Extrato" element={<Extrato />} />
       </Route>
     </>
   )

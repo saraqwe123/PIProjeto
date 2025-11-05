@@ -5,6 +5,7 @@ import { Copy } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import { CircleArrowLeft } from "lucide-react";
 import { CircleQuestionMark } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 
 export function AreaPix() {
@@ -13,9 +14,9 @@ export function AreaPix() {
       <div className="flex flex-col w-full h-screen">
         <header className="w-full h-20 bg-white flex items-center shadow-md relative z-10 px-6">
           <div className="flex justify-between items-center w-full">
-            <button className="">
-              <CircleArrowLeft className="" />
-            </button>
+            <NavLink to='/inicio' className="">
+              <CircleArrowLeft className="hover:text-[#259337] transition-all" />
+            </NavLink>
 
             <button className="">
               <CircleQuestionMark className="w-6 h-6 text-gray-700 mr-50"/>
