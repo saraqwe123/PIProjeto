@@ -43,14 +43,14 @@ export function Investimentos() {
 
                     <section className="mt-6 px-4 self-start">
                         <h1 className="text-white mb-2">Minha Organização</h1>
-                        <NavLink className="w-56 h-56 bg-white flex justify-center items-center rounded-2xl">
+                        <NavLink className="w-44 h-44 lg:w-56 lg:h-56 bg-white flex justify-center items-center rounded-2xl">
                             <PlusIcon size={72} className="text-gray-400" />
                         </NavLink>
                     </section>
                     <section className="mt-6 px-4 self-start w-full flex items-center">
                         <NavLink
                             to='/inicio'
-                            className="mt-2 w-1/8 p-5 flex justify-center bg-red-700 text-white py-2 border border-red-700/0 cursor-pointer rounded-2xl hover:border-red-700 hover:bg-white hover:text-red-700 transition-colors font-semibold"
+                            className="mt-2 w-20 lg:w-1/8 p-5 flex justify-center bg-red-700 text-white py-2 border border-red-700/0 cursor-pointer rounded-2xl hover:border-red-700 hover:bg-white hover:text-red-700 transition-colors font-semibold"
                         >
                             <SkipBack />
                         </NavLink>

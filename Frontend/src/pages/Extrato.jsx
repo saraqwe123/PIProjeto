@@ -52,60 +52,73 @@ export function Extrato() {
                             )}
                         </button>
                     </section>
-                    <section className="mt-6 p-4 bg-gradient-to-r from-[#222] via-[#333] to-[#222] border border-[#3a3a3a] shadow-lg rounded-2xl w-full h-[400px] transition-all hover:shadow-[#6dd63a]/20 text-[#6dd63a] overflow-y-auto">
-                        <div className="flex items-center w-1/4 justify-around">
-                            <h1 className="text-2xl">Movimentações</h1>
+                    <section
+                        className="mt-6 p-4 bg-gradient-to-r from-[#222] via-[#333] to-[#222] border border-[#3a3a3a] shadow-lg rounded-2xl w-full h-[250px] lg:h-[400px] transition-all hover:shadow-[#6dd63a]/20 text-[#6dd63a] overflow-y-auto scrollbar-thin scrollbar-thumb-[#6dd63a]/30 scrollbar-track-transparent
+  "
+                    >
+                        <div className="flex items-center justify-between sm:justify-around md:w-1/2 lg:w-1/4">
+                            <h1 className="text-xl sm:text-2xl font-semibold">Movimentações</h1>
                             {showMovimentacoes ? (
-                                <ArrowUp className="cursor-pointer transition-colors hover:text-white" onClick={toggleShowMovimentacoes} />
+                                <ArrowUp
+                                    className="cursor-pointer transition-colors hover:text-white w-6 h-6 sm:w-7 sm:h-7"
+                                    onClick={toggleShowMovimentacoes}
+                                />
                             ) : (
-                                <ArrowDown className="cursor-pointer transition-colors hover:text-white" onClick={toggleShowMovimentacoes} />
+                                <ArrowDown
+                                    className="cursor-pointer transition-colors hover:text-white w-6 h-6 sm:w-7 sm:h-7"
+                                    onClick={toggleShowMovimentacoes}
+                                />
                             )}
                         </div>
-                        <AnimatePresence>
 
+                        <AnimatePresence>
                             {showMovimentacoes && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -25 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -25 }}
                                     transition={{ duration: 0.4, ease: "circIn" }}
-                                    className="mt-4 flex flex-col gap-3 text-gray-200">
+                                    className="mt-4 flex flex-col gap-3 text-gray-200"
+                                >
                                     <div className="text-sm text-gray-400 mb-2">Hoje</div>
 
-                                    <div className="flex items-center justify-between bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-4 hover:border-[#6dd63a]/40 transition-all cursor-pointer">
-                                        <div className="flex items-center gap-3">
-                                            <ArrowBigUp className="text-[#6dd63a]" />
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-3 sm:p-4 hover:border-[#6dd63a]/40 transition-all cursor-pointer">
+                                        <div className="flex items-center gap-3 mb-2 sm:mb-0">
+                                            <ArrowBigUp className="text-[#6dd63a] w-6 h-6 sm:w-7 sm:h-7" />
                                             <div className="flex flex-col">
-                                                <span className="font-semibold text-white">Sara Guaiume</span>
-                                                <span className="text-xs text-gray-400">Transferencia Recebida</span>
+                                                <span className="font-semibold text-white text-sm sm:text-base">Sara Guaiume</span>
+                                                <span className="text-xs text-gray-400">Transferência Recebida</span>
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <span className="text-[#6dd63a] font-semibold">+ R$ 3.000.000,00</span>
+                                            <span className="text-[#6dd63a] font-semibold text-sm sm:text-base">
+                                                + R$ 3.000.000,00
+                                            </span>
                                             <p className="text-xs text-gray-500">09:30</p>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-4 hover:border-[#bb2e29]/40 transition-all cursor-pointer">
-                                        <div className="flex items-center gap-3">
-                                            <ArrowBigDown className="text-[#bb2e29]" />
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-3 sm:p-4 hover:border-[#bb2e29]/40 transition-all cursor-pointer">
+                                        <div className="flex items-center gap-3 mb-2 sm:mb-0">
+                                            <ArrowBigDown className="text-[#bb2e29] w-6 h-6 sm:w-7 sm:h-7" />
                                             <div className="flex flex-col">
-                                                <span className="font-semibold text-white">Sara Guaiume</span>
-                                                <span className="text-xs text-gray-400">Transferencia Realizada</span>
+                                                <span className="font-semibold text-white text-sm sm:text-base">Sara Guaiume</span>
+                                                <span className="text-xs text-gray-400">Transferência Realizada</span>
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <span className="text-[#bb2e29] font-semibold">- R$ 1.003.000,00</span>
+                                            <span className="text-[#bb2e29] font-semibold text-sm sm:text-base">
+                                                - R$ 1.003.000,00
+                                            </span>
                                             <p className="text-xs text-gray-500">09:30</p>
                                         </div>
                                     </div>
-
-
                                 </motion.div>
                             )}
                         </AnimatePresence>
                     </section>
-                    <NavLink to="/inicio" className="bg-red-600 border border-red-600/0 cursor-pointer rounded-2xl w-40 h-12 flex items-center justify-center text-white hover:bg-white hover:text-red-600 hover:border-red-600 self-end mt-6 transition-colors duration-300"> <SkipBack /> </NavLink>
+
+                    <NavLink to="/inicio" className="bg-red-600 border border-red-600/0 cursor-pointer rounded-2xl w-40 h-12 flex items-center justify-center text-white hover:bg-white hover:text-red-600 hover:border-red-600 sm:self-end mt-6 transition-colors duration-300"> <SkipBack /> </NavLink>
 
                 </div>
 

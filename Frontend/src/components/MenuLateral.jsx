@@ -41,7 +41,9 @@ export function MenuLateral() {
                     className="flex flex-col items-center gap-1"
                     aria-label="Área Pix"
                 >
-                    <SendIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+                    <NavLink to='/areapix'>
+                        <SendIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+                    </NavLink>
                     <span className="text-xs text-gray-700">Pix</span>
                 </button>
 
@@ -49,7 +51,9 @@ export function MenuLateral() {
                     className="flex flex-col items-center gap-1"
                     aria-label="Extrato"
                 >
-                    <FileTextIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+                    <NavLink to='/extrato'>
+                        <FileTextIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+                    </NavLink>
                     <span className="text-xs text-gray-700">Extrato</span>
                 </button>
 
@@ -57,7 +61,9 @@ export function MenuLateral() {
                     className="flex flex-col items-center gap-1"
                     aria-label="Investimento"
                 >
-                    <LineChartIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+                    <NavLink to='/investimentos'>
+                        <LineChartIcon className="w-8 h-8 text-[#6dd63a] hover:text-[#003c0a] transition-colors" />
+                    </NavLink>
                     <span className="text-xs text-gray-700">Invest.</span>
                 </button>
             </div>

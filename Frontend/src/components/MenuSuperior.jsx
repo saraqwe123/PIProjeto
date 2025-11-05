@@ -18,6 +18,7 @@ export function MenuSuperior() {
 
     const toggleFormUpdate = () => {
         setShowFormUpdate((prev) => !prev);
+        
     };
 
     const toggleAccountData = () => {
@@ -62,7 +63,7 @@ export function MenuSuperior() {
                     )}
 
                     {showMenu && (
-                        <div className="absolute top-12 bg-white text-black rounded-lg shadow-lg z-50 p-4 w-64">
+                        <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-lg shadow-lg z-50 p-4 w-64">
                             <ul className="flex flex-col gap-2">
                                 <li onClick={toggleFormUpdate} className="hover:text-[#6dd63a] cursor-pointer">
                                     Atualizar dados cadastrais
@@ -84,7 +85,7 @@ export function MenuSuperior() {
                     )}
 
                     {showFormUpdate && (
-                        <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                        <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
                             <h1 className="text-lg font-bold text-gray-800 mb-2">Atualize seu cadastro</h1>
                             <p className="text-sm text-gray-600 mb-4">
                                 Confirme se as informações sobre você estão atualizadas.
@@ -137,7 +138,7 @@ export function MenuSuperior() {
                     )}
 
                     {showAccountData && (
-                        <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                        <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
                             <h1 className="text-lg font-semibold text-gray-800 mb-3">Dados da Conta</h1>
 
                             <div className="flex flex-col gap-3 text-sm text-gray-700">
@@ -182,7 +183,7 @@ export function MenuSuperior() {
                     )}
 
                     {showChangePix && (
-                        <div className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                        <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
                             <h1 className="text-lg font-bold text-gray-800 mb-2">Atualize sua chave pix</h1>
                             <p className="text-sm text-gray-600 mb-4">
                                 Confirme se a nova chave está atualizada.
@@ -218,7 +219,7 @@ export function MenuSuperior() {
                     )}
 
                     {showChangePhoto && (
-                        <form className="absolute top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                        <form className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
                             <h1 className="text-lg font-semibold text-gray-800 mb-4">Foto de Perfil</h1>
 
                             <label
