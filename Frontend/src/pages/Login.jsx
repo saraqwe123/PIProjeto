@@ -16,7 +16,7 @@ export function Login() {
           </div>
           <div className="w-full p-5 lg:w-1/3 min-h-screen bg-[#2e2d2d] flex justify-center items-center">
             <form action="" method="" className="w-11/12 sm:w-3/4 h-11/12 md:w-2/3 lg:w-5/6 bg-white rounded-2xl flex flex-col justify-center items-center p-6 shadow-lg">
-              <img src="imagens/seguranca.svg" alt="" className="sm:w-1/4 sm:h-1/4 h-44 w-44 fixed top-0 sm:top-10"/>
+              <img src="imagens/seguranca.svg" alt="" className="sm:w-1/4 sm:h-1/4 h-44 w-44 fixed top-0 sm:top-10 hidden lg:block"/>
 
               <h1 className="text-2xl font-bold">Login</h1>
               <br/>

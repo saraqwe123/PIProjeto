@@ -9,6 +9,7 @@ import { AreaPix } from './pages/AreaPix';
 import { Investimentos } from './pages/Investimentos';
 import { Cadastro } from './pages/Cadastro';
 import { Extrato } from './pages/Extrato';
+import { AgendarPix } from './pages/AgendarPix';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +21,8 @@ const rotas = createBrowserRouter(
         <Route path="inicio" element={<PaginaInicial />} />
         <Route path="areapix" element={<AreaPix />} />
         <Route path="investimentos" element={<Investimentos />} />
-        <Route path="Extrato" element={<Extrato />} />
+        <Route path="extrato" element={<Extrato />} />
+        <Route path="agendarpix" element={<AgendarPix />} />
       </Route>
     </>
   )

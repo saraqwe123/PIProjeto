@@ -51,7 +51,7 @@ export function AreaPix() {
 
             <div className="flex flex-col items-center">
              <div className="w-50 h-50 bg-gradient-to-r from-[#0097b2] to-[#7ed957] rounded-2xl shadow-md flex justify-center items-center"><DollarSign className="w-20 h-50"/></div>
-              <p className="text-white mt-2">Cobrar</p>
+              <p className="text-white mt-2">Agendar pix</p>
             </div>
           </div>
         </div>

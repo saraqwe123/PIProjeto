@@ -99,7 +99,7 @@ export function Cadastro() {
                   ))}
                 </div>
               </section>
-              <div className="w-20 h-96 p-7 border-2">
+              <div className="w-20 h-96 p-7 border-2 hidden lg:block">
               </div>
               <button
                 type="submit"
@@ -109,7 +109,7 @@ export function Cadastro() {
               </button>
             </form>
 
-            <img src="imagens/ondas.svg" alt="" className="sm:w-1/3  w-full fixed top-3/4 sm:mt-5" />
+            <img src="imagens/ondas.svg" alt="" className="sm:w-1/3  w-full fixed top-3/4 sm:mt-5 hidden lg:block" />
           </div>
         </div>
 
