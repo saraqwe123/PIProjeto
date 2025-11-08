@@ -1,0 +1,114 @@
+import { Pagina } from "../components/Pagina";
+import { MoveUpRight } from "lucide-react";
+import { Key } from "lucide-react";
+import { Copy } from "lucide-react";
+import { DollarSign } from "lucide-react";
+import { CircleArrowLeft } from "lucide-react";
+import { CircleQuestionMark } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import {
+
+    EyeIcon,
+    EyeOffIcon,
+
+} from "lucide-react";
+
+export function AgendarPix() {
+    const [showBalance, setShowBalance] = useState(false);
+    const toggleBalance = () => {
+        setShowBalance((prev) => !prev);
+    };
+
+    return (
+        <Pagina>
+            <div className="flex flex-col w-full h-screen">
+                <header className="w-full h-20 bg-white flex items-center shadow-md relative z-10 px-6">
+                    <div className="flex justify-between items-center w-full">
+                        <NavLink to='/inicio' className="">
+                            <CircleArrowLeft className="hover:text-[#259337] transition-all" />
+                        </NavLink>
+
+                        <button className="">
+                            <CircleQuestionMark className="w-6 h-6 text-gray-700 mr-50" />
+                        </button>
+                    </div>
+
+                    <img
+                        src="imagens/logocriancas.png"
+                        alt="Logo"
+                        className="fixed top-3 right-0 w-50 h-50 object-contain z-0"
+                    />
+                </header>
+
+                <div className="w-full h-64 border-2  bg-[#c1ff72] flex flex-col items-start p-10">
+                    <div className="h-full w-4/5 flex flex-row justify-around items-center">
+                        <div className="flex flex-col items-around">
+                            <div className="w-80 h-46 bg-white rounded-2xl shadow-md flex flex-col justify-center items-start">
+                                <div className="flex flex-row justify-start h-1/2">
+                                    <div className="w-10 h-10 rounded-full bg-[#b3b3b3] ml-2"></div>
+                                    <p className="h-10 ml-5 flex items-center justify-center"><strong>Lara Heloisa Silva Deitos</strong></p>
+                                </div>
+                                <div className="w-full h-14 flex justify-center items-center">
+                                    BCO. MONOCOIN
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-7xl">
+                            <strong>
+                                R$ 3,00
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="w-11/12 h-11/12">
+                <div className="w-10 m-16 h-48 border-2 md:w-1/3 bg-[#007012] rounded-4xl p-4 flex flex-col md:flex-row justify-around gap-4">
+                    <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col gap-4">
+                        Imagem
+                        <h1>Nome Completo</h1>
+                        <h2>**** **** **** 6789</h2>
+
+                        <div className="flex flex-col gap-1 w-full">
+                            <div className="flex justify-around w-full">
+                                <div className="h-1 bg-black rounded w-1/4"></div>
+                                <div className="h-1 bg-black rounded w-1/4"></div>
+                                <div className="h-1 bg-black rounded w-1/4"></div>
+                            </div>
+                            <div className="h-1 bg-black rounded w-full"></div>
+                        </div>
+                    </div>
+
+                    <div className="w-full md:w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
+                        <div className="flex flex-col w-full">
+                            <span className="text-sm">Saldo disponível</span>
+                            <div className="flex items-center justify-between w-full mt-2">
+                                <p className="text-2xl font-bold tracking-wide">
+                                    {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
+                                </p>
+                                <button
+                                    onClick={toggleBalance}
+                                    className="hover:text-[#6dd63a] transition-colors cursor-pointer"
+                                    aria-label="Mostrar ou ocultar saldo"
+                                >
+                                    {showBalance ? (
+                                        <EyeOffIcon className="w-6 h-6" />
+                                    ) : (
+                                        <EyeIcon className="w-6 h-6" />
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1 w-full">
+                            <p className="text-sm">Última atualização: 01/10/2025</p>
+                            <div className="w-full h-1 bg-[#6dd63a] rounded-full" />
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </Pagina>
+    );
+}
