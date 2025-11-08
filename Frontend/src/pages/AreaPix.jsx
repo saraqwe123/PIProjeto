@@ -14,11 +14,11 @@ export function AreaPix() {
         <header className="w-full h-20 bg-white flex items-center shadow-md relative z-10 px-6">
           <div className="flex justify-between items-center w-full">
             <button className="">
-              <CircleArrowLeft className="" />
+              <CircleArrowLeft className="w-6 h-6 text-gray-700" />
             </button>
 
             <button className="">
-              <CircleQuestionMark className="w-6 h-6 text-gray-700 mr-50"/>
+              <CircleQuestionMark className="w-6 h-6 text-gray-700 mr-50" />
             </button>
           </div>
 
