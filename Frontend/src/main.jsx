@@ -10,6 +10,9 @@ import { Investimentos } from './pages/Investimentos';
 import { Cadastro } from './pages/Cadastro';
 import { Extrato } from './pages/Extrato';
 import { AgendarPix } from './pages/AgendarPix';
+import { Transferencia } from './pages/Transferencia';
+import { PixCopiaeCola } from './pages/PixCopiaECola';
+import { MudarChave } from './pages/MudarChave';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +26,9 @@ const rotas = createBrowserRouter(
         <Route path="investimentos" element={<Investimentos />} />
         <Route path="extrato" element={<Extrato />} />
         <Route path="agendarpix" element={<AgendarPix />} />
+        <Route path="transferencia" element={<Transferencia />} />
+        <Route path="pixcopiaecola" element={<PixCopiaeCola />} />
+        <Route path="mudarchave" element={<MudarChave />} />
       </Route>
     </>
   )

@@ -3,7 +3,7 @@ import { CircleArrowLeft } from "lucide-react";
 import { CircleQuestionMark } from "lucide-react";
 
 
-export function AreaPix() {
+export function Transferencia() {
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">

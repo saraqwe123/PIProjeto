@@ -5,9 +5,11 @@ import { Copy } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import { CircleArrowLeft } from "lucide-react";
 import { CircleQuestionMark } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 
 export function AreaPix() {
+  const navigate = useNavigate()
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
