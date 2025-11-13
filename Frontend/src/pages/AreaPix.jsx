@@ -78,8 +78,8 @@ export function AreaPix() {
         <hr  className="h-1 bg-[#d9d9d9] border-[#d9d9d9]"/>
 
         <div className="w-full flex-1 bg-[#003c0a] p-6 overflow-y-auto max-h-[300px]">
-          <p className="text-white text-xl font-semibold mb-4">Histórico</p>
-          <div className="relative mb-4">
+          <p className="text-white text-xl font-semibold mb-4 ml-5">Histórico</p>
+          <div className="relative mb-4 ml-5">
             <input
               type="text"
               placeholder="Pesquisar"
@@ -101,7 +101,7 @@ export function AreaPix() {
             </svg>
           </div>
 
-          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3">
+          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3 ml-5">
             <div className="flex items-center gap-3">
               <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
               <div>
@@ -112,7 +112,7 @@ export function AreaPix() {
             <p className="text-gray-300">- R$ 20,00</p>
           </div>
 
-          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3">
+          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3 ml-5">
             <div className="flex items-center gap-3">
               <div className="w-5 h-5 bg-green-400 rounded-full"></div>
               <div>

@@ -1,17 +1,38 @@
 import { Pagina } from "../components/Pagina";
-import { CircleArrowLeft } from "lucide-react";
-import { CircleQuestionMark } from "lucide-react";
-
+import { useState } from "react";
+import { CircleArrowLeft, CircleQuestionMark, Star } from "lucide-react";
 
 export function Transferencia() {
+  const [abaAtiva, setAbaAtiva] = useState("recentes");
+  const [favoritos, setFavoritos] = useState([]);
+
+  const contatosRecentes = [
+    { nome: "Lara Deitos", banco: "Banco do Brasil" },
+    { nome: "Nati Soares", banco: "Caixa Econômica" },
+
+  ];
+
+  const toggleFavorito = (contato) => {
+    const jaFavorito = favoritos.some((f) => f.nome === contato.nome);
+    if (jaFavorito) {
+      setFavoritos(favoritos.filter((f) => f.nome !== contato.nome));
+    } else {
+      setFavoritos([...favoritos, contato]);
+    }
+    setAbaAtiva("favoritos");
+  };
+
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
+        {/* HEADER */}
         <header className="w-full h-15 bg-white flex items-center shadow-md relative z-10 px-6">
           <div className="flex justify-between items-center w-full">
             <button
-              onClick={() => window.location.href = "http://localhost:5173/inicio"}
-              className="text-gray-700 hover:text-green-500  transition-colors"
+              onClick={() =>
+                (window.location.href = "http://localhost:5173/areapix")
+              }
+              className="text-gray-700 hover:text-green-500 transition-colors"
             >
               <CircleArrowLeft className="w-6 h-6" />
             </button>
@@ -28,58 +49,101 @@ export function Transferencia() {
           />
         </header>
 
-        <main className="w-full flex-1 bg-[#259337] flex flex-col items-start p-10">
-          <p className="text-white font-bold text-xl mb-6 ml-10">Área Pix</p>
-
+        <main className="w-full bg-[#c1ff72] flex flex-col items-start p-10 h-[35vh]">
+          <p className="text-black font-bold text-xl mb-6">
+            Insira uma chave pix
+          </p>
+          <input
+            type="text"
+            placeholder="CPF/CNPJ, celular, e-mail ou aleatória"
+            className="w-full h-15 bg-[#d9d9d9] text-gray-700 px-5 py-2 rounded-md focus:outline-none"
+          />
         </main>
 
-        <hr  className="h-1 bg-[#d9d9d9] border-[#d9d9d9]"/>
+        <hr className="h-1 bg-[#d9d9d9] border-[#d9d9d9]" />
 
-        <div className="w-full flex-1 bg-[#003c0a] p-6 overflow-y-auto max-h-[300px]">
-          <p className="text-white text-xl font-semibold mb-4">Histórico</p>
-          <div className="relative mb-4">
-            <input
-              type="text"
-              placeholder="Pesquisar"
-              className="w-full rounded-full px-10 py-2 bg-[#d9d9d9] text-gray-700 focus:outline-none"
-            />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5 absolute left-3 top-2.5 text-gray-500"
+        <div className="w-full flex flex-col bg-[#003c0a] text-white p-6 flex-1 overflow-y-auto">
+          <div className="flex gap-6 mb-4 ml-5">
+            <button
+              onClick={() => setAbaAtiva("recentes")}
+              className={`font-semibold transition-colors ${
+                abaAtiva === "recentes"
+                  ? "text-white border-b-2 border-[#6dd63a]"
+                  : "text-gray-300 hover:text-white hover:border-b-2 hover:border-[#6dd63a]"
+              }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-              />
-            </svg>
-          </div>
+              Recentes
+            </button>
 
-          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
-              <div>
-                <p className="font-medium">Nome completo</p>
-                <p className="text-sm text-gray-300">09:14 - Pix</p>
-              </div>
-            </div>
-            <p className="text-gray-300">- R$ 20,00</p>
+            <button
+              onClick={() => setAbaAtiva("favoritos")}
+              className={`font-semibold transition-colors ${
+                abaAtiva === "favoritos"
+                  ? "text-white border-b-2 border-[#6dd63a]"
+                  : "text-gray-300 hover:text-white hover:border-b-2 hover:border-[#6dd63a]"
+              }`}
+            >
+              Favoritos
+            </button>
           </div>
+          {abaAtiva === "recentes" && (
+            <div className="flex flex-col gap-3">
+              {contatosRecentes.map((contato, index) => {
+                const favorito = favoritos.some(
+                  (f) => f.nome === contato.nome
+                );
+                return (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between ml-5 text-white border-b border-gray-400 py-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
+                      <div>
+                        <p className="font-medium">{contato.nome}</p>
+                        <p className="text-sm text-gray-300">{contato.banco}</p>
+                      </div>
+                    </div>
+                    <button onClick={() => toggleFavorito(contato)}>
+                      <Star
+                        className={`w-5 h-5 cursor-pointer transition-colors ${
+                          favorito
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-white"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
-          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 bg-green-400 rounded-full"></div>
-              <div>
-                <p className="font-medium">Nome completo</p>
-                <p className="text-sm text-gray-300">09:14 - Pix</p>
-              </div>
+          {abaAtiva === "favoritos" && (
+            <div className="mt-4 ml-5">
+              {favoritos.length > 0 ? (
+                favoritos.map((f, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between text-white border-b border-gray-400 py-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
+                      <div>
+                        <p className="font-medium">{f.nome}</p>
+                        <p className="text-sm text-gray-300">{f.banco}</p>
+                      </div>
+                    </div>
+                    <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-300 italic">
+                  Nenhum favorito ainda ⭐
+                </p>
+              )}
             </div>
-            <p className="text-green-400">+ R$ 20,00</p>
-          </div>
+          )}
         </div>
       </div>
     </Pagina>
