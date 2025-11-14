@@ -19,7 +19,7 @@ export function AreaPix() {
               onClick={() => window.location.href = "http://localhost:5173/inicio"}
               className="text-gray-700 hover:text-green-500  transition-colors"
             >
-              <CircleArrowLeft className="w-6 h-6" />
+              <CircleArrowLeft className="w-6 h-6"/>
             </button>
 
             <button className="text-gray-700 hover:text-green-500 transition-colors">

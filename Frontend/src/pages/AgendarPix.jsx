@@ -62,51 +62,82 @@ export function AgendarPix() {
                     </div>
                 </div>
 
-                <div className="w-11/12 h-11/12">
-                <div className="w-10 m-16 h-48 border-2 md:w-1/3 bg-[#007012] rounded-4xl p-4 flex flex-col md:flex-row justify-around gap-4">
-                    <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col gap-4">
-                        Imagem
-                        <h1>Nome Completo</h1>
-                        <h2>**** **** **** 6789</h2>
+                <div className="w-full h-11/12 flex flex-row">
+                    <div className="w- m-16 h-72 border-2 md:w-2/3 bg-[#278d46] rounded-4xl p-4 flex flex-col md:flex-row justify-around gap-4">
+                        <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col gap-4">
+                            <img src="imagens/logoSite.svg" alt="" />
+                            <h1>Nome Completo</h1>
+                            <h2>**** **** **** 6789</h2>
 
-                        <div className="flex flex-col gap-1 w-full">
-                            <div className="flex justify-around w-full">
-                                <div className="h-1 bg-black rounded w-1/4"></div>
-                                <div className="h-1 bg-black rounded w-1/4"></div>
-                                <div className="h-1 bg-black rounded w-1/4"></div>
-                            </div>
-                            <div className="h-1 bg-black rounded w-full"></div>
-                        </div>
-                    </div>
-
-                    <div className="w-full md:w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
-                        <div className="flex flex-col w-full">
-                            <span className="text-sm">Saldo disponível</span>
-                            <div className="flex items-center justify-between w-full mt-2">
-                                <p className="text-2xl font-bold tracking-wide">
-                                    {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
-                                </p>
-                                <button
-                                    onClick={toggleBalance}
-                                    className="hover:text-[#6dd63a] transition-colors cursor-pointer"
-                                    aria-label="Mostrar ou ocultar saldo"
-                                >
-                                    {showBalance ? (
-                                        <EyeOffIcon className="w-6 h-6" />
-                                    ) : (
-                                        <EyeIcon className="w-6 h-6" />
-                                    )}
-                                </button>
+                            <div className="flex flex-col gap-1 w-full">
+                                <div className="flex justify-around w-full">
+                                    <div className="h-1 bg-black rounded w-1/4"></div>
+                                    <div className="h-1 bg-black rounded w-1/4"></div>
+                                    <div className="h-1 bg-black rounded w-1/4"></div>
+                                </div>
+                                <div className="h-1 bg-black rounded w-full"></div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-1 w-full">
-                            <p className="text-sm">Última atualização: 01/10/2025</p>
-                            <div className="w-full h-1 bg-[#6dd63a] rounded-full" />
+                        <div className="w-full md:w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
+                            <div className="flex flex-col w-full">
+                                <span className="text-sm">Saldo disponível</span>
+                                <div className="flex items-center justify-between w-full mt-2">
+                                    <p className="text-2xl font-bold tracking-wide">
+                                        {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
+                                    </p>
+                                    <button
+                                        onClick={toggleBalance}
+                                        className="hover:text-[#6dd63a] transition-colors cursor-pointer"
+                                        aria-label="Mostrar ou ocultar saldo"
+                                    >
+                                        {showBalance ? (
+                                            <EyeOffIcon className="w-6 h-6" />
+                                        ) : (
+                                            <EyeIcon className="w-6 h-6" />
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-1 w-full">
+                                <p className="text-sm">Última atualização: 01/10/2025</p>
+                                <div className="w-full h-1 bg-[#6dd63a] rounded-full" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div className="flex flex-col w-full m-5">
 
+                        <div className="flex items-center justify-between w-full mt-2">
+                            <p className="text-2xl font-bold tracking-wide">
+                                {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
+                            </p>
+                            <button
+                                onClick={toggleBalance}
+                                className="hover:text-[#6dd63a] transition-colors cursor-pointer"
+                                aria-label="Mostrar ou ocultar saldo"
+                            >
+                                {showBalance ? (
+                                    <EyeOffIcon className="w-6 h-6" />
+                                ) : (
+                                    <EyeIcon className="w-6 h-6" />
+                                )}
+                            </button>
+                        </div>
+
+                        <input type="text"
+                            placeholder="Quando o pagamento deve ser efetuado?"
+                            onFocus={(e) => (e.target.type = 'date')}
+                            onBlur={(e) => {
+                                if (!e.target.value) e.target.type = 'text'
+                            }} className="border-t-2 w-full text-3xl h-16 placeholder-black" />
+                        <div className="border-t-2 w-full text-3xl h-16">
+                            Repetir pagamento
+                        </div>
+                        <div className="border-t-2 w-full text-3xl h-16">
+                            Descrição (Opcional)
+                        </div>
+                    </div>
                 </div>
             </div>
         </Pagina>
