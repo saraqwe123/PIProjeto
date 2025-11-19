@@ -99,7 +99,7 @@ export function Cadastro() {
                   ))}
                 </div>
               </section>
-              <div className="w-20 h-96 p-7 border-2 hidden lg:block">
+              <div className="w-20 h-full p-11 hidden lg:block">
               </div>
               <button
                 type="submit"

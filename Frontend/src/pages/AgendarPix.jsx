@@ -37,11 +37,11 @@ export function AgendarPix() {
                     <img
                         src="imagens/logocriancas.png"
                         alt="Logo"
-                        className="fixed top-3 right-0 w-50 h-50 object-contain z-0"
+                        className="fixed top-3 right-8 sm:right-0 w-50 h-50 object-contain z-0"
                     />
                 </header>
 
-                <div className="w-full h-64 border-2  bg-[#c1ff72] flex flex-col items-start p-10">
+                <div className="hidden w-full h-64 bg-[#c1ff72] sm:flex flex-col items-start p-10">
                     <div className="h-full w-4/5 flex flex-row justify-around items-center">
                         <div className="flex flex-col items-around">
                             <div className="w-80 h-46 bg-white rounded-2xl shadow-md flex flex-col justify-center items-start">
@@ -63,7 +63,7 @@ export function AgendarPix() {
                 </div>
 
                 <div className="w-full h-11/12 flex flex-row">
-                    <div className="w- m-10 h-64 border-2 md:w-2/3 bg-[#278d46] rounded-4xl p-4 flex flex-col md:flex-row justify-around">
+                    <div className=" hidden w- m-10 h-64 border-2 md:w-2/3 bg-[#278d46] rounded-4xl p-4 sm:flex flex-col md:flex-row justify-around">
                         <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col">
                             <img src="imagens/logoSite.svg" alt="" />
                             <h1>Nome Completo</h1>
@@ -108,8 +108,8 @@ export function AgendarPix() {
                     </div>
                     <div className="flex flex-col w-full m-5">
 
-                        <div className="flex items-center justify-between w-full mt-2">
-                            <p className="text-2xl font-bold tracking-wide">
+                        <div className="flex items-center justify-between w-64 sm:w-full mt-2">
+                            <p className="sm:text-2xl font-bold tracking-wide">
                                 {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
                             </p>
                             <button
@@ -124,24 +124,23 @@ export function AgendarPix() {
                                 )}
                             </button>
                         </div>
-
-                        <input type="text"
-                            placeholder="Quando o pagamento deve ser efetuado?"
+                        <input
+                            type="text"
+                            placeholder="Agendar pagamento"
                             onFocus={(e) => (e.target.type = 'date')}
                             onBlur={(e) => {
                                 if (!e.target.value) e.target.type = 'text'
-                            }} className="border-t-1 w-full text-2xl h-16 placeholder-black" />
-                        <div className="flex items-center border-t-1 w-full text-2xl h-16">
-                            <p>
-                                Repetir pagamento
-                            </p>
-                        </div>
-                        <div className="flex items-center border-t-1 border-b-1 w-full text-2xl h-16">
-                            <p>
-                            Descrição (Opcional)
-                            </p>
-                            
-                        </div>
+                            }}
+                            className="border-t w-64 sm:w-full sm:text-2xl h-16 placeholder-black outline-none"
+                        />
+                        <button className="border-t w-64 sm:w-full sm:text-2xl text-start h-16">
+                            Repetir pagamento
+                        </button>
+                        <input
+                            type="text"
+                            placeholder="Descrição (Opcional)"
+                            className="border-t border-b w-64 sm:w-full placeholder-black sm:text-2xl h-16 outline-none"
+                        />
                     </div>
                 </div>
             </div>
