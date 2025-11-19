@@ -23,7 +23,7 @@ export function AgendarPix() {
     return (
         <Pagina>
             <div className="flex flex-col w-full h-screen">
-                <header className="w-full h-20 bg-white flex items-center shadow-md relative z-10 px-6">
+                <header className="w-full h-30 bg-white flex items-center shadow-md relative z-10 px-6">
                     <div className="flex justify-between items-center w-full">
                         <NavLink to='/inicio' className="">
                             <CircleArrowLeft className="hover:text-[#259337] transition-all" />
@@ -63,23 +63,23 @@ export function AgendarPix() {
                 </div>
 
                 <div className="w-full h-11/12 flex flex-row">
-                    <div className="w- m-16 h-72 border-2 md:w-2/3 bg-[#278d46] rounded-4xl p-4 flex flex-col md:flex-row justify-around gap-4">
-                        <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col gap-4">
+                    <div className="w- m-10 h-64 border-2 md:w-2/3 bg-[#278d46] rounded-4xl p-4 flex flex-col md:flex-row justify-around">
+                        <div className="w-full md:w-1/2 p-4 flex items-start justify-evenly flex-col">
                             <img src="imagens/logoSite.svg" alt="" />
                             <h1>Nome Completo</h1>
                             <h2>**** **** **** 6789</h2>
 
-                            <div className="flex flex-col gap-1 w-full">
+                            <div className="flex flex-col w-full">
                                 <div className="flex justify-around w-full">
                                     <div className="h-1 bg-black rounded w-1/4"></div>
                                     <div className="h-1 bg-black rounded w-1/4"></div>
-                                    <div className="h-1 bg-black rounded w-1/4"></div>
+
                                 </div>
                                 <div className="h-1 bg-black rounded w-full"></div>
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 p-4 rounded-xl flex flex-col justify-around items-start gap-4">
+                        <div className="w-full md:w-1/2 p-4 rounded-xl flex flex-col justify-around items-start">
                             <div className="flex flex-col w-full">
                                 <span className="text-sm">Saldo disponível</span>
                                 <div className="flex items-center justify-between w-full mt-2">
@@ -100,7 +100,7 @@ export function AgendarPix() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-1 w-full">
+                            <div className="flex flex-col w-full">
                                 <p className="text-sm">Última atualização: 01/10/2025</p>
                                 <div className="w-full h-1 bg-[#6dd63a] rounded-full" />
                             </div>
@@ -130,12 +130,17 @@ export function AgendarPix() {
                             onFocus={(e) => (e.target.type = 'date')}
                             onBlur={(e) => {
                                 if (!e.target.value) e.target.type = 'text'
-                            }} className="border-t-2 w-full text-3xl h-16 placeholder-black" />
-                        <div className="border-t-2 w-full text-3xl h-16">
-                            Repetir pagamento
+                            }} className="border-t-1 w-full text-2xl h-16 placeholder-black" />
+                        <div className="flex items-center border-t-1 w-full text-2xl h-16">
+                            <p>
+                                Repetir pagamento
+                            </p>
                         </div>
-                        <div className="border-t-2 w-full text-3xl h-16">
+                        <div className="flex items-center border-t-1 border-b-1 w-full text-2xl h-16">
+                            <p>
                             Descrição (Opcional)
+                            </p>
+                            
                         </div>
                     </div>
                 </div>
