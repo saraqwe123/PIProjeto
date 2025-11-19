@@ -43,7 +43,7 @@ export function Investimentos() {
 
                     <section className="mt-6 px-4 self-start">
                         <h1 className="text-white mb-2">Minha Organização</h1>
-                        <NavLink className="w-44 h-44 lg:w-56 lg:h-56 bg-white flex justify-center items-center rounded-2xl">
+                        <NavLink to="caixinha" className="w-44 h-44 m-2 lg:w-56 lg:h-56 bg-white flex justify-center items-center rounded-2xl">
                             <PlusIcon size={72} className="text-gray-400" />
                         </NavLink>
                     </section>
