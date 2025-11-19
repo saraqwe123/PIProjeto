@@ -15,6 +15,7 @@ import { PixCopiaeCola } from './pages/PixCopiaECola';
 import { MudarChave } from './pages/MudarChave';
 import { Caixinha } from './pages/Caixinha';
 import { Acoes } from './pages/Acoes';
+import { TransferenciaPix } from './pages/TransferenciaPix';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,7 @@ const rotas = createBrowserRouter(
         <Route path="mudarchave" element={<MudarChave />} />
         <Route path="investimentos/caixinha" element={<Caixinha />} />
         <Route path="investimentos/acoes" element={<Acoes />} />
+        <Route path="transferenciapix" element={<TransferenciaPix />} />
       </Route>
     </>
   )
