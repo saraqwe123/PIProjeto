@@ -1,0 +1,13 @@
+POST http://localhost:3000/Clientes
+Content-Type: application/json
+
+{
+    "cpf": "11863127933",
+    "login": "PedroUtumi",
+    "senha": "Senha12#",
+    "email": "pedroutumi@gmail.com",
+    "dataNasc": "2006-11-20",
+    "endereco": "Rua Maringá, 106",
+    "fotoPerfil": "./src/imagens/imagem1.png"
+}
+

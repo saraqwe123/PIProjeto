@@ -89,7 +89,6 @@ export function Cadastro() {
                     "CPF – 00000000000",
                     "Telefone – 44 99894-836",
                     "Email – xxxxxxxx@gmail.com",
-                    "Chave aleatória – yfufoc-8-6fdrss"
                   ].map((item, index) => (
                     <input
                       key={index}

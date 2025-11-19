@@ -1,6 +1,6 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
-// import { linkRoutes } from "./modules/links/link.routes.js"; 
+import { CadastroRoutes } from "./modules/Cadastro/Cadastro.Routes.js"; 
 import 'dotenv/config';
 
 import dotenv from 'dotenv'
@@ -16,7 +16,7 @@ await server.register(cors, {
   origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 });
-// await server.register(linkRoutes); 
+await server.register(CadastroRoutes); 
 
 server.get("/", async (request, reply) => {
   return reply.send("Servidor on");
