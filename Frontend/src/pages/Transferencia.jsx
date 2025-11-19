@@ -25,7 +25,6 @@ export function Transferencia() {
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
-        {/* HEADER */}
         <header className="w-full h-15 bg-white flex items-center shadow-md relative z-10 px-6">
           <div className="flex justify-between items-center w-full">
             <button
