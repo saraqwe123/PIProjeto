@@ -44,7 +44,6 @@ export function DadosProvider({ children }) {
                     adicionarDados({ cliente: json.message });
                 }
     
-                // Se backend retorna um array direto
                 else if (Array.isArray(json)) {
                     adicionarDados({ cliente: json });
                 }
@@ -57,6 +56,7 @@ export function DadosProvider({ children }) {
         fetchAPI();
     }, []);
     
+
     const exportar = {
         dados,
         adicionarDados,
