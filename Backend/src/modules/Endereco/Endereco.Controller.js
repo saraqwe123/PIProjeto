@@ -3,13 +3,13 @@ import bcrypt from "bcrypt";
 
 
 export class EnderecoController {
-    constructor(CadastroService) {
-      this.CadastroService = CadastroService;
+    constructor(EnderecoService) {
+      this.EnderecoService = EnderecoService;
     }
   
     async getAllEnderecos(request, reply) {
       try {
-        const Enderecos = await this.CadastroService.getAllEnderecos();
+        const Enderecos = await this.EnderecoService.getAllEnderecos();
         return reply.code(200).send(Enderecos);
       } catch (error) {
         return reply.code(500).send({ message: 'Erro ao buscar Enderecos', error: error.message });
@@ -20,7 +20,7 @@ export class EnderecoController {
       const { id } = request.params;
       
       try {
-        const Endereco = await this.CadastroService.getEnderecoById(id);
+        const Endereco = await this.EnderecoService.getEnderecoById(id);
         if (!Endereco) return reply.code(404).send({ message: `Endereco com ID ${id} não encontrado.` });
         return reply.code(200).send(Endereco);
       } catch (error) {
@@ -30,26 +30,17 @@ export class EnderecoController {
   
     async createEndereco(request, reply) {
       try {
-        const { senha, cpf, ...rest } = request.body;
-        let fileName = null;
-        const saltRounds = 10;
-        const senhaHash = await bcrypt.hash(senha, saltRounds);
-        if (request.files && request.files.photo) {
-          const photo = request.files.photo;
-          fileName = `${Date.now()}_${photo.name}`;
-          const uploadPath = path.join("src", "imagens", fileName);
-
-          await photo.mv(uploadPath);
-        }
-
-        const novoUsuario = {
-          ...rest,
-          senha: senhaHash,
-           ...(fileName && { fotoPerfil: fileName }),
-          cpf: cpf,
+        const { rua, cep, numeroCasa, complemento, bairro, estado, cidade } = request.body;
+        const endereco = {
+          rua: rua,
+          cep: cep,
+          numerocasa: numeroCasa,
+          complemento: complemento,
+          bairro: bairro,
+          estado: estado,
+          cidade: cidade,
         };
-        console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoUsuario)
-        const novoEndereco = await this.CadastroService.createEndereco(novoUsuario);
+        const novoEndereco = await this.EnderecoService.createEndereco(endereco);
         return reply.code(201).send(novoEndereco);
       } catch (error) {
         return reply.code(500).send({ message: 'Erro ao criar Endereco', error: error.message });
@@ -59,7 +50,7 @@ export class EnderecoController {
     async updateEndereco(request, reply) {
       const { id } = request.params;
       try {
-        const updatedEndereco = await this.CadastroService.updateEndereco(id, request.body);
+        const updatedEndereco = await this.EnderecoService.updateEndereco(id, request.body);
         if (!updatedEndereco) return reply.code(404).send({ message: `Endereco com ID ${id} não encontrado para atualização.` });
         return reply.code(200).send(updatedEndereco);
       } catch (error) {
@@ -70,7 +61,7 @@ export class EnderecoController {
     async deleteEndereco(request, reply) {
       const { id } = request.params;
       try {
-        const deletedEndereco = await this.CadastroService.deleteEndereco(id);
+        const deletedEndereco = await this.EnderecoService.deleteEndereco(id);
         if (!deletedEndereco) return reply.code(404).send({ message: `Endereco com ID ${id} não encontrado para exclusão.` });
         return reply.code(200).send({ message: `Endereco com ID ${id} deletado com sucesso.` });
       } catch (error) {

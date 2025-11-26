@@ -3,7 +3,7 @@ import { db } from '../../infra/database.js';
 import { eq, sql } from 'drizzle-orm';
 import { endereco } from '../../infra/schema/schema.js';
 
-export class CadastroRepository {
+export class EnderecoRepository {
   constructor() {
     this.db = db;
   }
@@ -25,13 +25,13 @@ export class CadastroRepository {
     try {
       console.log("REPOSITORY", enderecoData)
       const result = await this.db.insert(endereco).values({
-        cpf: enderecoData.cpf,
-        login: enderecoData.login,
-        senha: enderecoData.senha,
-        email: enderecoData.email,
-        dataNasc: enderecoData.dataNasc,
-        endereco: enderecoData.endereco,
-        fotoPerfil: enderecoData.fotoPerfil
+        rua: enderecoData.rua,
+        cep: enderecoData.cep,
+        numerocasa: enderecoData.numerocasa,
+        complemento: enderecoData.complemento,
+        bairro: enderecoData.bairro,
+        estado: enderecoData.estado,
+        cidade: enderecoData.cidade,
       }).returning();
 
       return result[0];

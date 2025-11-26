@@ -1,26 +1,26 @@
-import { CadastroRepository } from "./Cadastro.Repository.js";
-import { CadastroService } from "./Cadastro.Service.js";
-import { CadastroController } from "./Cadastro.Controller.js";
+import { EnderecoRepository } from "./Endereco.Repository.js";
+import { EnderecoService } from "./Endereco.Service.js";
+import { EnderecoController } from "./Endereco.Controller.js";
 
-const cadastroRepository = new CadastroRepository();
-const cadastroService = new CadastroService(cadastroRepository);
-const cadastroController = new CadastroController(cadastroService);
+const enderecoRepository = new EnderecoRepository();
+const enderecoService = new EnderecoService(enderecoRepository);
+const enderecoController = new EnderecoController(enderecoService);
 
-export async function CadastroRoutes(fastify, options) {
+export async function EnderecoRoutes(fastify, options) {
   
   fastify.get('/Enderecos', (request, reply) => 
-    cadastroController.getAllEnderecos(request, reply)
+    enderecoController.getAllEnderecos(request, reply)
   );
   fastify.get('/Enderecos/:id', (request, reply) => 
-    cadastroController.getEnderecoById(request, reply)
+    enderecoController.getEnderecoById(request, reply)
   );
   fastify.post('/Enderecos', (request, reply) => 
-    cadastroController.createEndereco(request, reply)
+    enderecoController.createEndereco(request, reply)
   );
   fastify.put('/Enderecos/:id', (request, reply) => 
-    cadastroController.updateEndereco(request, reply)
+    enderecoController.updateEndereco(request, reply)
   );
   fastify.delete('/Enderecos/:id', (request, reply) => 
-    cadastroController.deleteEndereco(request, reply)
+    enderecoController.deleteEndereco(request, reply)
   );
 }

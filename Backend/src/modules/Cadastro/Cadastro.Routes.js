@@ -14,7 +14,7 @@ export async function CadastroRoutes(fastify, options) {
   fastify.get('/Clientes/:id', (request, reply) => 
     cadastroController.getClienteById(request, reply)
   );
-  fastify.post('/Clientes', (request, reply) => 
+  fastify.post('/Clientes/:idendereco', (request, reply) => 
     cadastroController.createCliente(request, reply)
   );
   fastify.put('/Clientes/:id', (request, reply) => 

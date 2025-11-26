@@ -98,3 +98,21 @@ export const histtransfacao = pgTable("histtransfacao", {
 
   valormovimentado: real("valormovimentado"),
 });
+
+export const endereco = pgTable("endereco", {
+  id: serial("id").primaryKey(),
+
+  cep: char("cep", { length: 9 }),
+
+  estado: char("estado", { length: 2 }),
+
+  rua: varchar("rua", { length: 100 }),
+  
+  complemento: varchar("complemento", { length: 100 }),
+  
+  cidade: varchar("cidade", { length: 100 }),
+  
+  bairro: varchar("bairro", { length: 100 }),
+  
+  numerocasa: varchar("numerocasa", { length: 100 }),  
+});

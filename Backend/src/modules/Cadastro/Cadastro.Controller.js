@@ -31,6 +31,7 @@ export class CadastroController {
     async createCliente(request, reply) {
       try {
         const { senha, cpf, ...rest } = request.body;
+        const { idendereco } = request.params;
         let fileName = null;
         const saltRounds = 10;
         const senhaHash = await bcrypt.hash(senha, saltRounds);
@@ -47,6 +48,7 @@ export class CadastroController {
           senha: senhaHash,
            ...(fileName && { fotoPerfil: fileName }),
           cpf: cpf,
+          idendereco: idendereco
         };
         console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoUsuario)
         const novoCliente = await this.CadastroService.createCliente(novoUsuario);

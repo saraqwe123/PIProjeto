@@ -31,7 +31,8 @@ export class CadastroRepository {
         email: clienteData.email,
         dataNasc: clienteData.dataNasc,
         endereco: clienteData.endereco,
-        fotoPerfil: clienteData.fotoPerfil
+        fotoPerfil: clienteData.fotoPerfil,
+        idendereco: clienteData.idendereco
       }).returning();
 
       return result[0];
