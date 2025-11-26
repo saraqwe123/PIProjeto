@@ -36,7 +36,7 @@ const rotas = createBrowserRouter(
         <Route path="investimentos/caixinha" element={<Caixinha />} />
         <Route path="investimentos/acoes" element={<Acoes />} />
         <Route path="transferenciapix" element={<TransferenciaPix />} />
-        <Route path="compraracao" element={<ComprarAcao />} />
+        <Route path="investimentos/compraracao" element={<ComprarAcao />} />
       </Route>
     </>
   )
