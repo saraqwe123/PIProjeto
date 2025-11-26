@@ -10,7 +10,7 @@ export function Login() {
   const [login, setLogin] = useState('')
   const [senha, setSenha] = useState('')
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  // const { dados } = useContext(DadosContext)
+  const { dados } = useContext(DadosContext)
   const navigate = useNavigate()
 
   const verificarLogin = async (e) => {

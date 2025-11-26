@@ -17,6 +17,7 @@ import { Caixinha } from './pages/Caixinha';
 import { Acoes } from './pages/Acoes';
 import { TransferenciaPix } from './pages/TransferenciaPix';
 import { ComprarAcao } from './pages/ComprarAçao';
+import { DadosProvider } from './context/DadosContext';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -43,7 +44,9 @@ const rotas = createBrowserRouter(
 );
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={rotas} />
-  </StrictMode>
+  <DadosProvider>
+    <StrictMode>
+      <RouterProvider router={rotas} />
+    </StrictMode>
+  </DadosProvider>
 );
