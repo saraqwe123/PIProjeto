@@ -1,13 +1,11 @@
-import { CadastroCompletoService } from "./cadastroCompleto.Service";
-
 export class CadastroCompletoController{
-    constructor(CadastroCadastroCompletoService) {
-        this.CadastroCadastroCompletoService = CadastroCadastroCompletoService
+    constructor(CadastroCompletoService) {
+        this.CadastroCompletoService = CadastroCompletoService
     }
 
     async cadastrarTudo(request, reply) {
         try {
-            const resultado = await this.CadastroCadastroCompletoService.cadastrarTudo(request.body)
+            const resultado = await this.CadastroCompletoService.cadastrarTudo(request.body)
 
             return reply.code(201).send({
                 message: "Cadastro completo concluído",
