@@ -1,7 +1,3 @@
-import path from "path";
-import bcrypt from "bcrypt";
-
-
 export class ContaController {
     constructor(ContaService) {
       this.ContaService = ContaService;
@@ -30,15 +26,16 @@ export class ContaController {
   
     async createConta(request, reply) {
       try {
-        const { contaData } = request.params;
+        const { chavePixCpf, chavePixEmail, chavePixTelefone } = request.body;
+        const { idcliente } = request.params;
         const novaConta = {
-          idcliente: contaData.idcliente,
-          chavepixcpf: contaData.cpf,
-          chavepixemail: contaData.chavepixemail,
-          saldo: contaData.saldo,
-          chavepixtel: contaData.chavepixtel,
+          idcliente: idcliente,
+          chavepixcpf: chavePixCpf,
+          chavepixemail: chavePixEmail,
+          saldo: 0,
+          chavepixtel: chavePixTelefone,
         };
-        console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoUsuario)
+        console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoConta)
         const novoConta = await this.ContaService.createConta(novaConta);
         return reply.code(201).send(novoConta);
       } catch (error) {

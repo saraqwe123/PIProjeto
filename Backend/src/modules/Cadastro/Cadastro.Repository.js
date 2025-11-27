@@ -30,7 +30,6 @@ export class CadastroRepository {
         senha: clienteData.senha,
         email: clienteData.email,
         dataNasc: clienteData.dataNasc,
-        endereco: clienteData.endereco,
         fotoPerfil: clienteData.fotoPerfil,
         idendereco: clienteData.idendereco
       }).returning();

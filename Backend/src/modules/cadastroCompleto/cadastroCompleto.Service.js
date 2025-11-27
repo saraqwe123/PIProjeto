@@ -8,17 +8,16 @@ export class CadastroCompletoService {
     async cadastrarTudo(data) {
         const { cliente, endereco, conta } = data;
 
-        const novoCliente = await this.CadastroService.createCliente(cliente);
+        const novoEndereco = await this.EnderecoService.createEndereco(endereco);
 
-        const novoEndereco = await this.EnderecoService.createEndereco({
-            ...endereco,
-            idcliente: novoCliente.id
+        const novoCliente = await this.CadastroService.createCliente({
+            ...cliente,
+            idendereco: novoEndereco.id
         });
 
         const novaConta = await this.ContaService.createConta({
             ...conta,
             idcliente: novoCliente.id,
-            chavepixcpf: cliente.cpf
         });
 
         return {

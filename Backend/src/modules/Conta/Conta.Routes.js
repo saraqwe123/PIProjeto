@@ -14,7 +14,7 @@ export async function ContaRoutes(fastify, options) {
   fastify.get('/Contas/:id', (request, reply) => 
     contaController.getContaById(request, reply)
   );
-  fastify.post('/Contas/:contaData', (request, reply) => 
+  fastify.post('/Contas', (request, reply) => 
     contaController.createConta(request, reply)
   );
   fastify.put('/Contas/:id', (request, reply) => 

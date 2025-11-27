@@ -1,4 +1,5 @@
 import cpfValidate from "cpf";
+import { uuid } from "drizzle-orm/gel-core";
 
 
 function validateCPF(cpf) {
@@ -22,8 +23,10 @@ export class ContaService {
     async createConta(ContaData) {
         try {
             console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", ContaData)
-            
-            if (validateCPF(ContaData.cpf)) return await this.ContaRepository.create(ContaData);
+            let chavePixAleatorio = uuid()
+            let numeroDaConta = uuid()
+            if (validateCPF(ContaData.chavePixCpf)) return await this.ContaRepository.create(ContaData, chavePixAleatorio, numeroDaConta);
+
         } catch (e) {
             console.error('Erro ao inserir Conta:', e);
             throw e;

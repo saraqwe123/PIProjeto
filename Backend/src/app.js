@@ -2,9 +2,11 @@ import fastify from "fastify";
 import cors from "@fastify/cors";
 import { CadastroRoutes } from "./modules/Cadastro/Cadastro.Routes.js"; 
 import { EnderecoRoutes } from "./modules/Endereco/Endereco.Routes.js";
+import { CadastroCompletoRoutes } from "./modules/cadastroCompleto/cadastroCompleto.Routes.js";
 import 'dotenv/config';
 
 import dotenv from 'dotenv'
+import { ContaRoutes } from "./modules/Conta/Conta.Routes.js";
 dotenv.config()
 
 const server = fastify({
@@ -19,6 +21,8 @@ await server.register(cors, {
 });
 await server.register(EnderecoRoutes); 
 await server.register(CadastroRoutes); 
+await server.register(ContaRoutes); 
+await server.register(CadastroCompletoRoutes); 
 
 server.get("/", async (request, reply) => {
   return reply.send("Servidor on");

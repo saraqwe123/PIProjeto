@@ -7,7 +7,7 @@ export const cliente = pgTable("cliente", {
   senha: varchar("senha", { length: 255 }),
   email: varchar("email", { length: 255 }),
   datanasc: date("datanasc"),
-  endereco: varchar("endereco", { length: 255 }),
+  idendereco: integer("idendereco"),
   fotoperfil: varchar("fotoperfil", { length: 255 }),
 });
 

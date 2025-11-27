@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { db } from '../../infra/database.js';
 import { eq, sql } from 'drizzle-orm';
-import { Conta } from '../../infra/schema/schema.js';
+import { conta } from '../../infra/schema/schema.js';
 
 export class ContaRepository {
   constructor() {
@@ -10,28 +10,28 @@ export class ContaRepository {
 
   async findAll() {
     return this.db.select()
-      .from(Conta);
+      .from(conta);
   }
 
   async findById(id) {
     const result = await this.db.select()
-      .from(Conta)
-      .where(eq(Conta.id, id));
+      .from(conta)
+      .where(eq(conta.id, id));
 
     return result[0] || null;
   }
 
-  async create(ContaData) {
+  async create(ContaData, chavePixAleatorio, numeroDaConta) {
     try {
       console.log("REPOSITORY", ContaData)
       const result = await this.db.insert(Conta).values({
-        cpf: ContaData.cpf,
-        login: ContaData.login,
-        senha: ContaData.senha,
-        email: ContaData.email,
-        dataNasc: ContaData.dataNasc,
-        endereco: ContaData.endereco,
-        fotoPerfil: ContaData.fotoPerfil
+        idcliente: ContaData.idcliente,
+        chavepixemail: ContaData.chavePixEmail,
+        chavepixtel: ContaData.chavePixTelefone,
+        chavepixcpf: ContaData.chavePixCpf,
+        chavepixaleatorio: chavePixAleatorio,
+        saldo: ContaData.saldo,
+        numerodaconta: numeroDaConta
       }).returning();
 
       return result[0];
@@ -43,17 +43,17 @@ export class ContaRepository {
   }
 
   async update(id, ContaData) {
-    const result = await this.db.update(Conta)
+    const result = await this.db.update(conta)
       .set(ContaData)
-      .where(eq(Conta.id, id))
+      .where(eq(conta.id, id))
       .returning();
     return result[0] || null;
   }
 
   async remove(id) {
-    const result = await this.db.delete(Conta)
-      .where(eq(Conta.id, id))
-      .returning({ id: Conta.id });
+    const result = await this.db.delete(conta)
+      .where(eq(conta.id, id))
+      .returning({ id: conta.id });
 
     return result.length > 0;
   }
