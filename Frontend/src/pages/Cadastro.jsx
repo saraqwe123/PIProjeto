@@ -5,13 +5,126 @@ import { useState } from "react"
 
 export function Cadastro() {
   const [foto, setFoto] = useState(null);
+  const [novoUsuario, setNovoUsuario] = useState({ senha: "", cpf: "", login: "", email: "", dataNasc: "", telefone: "", cep: "", rua: "", numeroCasa: "", complemento: "", bairro: "", cidade: "", estado: "", chavePixCpf: "", chavePixTelefone: "", chavePixEmail: "" })
 
   const adicionarF = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFoto(URL.createObjectURL(file));
     }
+
   };
+
+  async function criarUsuario(e) {
+    e.preventDefault();
+
+    for (let i in novoUsuario) {
+      if (novoUsuario[i] === "") {
+        alert("Preencha todos os campos!");
+        return;
+      }
+    }
+
+    const enderecoData = {
+      rua: novoUsuario.rua,
+      numeroCasa: novoUsuario.numeroCasa,
+      complemento: novoUsuario.complemento,
+      bairro: novoUsuario.bairro,
+      cidade: novoUsuario.cidade,
+      estado: novoUsuario.estado,
+      cep: novoUsuario.cep,
+    };
+
+    const clienteData = {
+      login: novoUsuario.login,
+      senha: novoUsuario.senha,
+      cpf: novoUsuario.cpf,
+      email: novoUsuario.email,
+      telefone: novoUsuario.telefone,
+      dataNasc: novoUsuario.dataNasc,
+    };
+
+    const contaData = {
+      chavePixCpf: novoUsuario.chavePixCpf,
+      chavePixTelefone: novoUsuario.chavePixTelefone,
+      chavePixEmail: novoUsuario.chavePixEmail,
+    };
+
+    try {
+
+
+      const enderecoResponse = await fetch("http://localhost:3000/Enderecos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(enderecoData),
+
+      });
+
+      if (!enderecoResponse.ok) {
+        throw new Error("Erro ao cadastrar endereço");
+      }
+
+      const endereco = await enderecoResponse.json();
+
+      const clienteResponse = await fetch("http://localhost:3000/Clientes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...clienteData,
+          idendereco: endereco.id, 
+        }),
+      });
+
+      if (!clienteResponse.ok) {
+        throw new Error("Erro ao criar cliente");
+      }
+
+      const cliente = await clienteResponse.json();
+
+      const contaResponse = await fetch("http://localhost:3000/Contas", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...contaData,
+          idcliente: cliente.id, 
+        }),
+      });
+
+      if (!contaResponse.ok) {
+        throw new Error("Erro ao criar conta");
+      }
+
+      alert("Cadastro realizado com sucesso!");
+
+      setNovoUsuario({
+        senha: "",
+        cpf: "",
+        login: "",
+        email: "",
+        dataNasc: "",
+        telefone: "",
+        cep: "",
+        rua: "",
+        numeroCasa: "",
+        complemento: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+        chavePixCpf: "",
+        chavePixTelefone: "",
+        chavePixEmail: "",
+      });
+    } catch (error) {
+      console.error("Erro no cadastro:", error);
+      alert("Ocorreu um erro ao realizar o cadastro.");
+    }
+  }
 
   return (
     <Pagina>
@@ -31,15 +144,15 @@ export function Cadastro() {
 
               <div className=" flex justify-center items-center h-28 w-full">
 
-              <label htmlFor="fotoUpload" className="cursor-pointer">
-                <img
-                  src={foto || "imagens/pessoa.svg"}
-                  alt="Foto de perfil"
-                  className="w-36 h-36 rounded-full object-cover border-2 border-gray-300 hover:opacity-80 transition"
-                />
-              </label>
+                <label htmlFor="fotoUpload" className="cursor-pointer">
+                  <img
+                    src={foto || "imagens/pessoa.svg"}
+                    alt="Foto de perfil"
+                    className="w-36 h-36 rounded-full object-cover border-2 border-gray-300 hover:opacity-80 transition"
+                  />
+                </label>
 
-              <input
+                <input
                   type="file"
                   id="fotoUpload"
                   accept="image/*"
@@ -52,47 +165,68 @@ export function Cadastro() {
 
               <section>
                 <h3 className="font-semibold mb-1">Dados Pessoais</h3>
-                <input type="text" placeholder="Nome completo" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                <input value={novoUsuario.login} onChange={(e) => setNovoUsuario({ ...novoUsuario, login: e.target.value })} type="text" placeholder="Nome completo" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="CPF" className="w-1/2 broder-2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2 text-sm" />
-                  <input type="date" placeholder="Data Nasc." className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2 text-gray-500" />
+
+                  <input value={novoUsuario.cpf} onChange={(e) => setNovoUsuario({ ...novoUsuario, cpf: e.target.value })} type="text" placeholder="CPF" className="w-1/2 broder-2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2 text-sm" />
+
+                  <input value={novoUsuario.dataNasc} onChange={(e) => setNovoUsuario({ ...novoUsuario, dataNasc: e.target.value })} type="date" placeholder="Data Nasc." className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2 text-gray-500" />
                 </div>
+
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="E-mail" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
-                  <input type="text" placeholder="Telefone" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.email} onChange={(e) => setNovoUsuario({ ...novoUsuario, email: e.target.value })} type="text" placeholder="E-mail" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.telefone} onChange={(e) => setNovoUsuario({ ...novoUsuario, telefone: e.target.value })} type="text" placeholder="Telefone" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
+
+                <input value={novoUsuario.senha} onChange={(e) => setNovoUsuario({ ...novoUsuario, senha: e.target.value })} type="password" placeholder="Senha" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2 mt-2" />
+
               </section>
 
               <section>
                 <h3 className="font-semibold mt-4 mb-1">Endereço</h3>
-                <input type="text" placeholder="Rua" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                <input value={novoUsuario.rua} onChange={(e) => setNovoUsuario({ ...novoUsuario, rua: e.target.value })} type="text" placeholder="Rua" className="w-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="Número" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
-                  <input type="text" placeholder="Complemento" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.numero} onChange={(e) => setNovoUsuario({ ...novoUsuario, numero: e.target.value })} type="text" placeholder="Número" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.complemento} onChange={(e) => setNovoUsuario({ ...novoUsuario, complemento: e.target.value })} type="text" placeholder="Complemento" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
+
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="Bairro" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
-                  <input type="text" placeholder="Estado" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.bairro} onChange={(e) => setNovoUsuario({ ...novoUsuario, bairro: e.target.value })} type="text" placeholder="Bairro" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.estado} onChange={(e) => setNovoUsuario({ ...novoUsuario, estado: e.target.value })} type="text" placeholder="Estado" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
+
                 <div className="flex gap-2 mt-2">
-                  <input type="text" placeholder="Cidade" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
-                  <input type="text" placeholder="CEP" className="w-1/2 bg-gray-100 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent" />
+
+                  <input value={novoUsuario.cidade} onChange={(e) => setNovoUsuario({ ...novoUsuario, cidade: e.target.value })} type="text" placeholder="Cidade" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+
+                  <input value={novoUsuario.cep} onChange={(e) => setNovoUsuario({ ...novoUsuario, cep: e.target.value })} type="text" placeholder="CEP" className="w-1/2 bg-gray-100 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent" />
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold mt-4 mb-1">Chave Pix</h3>
-                <p className="text-sm text-gray-600 mb-5">Escolha como receber no MonoCoin</p>
+                  <p className="text-sm text-gray-600 mb-5">Escolha como receber no Monocoin</p> 
 
                 <div className="flex flex-col gap-2">
                   {[
-                    "CPF – 00000000000",
-                    "Telefone – 44 99894-836",
-                    "Email – xxxxxxxx@gmail.com",
+                    { label: "CPF – 00000000000", field: "chavePixCpf" },
+                    { label: "Telefone – 44 99894-836", field: "chavePixTelefone" },
+                    { label: "Email – xxxxxxxx@gmail.com", field: "chavePixEmail" },
                   ].map((item, index) => (
-                    <input
+                    <input value={novoUsuario[item.field]}
+                      onChange={(e) =>
+                        setNovoUsuario({ ...novoUsuario, [item.field]: e.target.value })}
                       key={index}
-                      placeholder={item}
+                      placeholder={item.label}
                       className="flex items-center bg-gray-100 rounded-lg p-2 shadow-sm"
                     />
                   ))}
@@ -101,6 +235,7 @@ export function Cadastro() {
               <div className="w-20 h-full p-11 hidden lg:block">
               </div>
               <button
+                onClick={criarUsuario}
                 type="submit"
                 className="w-10 h-10 rounded-full bg-[#00ec6a] hover:bg-[#00d65a] transition flex items-center justify-center rigth border-1 fixed top-5/6 sm:left-11/12 left-80"
               >
