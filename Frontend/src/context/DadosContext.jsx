@@ -3,66 +3,64 @@ import { createContext, useEffect, useState } from "react";
 export const DadosContext = createContext();
 
 export function DadosProvider({ children }) {
-    const [dados, setDados] = useState([]);
+  const [dados, setDados] = useState({ clientes: [], contas: [] });
 
-    function adicionarDados(novosDadosPorTabela) {
-        if (!novosDadosPorTabela || typeof novosDadosPorTabela !== "object") return;
+  // Adiciona novos clientes ou contas ao estado, sem duplicar
+  function adicionarDados(novosDados, tabela) {
+    if (!Array.isArray(novosDados)) return;
+    if (!tabela) return;
 
-        setDados((prev) => {
-            const novoEstado = { ...prev };
-            for (const [tabela, registros] of Object.entries(novosDadosPorTabela)) {
-                if (!Array.isArray(registros)) continue;
+    setDados((prev) => {
+      const existentes = new Set((prev[tabela] || []).map((item) => item.id));
+      const novosUnicos = novosDados.filter((item) => !existentes.has(item.id));
 
-                const existentes = new Set(
-                    (novoEstado[tabela] || []).map((item) => JSON.stringify(item))
-                );
-                const novosUnicos = registros.filter(
-                    (item) => !existentes.has(JSON.stringify(item))
-                );
-                novoEstado[tabela] = [...(novoEstado[tabela] || []), ...novosUnicos];
-            }
-            return novoEstado;
-        });
-    }
+      return {
+        ...prev,
+        [tabela]: [...(prev[tabela] || []), ...novosUnicos],
+      };
+    });
+  }
 
-    useEffect(() => {
-        const fetchAPI = async () => {
-            try {
-                const response = await fetch("http://localhost:3000/Clientes");
-                if (!response.ok) throw new Error("Erro ao buscar os dados do servidor");
-    
-                const json = await response.json();
-                console.log("RETORNO DO BACKEND:", json);
-    
-                // Se backend retorna { message: { cliente: [...] } }
-                if (json.message && typeof json.message === "object") {
-                    adicionarDados(json.message);
-                }
-    
-                // Se backend retorna { message: [...] }
-                else if (Array.isArray(json.message)) {
-                    adicionarDados({ cliente: json.message });
-                }
-    
-                else if (Array.isArray(json)) {
-                    adicionarDados({ cliente: json });
-                }
-    
-            } catch (err) {
-                console.error("❌ Erro na requisição:", err.message);
-            }
-        };
-    
-        fetchAPI();
-    }, []);
-    
+  // Busca clientes
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/Clientes");
+        if (!response.ok) throw new Error("Erro ao buscar clientes");
 
-    const exportar = {
-        dados,
-        adicionarDados,
+        const json = await response.json();
+        const clientes = Array.isArray(json.message) ? json.message : Array.isArray(json) ? json : [];
+        adicionarDados(clientes, "clientes");
+      } catch (err) {
+        console.error("❌ Erro clientes:", err.message);
+      }
     };
+    fetchClientes();
+  }, []);
 
-    return (
-        <DadosContext.Provider value={exportar}>{children}</DadosContext.Provider>
-    );
+  // Busca contas
+  useEffect(() => {
+    const fetchContas = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/Contas");
+        if (!response.ok) throw new Error("Erro ao buscar contas");
+
+        const json = await response.json();
+        const contas = Array.isArray(json.message) ? json.message : Array.isArray(json) ? json : [];
+        adicionarDados(contas, "contas");
+      } catch (err) {
+        console.error("❌ Erro contas:", err.message);
+      }
+    };
+    fetchContas();
+  }, []);
+
+  // Debug
+  useEffect(() => {
+    console.log("DADOS ATUALIZADOS:", dados);
+  }, [dados]);
+
+  const exportar = { dados, adicionarDados };
+
+  return <DadosContext.Provider value={exportar}>{children}</DadosContext.Provider>;
 }

@@ -18,15 +18,15 @@ import { useNavigate } from "react-router-dom";
 import { MenuLateral } from "../components/MenuLateral";
 import { MenuSuperior } from "../components/MenuSuperior";
 import { Cartao } from "../components/Cartao"
-import {DadosContext} from "../context/DadosContext"
+import { DadosContext } from "../context/DadosContext"
 import { useEffect } from "react";
 
 export function PaginaInicial() {
 
   const { dados } = useContext(DadosContext);
 
-  const conta = dados?.conta?.[0] || null;
-  const cliente = dados?.cliente?.[0] || null;
+  const conta = dados?.contas?.[0] || null;
+  const cliente = dados?.clientes?.[0] || null;
 
   return (
     <Pagina>
