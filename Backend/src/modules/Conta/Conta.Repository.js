@@ -24,11 +24,11 @@ export class ContaRepository {
   async create(ContaData, chavePixAleatorio, numeroDaConta) {
     try {
       console.log("REPOSITORY", ContaData)
-      const result = await this.db.insert(Conta).values({
+      const result = await this.db.insert(conta).values({
         idcliente: ContaData.idcliente,
-        chavepixemail: ContaData.chavePixEmail,
-        chavepixtel: ContaData.chavePixTelefone,
-        chavepixcpf: ContaData.chavePixCpf,
+        chavepixemail: ContaData.chavepixemail,
+        chavepixtel: ContaData.chavepixtelefone,
+        chavepixcpf: ContaData.chavepixcpf,
         chavepixaleatorio: chavePixAleatorio,
         saldo: ContaData.saldo,
         numerodaconta: numeroDaConta
@@ -37,7 +37,7 @@ export class ContaRepository {
       return result[0];
 
     } catch (e) {
-      console.error('Erro ao inserir link:', e);
+      console.error('Erro ao inserir conta:', e);
       throw e;
     }
   }

@@ -26,8 +26,7 @@ export class ContaController {
   
     async createConta(request, reply) {
       try {
-        const { chavePixCpf, chavePixEmail, chavePixTelefone } = request.body;
-        const { idcliente } = request.params;
+        const { chavePixCpf, chavePixEmail, chavePixTelefone, idcliente } = request.body;
         const novaConta = {
           idcliente: idcliente,
           chavepixcpf: chavePixCpf,
@@ -35,7 +34,7 @@ export class ContaController {
           saldo: 0,
           chavepixtel: chavePixTelefone,
         };
-        console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoConta)
+        console.log("CONTROLLERRRRRRRRRRR", novaConta)
         const novoConta = await this.ContaService.createConta(novaConta);
         return reply.code(201).send(novoConta);
       } catch (error) {

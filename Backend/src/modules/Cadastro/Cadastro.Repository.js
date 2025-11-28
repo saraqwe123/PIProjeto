@@ -23,14 +23,15 @@ export class CadastroRepository {
 
   async create(clienteData) {
     try {
-      console.log("REPOSITORY", clienteData)
+      // console.log("REPOSITORY", clienteData)
       const result = await this.db.insert(cliente).values({
         cpf: clienteData.cpf,
         login: clienteData.login,
         senha: clienteData.senha,
         email: clienteData.email,
-        dataNasc: clienteData.dataNasc,
-        fotoPerfil: clienteData.fotoPerfil,
+        datanasc: clienteData.dataNasc,
+        telefone: clienteData.telefone,
+        fotoperfil: clienteData.fotoperfil,
         idendereco: clienteData.idendereco
       }).returning();
 

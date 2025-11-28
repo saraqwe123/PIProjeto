@@ -1,5 +1,6 @@
 import path from "path";
 import bcrypt from "bcrypt";
+import { log } from "console";
 
 
 export class CadastroController {
@@ -40,15 +41,18 @@ export class CadastroController {
           const uploadPath = path.join("src", "imagens", fileName);
 
           await photo.mv(uploadPath);
+        } else {
+          console.log("SEM REQUEST.FILES");
+          
         }
 
         const novoUsuario = {
           ...rest,
           senha: senhaHash,
-           ...(fileName && { fotoPerfil: fileName }),
+           ...(fileName && { fotoperfil: fileName }),
           cpf: cpf,
         };
-        console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoUsuario)
+        // console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoUsuario)
         const novoCliente = await this.CadastroService.createCliente(novoUsuario);
         return reply.code(201).send(novoCliente);
       } catch (error) {

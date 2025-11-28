@@ -1,9 +1,12 @@
 import fastify from "fastify";
+import fastifyMultipart from 'fastify-multipart';
 import cors from "@fastify/cors";
 import { CadastroRoutes } from "./modules/Cadastro/Cadastro.Routes.js"; 
 import { EnderecoRoutes } from "./modules/Endereco/Endereco.Routes.js";
 import { CadastroCompletoRoutes } from "./modules/cadastroCompleto/cadastroCompleto.Routes.js";
 import 'dotenv/config';
+import { join } from 'path';
+
 
 import dotenv from 'dotenv'
 import { ContaRoutes } from "./modules/Conta/Conta.Routes.js";
@@ -12,6 +15,13 @@ dotenv.config()
 const server = fastify({
   logger: true
 });
+
+
+server.register(fastifyMultipart, {
+  root: join(process.cwd(), 'uploads'),
+  prefix: '/src/imagens'
+});
+
 
 const port = process.env.PORT || 3000;
 

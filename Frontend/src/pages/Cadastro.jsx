@@ -5,7 +5,7 @@ import { useState } from "react"
 
 export function Cadastro() {
   const [foto, setFoto] = useState(null);
-  const [novoUsuario, setNovoUsuario] = useState({ senha: "", cpf: "", login: "", email: "", dataNasc: "", telefone: "", cep: "", rua: "", numeroCasa: "", complemento: "", bairro: "", cidade: "", estado: "", chavePixCpf: "", chavePixTelefone: "", chavePixEmail: "" })
+  const [novoUsuario, setNovoUsuario] = useState({ senha: "", cpf: "", login: "", email: "", dataNasc: "", telefone: "", cep: "", rua: "", numeroCasa: "", complemento: "", bairro: "", cidade: "", estado: "", chavePixCpf: "", chavePixTelefone: "", chavePixEmail: "", fotoperfil: foto })
 
   const adicionarF = (e) => {
     const file = e.target.files[0];
@@ -97,7 +97,7 @@ export function Cadastro() {
       });
 
       if (!contaResponse.ok) {
-        throw new Error("Erro ao criar conta");
+        throw new Error(contaResponse.text);
       }
 
       alert("Cadastro realizado com sucesso!");
@@ -140,7 +140,7 @@ export function Cadastro() {
             <img src="imagens/crianca.svg" alt="" className="fixed w-1/3 h-1/2 right-1/4 bottom-0 hidden lg:block" />
           </div>
           <div className="w-full p-5 lg:w-1/3 min-h-screen bg-[#2e2d2d] flex justify-center items-center">
-            <form className="w-full max-w-md bg-white p-6 flex flex-col gap-4 shadow-lg overflow-y-auto max-h-[90vh]">
+            <form onSubmit={criarUsuario} className="w-full max-w-md bg-white p-6 flex flex-col gap-4 shadow-lg overflow-y-auto max-h-[90vh]">
 
               <div className=" flex justify-center items-center h-28 w-full">
 
@@ -192,7 +192,7 @@ export function Cadastro() {
 
                 <div className="flex gap-2 mt-2">
 
-                  <input value={novoUsuario.numero} onChange={(e) => setNovoUsuario({ ...novoUsuario, numero: e.target.value })} type="text" placeholder="Número" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                  <input value={novoUsuario.numeroCasa} onChange={(e) => setNovoUsuario({ ...novoUsuario, numeroCasa: e.target.value })} type="text" placeholder="Número" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
 
                   <input value={novoUsuario.complemento} onChange={(e) => setNovoUsuario({ ...novoUsuario, complemento: e.target.value })} type="text" placeholder="Complemento" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
@@ -235,10 +235,9 @@ export function Cadastro() {
               <div className="w-20 h-full p-11 hidden lg:block">
               </div>
               <button
-                onClick={criarUsuario}
                 type="submit"
-                className="w-10 h-10 rounded-full bg-[#00ec6a] hover:bg-[#00d65a] transition flex items-center justify-center rigth border-1 fixed top-5/6 sm:left-11/12 left-80"
-              >
+                className="w-10 h-10 rounded-full z-50 text-black bg-[#00ec6a] cursor-pointer hover:bg-[#ffffff] hover:text-[#00ec6a] transition flex items-center justify-center rigth border-1 fixed top-5/6 sm:left-11/12 left-80"
+              > 
                 <ArrowRight className="w-5 h-5 text-black left-14" />
               </button>
             </form>

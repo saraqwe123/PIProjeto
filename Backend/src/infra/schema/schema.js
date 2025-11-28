@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, char, date, integer, real } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, char, date, integer, real, text   } from "drizzle-orm/pg-core";
 
 export const cliente = pgTable("cliente", {
   id: serial("id").primaryKey(),
@@ -6,6 +6,7 @@ export const cliente = pgTable("cliente", {
   login: varchar("login", { length: 255 }),
   senha: varchar("senha", { length: 255 }),
   email: varchar("email", { length: 255 }),
+  telefone: text("telefone"),
   datanasc: date("datanasc"),
   idendereco: integer("idendereco"),
   fotoperfil: varchar("fotoperfil", { length: 255 }),

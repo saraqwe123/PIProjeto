@@ -21,7 +21,7 @@ export class CadastroService {
 
     async createCliente(clienteData) {
         try {
-            console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", clienteData)
+            // console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", clienteData)
             if (validateCPF(clienteData.cpf)) return await this.CadastroRepository.create(clienteData);
         } catch (e) {
             console.error('Erro ao inserir Cliente:', e);

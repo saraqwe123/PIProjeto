@@ -1,5 +1,5 @@
 import cpfValidate from "cpf";
-import { uuid } from "drizzle-orm/gel-core";
+import { randomUUID } from "node:crypto";
 
 
 function validateCPF(cpf) {
@@ -23,9 +23,11 @@ export class ContaService {
     async createConta(ContaData) {
         try {
             console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", ContaData)
-            let chavePixAleatorio = uuid()
-            let numeroDaConta = uuid()
-            if (validateCPF(ContaData.chavePixCpf)) return await this.ContaRepository.create(ContaData, chavePixAleatorio, numeroDaConta);
+            let chavePixAleatorio = randomUUID()
+            let numeroDaConta = randomUUID()
+            console.log("VALIDANDO PIXXXXXXXXXXX: ", validateCPF(ContaData.chavePixCpf));
+            
+            if (validateCPF(ContaData.chavepixcpf)) return await this.ContaRepository.create(ContaData, chavePixAleatorio, numeroDaConta);
 
         } catch (e) {
             console.error('Erro ao inserir Conta:', e);
