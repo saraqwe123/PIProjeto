@@ -23,7 +23,7 @@ export class EnderecoRepository {
 
   async create(enderecoData) {
     try {
-      console.log("REPOSITORY", enderecoData)
+      // console.log("REPOSITORY", enderecoData)
       const result = await this.db.insert(endereco).values({
         rua: enderecoData.rua,
         cep: enderecoData.cep,

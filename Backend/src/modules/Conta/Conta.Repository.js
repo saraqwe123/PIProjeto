@@ -23,11 +23,11 @@ export class ContaRepository {
 
   async create(ContaData, chavePixAleatorio, numeroDaConta) {
     try {
-      console.log("REPOSITORY", ContaData)
+      // console.log("REPOSITORY", ContaData)
       const result = await this.db.insert(conta).values({
         idcliente: ContaData.idcliente,
         chavepixemail: ContaData.chavepixemail,
-        chavepixtel: ContaData.chavepixtelefone,
+        chavepixtel: ContaData.chavepixtel,
         chavepixcpf: ContaData.chavepixcpf,
         chavepixaleatorio: chavePixAleatorio,
         saldo: ContaData.saldo,

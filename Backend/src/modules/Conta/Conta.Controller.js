@@ -34,7 +34,7 @@ export class ContaController {
           saldo: 0,
           chavepixtel: chavePixTelefone,
         };
-        console.log("CONTROLLERRRRRRRRRRR", novaConta)
+        // console.log("CONTROLLERRRRRRRRRRR", novaConta)
         const novoConta = await this.ContaService.createConta(novaConta);
         return reply.code(201).send(novoConta);
       } catch (error) {

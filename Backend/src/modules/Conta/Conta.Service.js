@@ -22,10 +22,10 @@ export class ContaService {
 
     async createConta(ContaData) {
         try {
-            console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", ContaData)
+            // console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", ContaData)
             let chavePixAleatorio = randomUUID()
             let numeroDaConta = randomUUID()
-            console.log("VALIDANDO PIXXXXXXXXXXX: ", validateCPF(ContaData.chavePixCpf));
+            // console.log("VALIDANDO PIXXXXXXXXXXX: ", validateCPF(ContaData.chavePixCpf));
             
             if (validateCPF(ContaData.chavepixcpf)) return await this.ContaRepository.create(ContaData, chavePixAleatorio, numeroDaConta);
 

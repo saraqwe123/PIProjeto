@@ -13,7 +13,7 @@ export class EnderecoService {
 
     async createEndereco(enderecoData) {
         try {
-            console.log("ENDEREÇOOOOOOOOOOOOOOOOOOOOOOOOOO",enderecoData)
+            // console.log("ENDEREÇOOOOOOOOOOOOOOOOOOOOOOOOOO",enderecoData)
             return await this.EnderecoRepository.create(enderecoData);
         } catch (e) {
             console.error('Erro ao inserirendereco:', e);
