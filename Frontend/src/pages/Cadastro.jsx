@@ -201,7 +201,7 @@ export function Cadastro() {
 
                   <input value={novoUsuario.bairro} onChange={(e) => setNovoUsuario({ ...novoUsuario, bairro: e.target.value })} type="text" placeholder="Bairro" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
 
-                  <input value={novoUsuario.estado} onChange={(e) => setNovoUsuario({ ...novoUsuario, estado: e.target.value })} type="text" placeholder="Estado" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
+                  <input value={novoUsuario.estado} onChange={(e) => setNovoUsuario({ ...novoUsuario, estado: e.target.value })} type="text" placeholder="Sigla do estado" className="w-1/2 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent rounded-lg p-2" />
                 </div>
 
                 <div className="flex gap-2 mt-2">

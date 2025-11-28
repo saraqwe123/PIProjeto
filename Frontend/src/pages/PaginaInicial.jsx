@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pagina } from "../components/Pagina";
 import {
   ArrowBigRight,
@@ -18,9 +18,15 @@ import { useNavigate } from "react-router-dom";
 import { MenuLateral } from "../components/MenuLateral";
 import { MenuSuperior } from "../components/MenuSuperior";
 import { Cartao } from "../components/Cartao"
+import {DadosContext} from "../context/DadosContext"
+import { useEffect } from "react";
 
 export function PaginaInicial() {
 
+  const { dados } = useContext(DadosContext);
+
+  const conta = dados?.conta?.[0] || null;
+  const cliente = dados?.cliente?.[0] || null;
 
   return (
     <Pagina>
@@ -36,7 +42,11 @@ export function PaginaInicial() {
           <div className="w-full h-full flex flex-col p-10 justify-end mb-5">
 
             <h1 className="text-white p-5 text-4xl">Meu cartão</h1>
-            <Cartao/>
+            <Cartao
+              nome = {cliente.login}
+              saldo = {conta.saldo}
+              
+            />
           </div>
         </div>
         <MenuLateral />

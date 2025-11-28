@@ -4,7 +4,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-export function Cartao() {
+export function Cartao({nome, saldo}) {
     const [showBalance, setShowBalance] = useState(false);
     const toggleBalance = () => {
       setShowBalance((prev) => !prev);
@@ -14,7 +14,7 @@ export function Cartao() {
         <div className="w-130 h-80 bg-white rounded-4xl p-6 shadow-xl relative overflow-hidden flex justify-between items-start">
             <div className="flex flex-col gap-2">
                 <img src="imagens/logoSite.svg" alt="Logo" className="w-55" />
-                <p className="text-lg text-gray-700">Nome completo</p>
+                <p className="text-lg text-gray-700">{nome}</p>
                 <h2 className="tracking-widest text-3xl font-semibold"> **** **** **** 0038 </h2>
                 <div className="flex flex-col gap-1 w-full mt-2">
                     <div className="flex justify-around w-full">
@@ -38,7 +38,7 @@ export function Cartao() {
                             )}
 
                             <p className="text-xl font-semibold text-gray-900 tracking-wide">
-                                {showBalance ? "R$ 2.450,00" : "R$ ******"}
+                                {showBalance ? {saldo} : "R$ ******"}
                             </p>
                             </div>
 
