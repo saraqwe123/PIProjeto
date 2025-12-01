@@ -1,38 +1,21 @@
 import { useContext, useState } from "react";
 import { Pagina } from "../components/Pagina";
-import {
-  ArrowBigRight,
-  BadgeQuestionMarkIcon,
-  BellIcon,
-  EyeIcon,
-  EyeOffIcon,
-  FileTextIcon,
-  LineChartIcon,
-  MessageCircleMoreIcon,
-  SearchIcon,
-  SendIcon,
-  User,
-  UserCircle2Icon,
-} from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { MenuLateral } from "../components/MenuLateral";
 import { MenuSuperior } from "../components/MenuSuperior";
 import { Cartao } from "../components/Cartao"
 import { DadosContext } from "../context/DadosContext"
-import { useEffect } from "react";
 
 export function PaginaInicial() {
+  const cliente = JSON.parse(localStorage.getItem("usuario"));
+  const conta = JSON.parse(localStorage.getItem("conta"));
 
-  const { dados } = useContext(DadosContext);
 
-  const conta = dados?.contas?.[0] || null;
-  const cliente = dados?.clientes?.[0] || null;
 
   return (
     <Pagina>
       <div className="flex flex-wrap w-full h-full min-h-screen">
         <div className="w-full md:w-2/3 flex flex-col items-center bg-black p-4">
-          <MenuSuperior/>
+          <MenuSuperior />
 
           <h1 className="text-white text-center text-xl md:text-5xl mt-10 px-4">
             Seja bem-vindo ao Mono
@@ -42,11 +25,7 @@ export function PaginaInicial() {
           <div className="w-full h-full flex flex-col p-10 justify-end mb-5">
 
             <h1 className="text-white p-5 text-4xl">Meu cartão</h1>
-            <Cartao
-              nome = {cliente.login}
-              saldo = {conta.saldo}
-              
-            />
+            <Cartao nome={cliente?.login} saldo={conta?.saldo} />
           </div>
         </div>
         <MenuLateral />

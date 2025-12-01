@@ -55,6 +55,22 @@ export function DadosProvider({ children }) {
     fetchContas();
   }, []);
 
+  useEffect(() => {
+    const fetchEnderecos = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/Enderecos");
+        if (!response.ok) throw new Error("Erro ao buscar Enderecos");
+
+        const json = await response.json();
+        const enderecos = Array.isArray(json.message) ? json.message : Array.isArray(json) ? json : [];
+        adicionarDados(enderecos, "enderecos");
+      } catch (err) {
+        console.error("❌ Erro enderecos:", err.message);
+      }
+    };
+    fetchEnderecos();
+  }, []);
+
   // Debug
   useEffect(() => {
     console.log("DADOS ATUALIZADOS:", dados);

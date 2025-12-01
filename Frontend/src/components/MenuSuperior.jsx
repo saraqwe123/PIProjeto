@@ -10,6 +10,9 @@ export function MenuSuperior() {
     const [showChangePhoto, setShowChangePhoto] = useState(false)
     const [imagePreview, setImagePreview] = useState(null);
     const navigate = useNavigate()
+    const cliente = JSON.parse(localStorage.getItem("usuario"));
+    const conta = JSON.parse(localStorage.getItem("conta"));
+
 
 
     const toggleMenu = () => {
@@ -144,22 +147,22 @@ export function MenuSuperior() {
                             <div className="flex flex-col gap-3 text-sm text-gray-700">
                                 <div className="flex justify-between">
                                     <span className="font-medium">Nome:</span>
-                                    <span>João da Silva</span>
+                                    <span>{cliente?.login}</span>
                                 </div>
 
                                 <div className="flex justify-between">
                                     <span className="font-medium">CPF:</span>
-                                    <span>***.456.789-00</span>
+                                    <span>{cliente?.cpf}</span>
                                 </div>
 
                                 <div className="flex justify-between">
-                                    <span className="font-medium">Agência:</span>
-                                    <span>1234</span>
+                                    <span className="font-medium">Telefone:</span>
+                                    <span>{cliente?.telefone}</span>
                                 </div>
 
                                 <div className="flex justify-between">
                                     <span className="font-medium">Conta:</span>
-                                    <span>56789-0</span>
+                                    <span>{conta?.numerodaconta}</span>
                                 </div>
 
                                 <div className="flex justify-between">

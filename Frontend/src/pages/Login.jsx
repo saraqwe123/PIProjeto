@@ -16,23 +16,25 @@ export function Login() {
   const verificarLogin = async (e) => {
     e.preventDefault();
 
-    for (let i = 0; i < dados.cliente.length; i++) {
-      const usuario = dados.cliente[i];
+    for (let i = 0; i < dados?.clientes.length; i++) {
+      const usuario = dados?.clientes[i];
+      const conta = dados?.contas[i];
+      const endereco = dados?.enderecos[i];
 
       const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
-      if (login === usuario.login && senhaCorreta) {
+      if (login === usuario.cpf && senhaCorreta) {
         navigate("/inicio");
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        localStorage.setItem("conta", JSON.stringify(conta));
+        localStorage.setItem("endereco", JSON.stringify(endereco));
         return;
       }
+      
     }
 
     alert("Login ou senha inválidos!");
   };
-
-
-
-
 
   return (
     <Pagina>
@@ -54,7 +56,7 @@ export function Login() {
               <h1 className="text-2xl font-bold">Login</h1>
               <br />
               <div className="flex flex-col">
-                <label htmlFor="" className="w-3/4 p-2">Usuário</label>
+                <label htmlFor="" className="w-3/4 p-2">CPF do Usuário</label>
                 <input type="text" placeholder="Fulano de Tal" className=" w-60 bg-gray-100 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent" value={login} onChange={(e) => setLogin(e.target.value)} />
               </div>
               <div className="flex flex-col m-5 relative">
@@ -77,7 +79,7 @@ export function Login() {
                 </button>
               </div>
 
-              <button type="submit" className="m-5 w-1/2 h-10 rounded-2xl bg-[#00ec6a]">Entrar</button>
+              <button type="submit" className="m-5 w-1/2 h-10 rounded-2xl cursor-pointer border transition-colors duration-300 border-[#00ec6a]/0 text-black bg-[#00ec6a] hover:bg-white hover:text-[#00ec6a] hover:border-[#00ec6a]">Entrar</button>
               <Link to='/cadastro'>Não tem conta? Cadastre-se agora</Link>
 
             </form>

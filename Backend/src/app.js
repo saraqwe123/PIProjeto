@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import fastifyMultipart from 'fastify-multipart';
+import multipart from "@fastify/multipart";
 import cors from "@fastify/cors";
 import { CadastroRoutes } from "./modules/Cadastro/Cadastro.Routes.js"; 
 import { EnderecoRoutes } from "./modules/Endereco/Endereco.Routes.js";
@@ -17,9 +17,8 @@ const server = fastify({
 });
 
 
-server.register(fastifyMultipart, {
-  root: join(process.cwd(), 'uploads'),
-  prefix: '/src/imagens'
+server.register(multipart, {
+  attachFieldsToBody: true
 });
 
 
