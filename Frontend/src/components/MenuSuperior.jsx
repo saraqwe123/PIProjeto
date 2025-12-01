@@ -49,6 +49,11 @@ export function MenuSuperior() {
         }
     };
 
+    const handleClose = (e) => {
+        localStorage.clear()
+        navigate("/")
+    };
+
     return (
         <>
             <div className="flex flex-col md:flex-row w-full items-center justify-between gap-4 mt-3">
@@ -80,7 +85,7 @@ export function MenuSuperior() {
                                 <li onClick={toggleChangePix} className="hover:text-[#6dd63a] cursor-pointer">
                                     Mudar chave pix
                                 </li>
-                                <li onClick={() => navigate("/")} className="hover:text-red-500 cursor-pointer">
+                                <li onClick={handleClose} className="hover:text-red-500 cursor-pointer">
                                     Sair
                                 </li>
                             </ul>

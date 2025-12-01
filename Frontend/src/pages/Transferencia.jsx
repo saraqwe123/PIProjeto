@@ -3,14 +3,20 @@ import { useState } from "react";
 import { CircleArrowLeft, CircleQuestionMark, Star } from "lucide-react";
 
 export function Transferencia() {
+
+  const [chaveInserida, setChaveInserida] = useState(null);
   const [abaAtiva, setAbaAtiva] = useState("recentes");
   const [favoritos, setFavoritos] = useState([]);
+  const conta = JSON.parse(localStorage.getItem("conta"));
+
 
   const contatosRecentes = [
     { nome: "Lara Deitos", banco: "Banco do Brasil" },
     { nome: "Nati Soares", banco: "Caixa Econômica" },
 
   ];
+
+
 
   const toggleFavorito = (contato) => {
     const jaFavorito = favoritos.some((f) => f.nome === contato.nome);
@@ -21,6 +27,26 @@ export function Transferencia() {
     }
     setAbaAtiva("favoritos");
   };
+
+  const realizandoTransferencia = () => {
+    const chaves = [
+      conta?.chavepixcpf,
+      conta?.chavepixemail,
+      conta?.chavepixtel,
+      conta?.chavepixaleatorio
+    ];
+    try {
+      console.log(chaveInserida)
+      console.log(chaves)
+      if (chaves.includes(chaveInserida)) {
+        console.log("aeeeeeeeeeeeeeeeeeeeeeee")
+      } else {
+        console.log("merdaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      }
+    } catch (error) {
+      throw error
+    }
+  }
 
   return (
     <Pagina>
@@ -54,9 +80,12 @@ export function Transferencia() {
           </p>
           <input
             type="text"
+            value={chaveInserida}
+            onChange={(e) => setChaveInserida(e.target.value)}
             placeholder="CPF/CNPJ, celular, e-mail ou aleatória"
-            className="w-full h-15 bg-[#d9d9d9] text-gray-700 px-5 py-2 rounded-md focus:outline-none"
+            className="w-full h-15 mb-6 bg-[#d9d9d9] text-gray-700 px-5 py-2 rounded-md focus:outline-none"
           />
+          <button onClick={realizandoTransferencia} className=" w-36 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Avançar</button>
         </main>
 
         <hr className="h-1 bg-[#d9d9d9] border-[#d9d9d9]" />
