@@ -53,7 +53,6 @@ export function CaixinhaNova() {
     navigate("/investimentos/caixinha");
   };
 
-
   return (
     <Pagina>
       <MenuSuperiorSemBarra />
