@@ -18,6 +18,9 @@ import { Acoes } from './pages/Acoes';
 import { TransferenciaPix } from './pages/TransferenciaPix';
 import { ComprarAcao } from './pages/ComprarAçao';
 import { DadosProvider } from './context/DadosContext';
+import { CaixinhaDetalhe } from './pages/CaixinhaDetalhe';
+import { CaixinhaNova } from './pages/CaixinhaNova';
+
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +41,8 @@ const rotas = createBrowserRouter(
         <Route path="investimentos/acoes" element={<Acoes />} />
         <Route path="transferenciapix" element={<TransferenciaPix />} />
         <Route path="investimentos/compraracao" element={<ComprarAcao />} />
+        <Route path="investimentos/caixinha/caixinhanova" element={<CaixinhaNova/>} />
+        <Route path="investimentos/caixinha/:id" element={<CaixinhaDetalhe />} />
       </Route>
     </>
   )

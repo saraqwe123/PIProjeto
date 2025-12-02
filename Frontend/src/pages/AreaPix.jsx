@@ -19,7 +19,7 @@ export function AreaPix() {
               onClick={() => window.location.href = "http://localhost:5173/inicio"}
               className="text-gray-700 hover:text-green-500  transition-colors"
             >
-              <CircleArrowLeft className="w-6 h-6"/>
+              <CircleArrowLeft className="w-6 h-6" />
             </button>
 
             <button className="text-gray-700 hover:text-green-500 transition-colors">
@@ -69,13 +69,19 @@ export function AreaPix() {
             </div>
 
             <div className="flex flex-col items-center">
-             <div className="w-50 h-50 bg-gradient-to-r from-[#0097b2] to-[#7ed957] rounded-2xl shadow-md flex justify-center items-center"><DollarSign className="w-20 h-50"/></div>
-              <p className="text-white mt-2">Cobrar</p>
+              <button
+                onClick={() => navigate('/agendarpix')}
+                className="group w-50 h-50 bg-gradient-to-r from-[#5170ff] to-[#7ed957] rounded-2xl shadow-md flex justify-center items-center hover:from-[#a1ff72] hover:to-[#cfee9e] transition-colors"
+              >
+                <Copy className="w-20 h-50 transition-colors group-hover:text-[#4a8b00]" />
+              </button>
+              <p className="text-white mt-2">Agendar Pix</p>
             </div>
+            
           </div>
         </main>
 
-        <hr  className="h-1 bg-[#d9d9d9] border-[#d9d9d9]"/>
+        <hr className="h-1 bg-[#d9d9d9] border-[#d9d9d9]" />
 
         <div className="w-full flex-1 bg-[#003c0a] p-6 overflow-y-auto max-h-[300px]">
           <p className="text-white text-xl font-semibold mb-4 ml-5">Histórico</p>

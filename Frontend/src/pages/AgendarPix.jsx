@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 
 export function AgendarPix() {
+    const cliente = JSON.parse(localStorage.getItem("usuario"));
+
     const [showBalance, setShowBalance] = useState(false);
     const toggleBalance = () => {
         setShowBalance((prev) => !prev);
@@ -46,8 +48,10 @@ export function AgendarPix() {
                         <div className="flex flex-col items-around">
                             <div className="w-80 h-46 bg-white rounded-2xl shadow-md flex flex-col justify-center items-start">
                                 <div className="flex flex-row justify-start h-1/2">
-                                    <div className="w-10 h-10 rounded-full bg-[#b3b3b3] ml-2"></div>
-                                    <p className="h-10 ml-5 flex items-center justify-center"><strong>Lara Heloisa Silva Deitos</strong></p>
+                                    <div className="w-20 h-20 rounded-full ml-2">
+                                        <img className="" src={cliente?.fotoperfil || "imagens/pessoa.svg"} alt="" />
+                                    </div>
+                                    <p className="h-10 ml-5 flex items-center justify-center"><strong>{cliente.login}</strong></p>
                                 </div>
                                 <div className="w-full h-14 flex justify-center items-center">
                                     BCO. MONOCOIN
