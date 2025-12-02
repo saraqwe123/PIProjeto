@@ -54,7 +54,7 @@ export function CaixinhaNova() {
   };
 
   return (
-    <Pagina>
+    <Pagina>a
       <MenuSuperiorSemBarra />
       <div className="h-full w-full flex flex-col p-6 text-white bg-black">
         <h1 className="text-3xl font-bold mb-6">Criar Nova Caixinha</h1>
