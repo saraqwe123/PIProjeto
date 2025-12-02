@@ -16,25 +16,54 @@ export function Login() {
   const verificarLogin = async (e) => {
     e.preventDefault();
 
-    for (let i = 0; i < dados?.clientes.length; i++) {
-      const usuario = dados?.clientes[i];
-      const conta = dados?.contas[i];
-      const endereco = dados?.enderecos[i];
-
-      const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
-
-      if (login === usuario.cpf && senhaCorreta) {
-        navigate("/inicio");
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        localStorage.setItem("conta", JSON.stringify(conta));
-        localStorage.setItem("endereco", JSON.stringify(endereco));
-        return;
-      }
-      
+    if (!dados || !Array.isArray(dados.clientes) || dados.clientes.length === 0) {
+      alert("Nenhum usuário carregado.");
+      return;
     }
 
-    alert("Login ou senha inválidos!");
+    const usuario = dados.clientes.find(u => String(u.cpf) === String(login));
+    if (!usuario) {
+      alert("Login ou senha inválidos!");
+      return;
+    }
+
+    const senhaHash = usuario.senha;
+    if (!senhaHash) {
+      alert("Usuário sem senha cadastrada.");
+      return;
+    }
+
+    let senhaCorreta = false;
+    try {
+      senhaCorreta = await bcrypt.compare(senha, senhaHash);
+    } catch (err) {
+      console.error("Erro ao comparar senha:", err);
+      alert("Erro ao verificar senha.");
+      return;
+    }
+
+    if (!senhaCorreta) {
+      alert("Login ou senha inválidos!");
+      return;
+    }
+
+    const conta = dados.contas?.find(c => String(c.idcliente) === String(usuario.id) || String(c.chavepixcpf) === String(usuario.cpf));
+    const endereco = dados.enderecos?.find(e => String(e.id) === String(usuario.idendereco));
+
+    if (!conta) {
+      console.warn("Conta vinculada não encontrada para este usuário.");
+    }
+    if (!endereco) {
+      console.warn("Endereço vinculado não encontrado para este usuário.");
+    }
+
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+    if (conta) localStorage.setItem("conta", JSON.stringify(conta));
+    if (endereco) localStorage.setItem("endereco", JSON.stringify(endereco));
+
+    navigate("/inicio");
   };
+
 
   return (
     <Pagina>

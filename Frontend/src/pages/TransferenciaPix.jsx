@@ -1,6 +1,6 @@
 import { Pagina } from "../components/Pagina";
 import { CircleArrowLeft, CircleQuestionMark, CircleX } from "lucide-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import imagem from "/imagens/logocriancas.png";
 import { Cartao } from "../components/Cartao";
@@ -8,8 +8,10 @@ import { Cartao } from "../components/Cartao";
 export function TransferenciaPix() {
     const [valor, setValor] = useState("");
     const navigate = useNavigate("");
+    const clienteDestino = JSON.parse(localStorage.getItem("clienteDestino"));
     const cliente = JSON.parse(localStorage.getItem("usuario"));
     const conta = JSON.parse(localStorage.getItem("conta"));
+    const [saldo, setSaldo] = useState(conta?.saldo || 0);
 
 
     function formatarValor(e) {
@@ -39,12 +41,12 @@ export function TransferenciaPix() {
 
     const realizandoTransferencia = () => {
         const valorNumerico = Number(valor.replace(/\D/g, ""));
-
-        if (valorNumerico >= 1 && conta?.saldo > valorNumerico) {
+        const valorReal = valorNumerico/100
+        if (valorReal >= 0.01 && saldo >= valorReal) {
             navigate(`confirmarPagamento/${valorNumerico}`);
         } else {
             alert("Só podem trasnferências a partir de R$0,01")
-            console.log(valorNumerico, conta?.saldo)
+            console.log(valorReal, saldo)
         }
     };
 
@@ -76,7 +78,7 @@ export function TransferenciaPix() {
                 <div className="w-full bg-transparent p-10">
                     <strong className="text-lg text-[#003c02] font-semibold">Quanto você quer pagar?</strong>
                     <p className="text-sm mt-1 text-[#003c02]">
-                        Você vai pagar <strong>Fulano de tal</strong>
+                        Você vai pagar para <strong>{clienteDestino.login}</strong>
                     </p>
 
                     <div className="relative mt-4">
