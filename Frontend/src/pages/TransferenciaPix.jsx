@@ -1,20 +1,20 @@
 import { Pagina } from "../components/Pagina";
-import { CircleArrowLeft } from "lucide-react";
-import { CircleQuestionMark } from "lucide-react";
-import { CircleX } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { CircleArrowLeft, CircleQuestionMark, CircleX } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import imagem from "/imagens/logocriancas.png";
+import { Cartao } from "../components/Cartao";
 
 export function TransferenciaPix() {
-    const [showBalance, setShowBalance] = useState(false);
-    const toggleBalance = () => setShowBalance(prev => !prev);
-
     const [valor, setValor] = useState("");
+    const navigate = useNavigate("");
+    const cliente = JSON.parse(localStorage.getItem("usuario"));
+    const conta = JSON.parse(localStorage.getItem("conta"));
+
 
     function formatarValor(e) {
         let v = e.target.value.replace(/\D/g, "");
-
-        if (v < 0) v = 0;
+        if (!v) v = 0;
 
         v = (Number(v) / 100).toLocaleString("pt-BR", {
             style: "currency",
@@ -25,106 +25,119 @@ export function TransferenciaPix() {
     }
 
     function adicionarValor(quantia) {
-        let v = valor.replace(/\D/g, "");
-        if (!v) v = 0;
+        let v = valor.replace(/\D/g, "") || 0;
 
-        let total = Number(v) + quantia;
+        const total = Number(v) + quantia;
 
-        const formatado = (total / 100).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
-
-        setValor(formatado);
+        setValor(
+            (total / 100).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            })
+        );
     }
 
+    const realizandoTransferencia = () => {
+        const valorNumerico = Number(valor.replace(/\D/g, ""));
+
+        if (valorNumerico >= 1 && conta?.saldo > valorNumerico) {
+            navigate(`confirmarPagamento/${valorNumerico}`);
+        } else {
+            alert("Só podem trasnferências a partir de R$0,01")
+            console.log(valorNumerico, conta?.saldo)
+        }
+    };
 
     return (
         <Pagina>
-            <div className="flex flex-col w-full h-screen">
-                <header className="w-full h-25 bg-white flex items-center shadow-md relative z-10 px-6">
-                    <div className="flex justify-between items-center w-full">
-                        <button
-                        onClick={() => window.location.href = "http://localhost:5173/inicio"}
-                        className="text-gray-700 hover:text-green-500  transition-colors"
-                        >
-                        <CircleArrowLeft className="w-6 h-6"/>
-                        </button>
+            <div className="flex flex-col w-full min-h-screen bg-gradient-to-b from-[#c1ff72] to-[#003c02]">
 
-                        <button className="text-gray-700 hover:text-green-500 transition-colors">
-                        <CircleQuestionMark className="w-6 h-6 mr-35" />
+                <header className="w-full h-20 bg-white flex items-center shadow-md px-6 z-10 relative">
+                    <div className="flex justify-between items-center w-full">
+                        <NavLink
+                            to="/transferencia"
+                            className="text-gray-700 hover:text-green-600 transition"
+                        >
+                            <CircleArrowLeft className="w-7 h-7" />
+                        </NavLink>
+
+                        <button className="text-gray-700 hover:text-green-600 transition">
+                            <CircleQuestionMark className="w-7 h-7" />
                         </button>
                     </div>
 
                     <img
-                        src="imagens/logocriancas.png"
+                        src={imagem}
                         alt="Logo"
-                        className="fixed top-0 right-0 w-35 h-auto object-contain z-50 pointer-events-none"
+                        className="fixed top-0 right-0 w-32 object-contain pointer-events-none opacity-90"
                     />
                 </header>
 
-                <div className="w-full bg-[#c1ff72] flex flex-col items-start p-10">
-                    <div className="flex flex-col w-full">
-                        <strong className="text-lg">Quanto você quer pagar?</strong>
-                        <p className="text-sm mt-1">Você vai pagar <strong>Fulano de tal</strong></p>
-                        <div className="relative w-350 mt-3">
-                            <input
-                                type="text"
-                                value={valor}
-                                onChange={formatarValor}
-                                placeholder="R$ 0,00"
-                                className="
-                                    w-full h-16 bg-white text-gray-700 rounded-md
-                                    focus:outline-none pl-4 pr-12 text-xl
-                                    [appearance:textfield]
-                                    [&::-webkit-inner-spin-button]:appearance-none
-                                    [&::-webkit-outer-spin-button]:appearance-none
-                                "
-                            />
+                <div className="w-full bg-transparent p-10">
+                    <strong className="text-lg text-[#003c02] font-semibold">Quanto você quer pagar?</strong>
+                    <p className="text-sm mt-1 text-[#003c02]">
+                        Você vai pagar <strong>Fulano de tal</strong>
+                    </p>
+
+                    <div className="relative mt-4">
+                        <input
+                            type="text"
+                            value={valor}
+                            onChange={formatarValor}
+                            placeholder="R$ 0,00"
+                            className="
+                                w-full h-20 bg-white text-gray-800 text-3xl font-semibold
+                                rounded-xl shadow-md pl-5 pr-14 focus:outline-none
+                            "
+                        />
+                        {valor && (
                             <button
                                 onClick={() => setValor("")}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500 transition-all"
+                                className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500 transition cursor-pointer"
                             >
                                 <CircleX className="w-6 h-6" />
                             </button>
-                        </div>
+                        )}
                     </div>
+                    <button onClick={realizandoTransferencia} className=" w-36 mt-4 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Avançar</button>
                 </div>
 
-                <div className="bg-[#003c02] w-ful h-full">
-                    <div className="">
+                <div className="bg-transparent w-full  flex flex-col items-center gap-4 mt-2">
 
-                    </div>
-                    <div className="flex justify-center gap-4 mt-6">
+                    <div className="flex gap-4">
                         <button
                             onClick={() => adicionarValor(1000)}
-                            className="bg-white px-6 py-2 rounded-full font-semibold shadow"
+                            className="pix-btn"
                         >
                             +R$ 10
                         </button>
 
                         <button
                             onClick={() => adicionarValor(2000)}
-                            className="bg-white px-6 py-2 rounded-full font-semibold shadow"
+                            className="pix-btn"
                         >
                             +R$ 20
                         </button>
 
                         <button
                             onClick={() => adicionarValor(5000)}
-                            className="bg-white px-6 py-2 rounded-full font-semibold shadow"
+                            className="pix-btn"
                         >
                             +R$ 50
                         </button>
-                    </div>  
-                    
-                    <div className="w-full flex justify-center mt-4">
-                        <button
-                            onClick={() => adicionarValor(10000)}
-                            className="bg-white px-6 py-2 rounded-full font-semibold shadow"
-                        >
-                            +R$ 100
-                        </button>
+                    </div>
+
+                    <button
+                        onClick={() => adicionarValor(10000)}
+                        className="pix-btn w-40"
+                    >
+                        +R$ 100
+                    </button>
+
+                    <div className="w-full mt-6 flex justify-center">
+                        <div className="w-full max-w-md">
+                            <Cartao nome={cliente?.login} saldo={conta?.saldo} />
+                        </div>
                     </div>
                 </div>
             </div>

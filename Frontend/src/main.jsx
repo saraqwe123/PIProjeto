@@ -20,6 +20,9 @@ import { ComprarAcao } from './pages/ComprarAçao';
 import { DadosProvider } from './context/DadosContext';
 import { CaixinhaDetalhe } from './pages/CaixinhaDetalhe';
 import { CaixinhaNova } from './pages/CaixinhaNova';
+import { ConfirmarPagamento } from './pages/ConfirmarPagamento';
+import { ChaveErrada } from './pages/ChaveErrada';
+import { Page404 } from './pages/Page404';
 
 
 const rotas = createBrowserRouter(
@@ -27,6 +30,8 @@ const rotas = createBrowserRouter(
     <>
       <Route index element={<Login />} />
       <Route path="login" element={<Login />} />
+      <Route path="/*" element={<Page404 />} />
+      <Route path="/erro" element={<ChaveErrada />} />
       <Route path="cadastro" element={<Cadastro />} />
       <Route path="/" element={<Layout />}>
         <Route path="inicio" element={<PaginaInicial />} />
@@ -35,6 +40,8 @@ const rotas = createBrowserRouter(
         <Route path="extrato" element={<Extrato />} />
         <Route path="agendarpix" element={<AgendarPix />} />
         <Route path="transferencia" element={<Transferencia />} />
+        <Route path="transferencia/transferenciapix" element={<TransferenciaPix />} />
+        <Route path="transferencia/transferenciapix/confirmarPagamento/:valor" element={<ConfirmarPagamento />} />
         <Route path="pixcopiaecola" element={<PixCopiaeCola />} />
         <Route path="mudarchave" element={<MudarChave />} />
         <Route path="investimentos/caixinha" element={<Caixinha />} />

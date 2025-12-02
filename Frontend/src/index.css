@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.pix-btn {
+    @apply bg-white px-6 py-3 rounded-full font-semibold 
+           shadow-md cursor-pointer text-[#003c02]
+           hover:bg-[#f3f3f3] hover:scale-105 transition-all duration-300;
+}

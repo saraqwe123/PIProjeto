@@ -1,13 +1,19 @@
 import { Pagina } from "../components/Pagina";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CircleArrowLeft, CircleQuestionMark, Star } from "lucide-react";
+import { DadosContext } from "../context/DadosContext";
+import imagem from "/imagens/logocriancas.png"
+
 
 export function Transferencia() {
 
   const [chaveInserida, setChaveInserida] = useState(null);
   const [abaAtiva, setAbaAtiva] = useState("recentes");
   const [favoritos, setFavoritos] = useState([]);
-  const conta = JSON.parse(localStorage.getItem("conta"));
+  const navigate = useNavigate()
+  const contaLogada = JSON.parse(localStorage.getItem("conta"));
+  const { dados } = useContext(DadosContext)
 
 
   const contatosRecentes = [
@@ -29,38 +35,50 @@ export function Transferencia() {
   };
 
   const realizandoTransferencia = () => {
-    const chaves = [
-      conta?.chavepixcpf,
-      conta?.chavepixemail,
-      conta?.chavepixtel,
-      conta?.chavepixaleatorio
-    ];
-    try {
-      console.log(chaveInserida)
-      console.log(chaves)
-      if (chaves.includes(chaveInserida)) {
-        console.log("aeeeeeeeeeeeeeeeeeeeeeee")
-      } else {
-        console.log("merdaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    let achou = false;
+
+    for (let i = 0; i < dados?.contas.length; i++) {
+      const conta = dados?.contas[i];
+
+      const chaves = [
+        conta?.chavepixcpf,
+        conta?.chavepixemail,
+        conta?.chavepixtel,
+        conta?.chavepixaleatorio
+      ];
+
+      const chavesLogadas = [
+        contaLogada?.chavepixcpf,
+        contaLogada?.chavepixemail,
+        contaLogada?.chavepixtel,
+        contaLogada?.chavepixaleatorio
+      ];
+
+      if (chaves.includes(chaveInserida) && !chavesLogadas.includes(chaveInserida)) {
+        achou = true;
+        break;
       }
-    } catch (error) {
-      throw error
     }
-  }
+
+    if (achou) {
+      navigate("transferenciapix");
+    } else {
+      navigate("/erro");
+    }
+  };
+
 
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
         <header className="w-full h-15 bg-white flex items-center shadow-md relative z-10 px-6">
           <div className="flex justify-between items-center w-full">
-            <button
-              onClick={() =>
-                (window.location.href = "http://localhost:5173/areapix")
-              }
+            <NavLink
+              to="/inicio"
               className="text-gray-700 hover:text-green-500 transition-colors"
             >
               <CircleArrowLeft className="w-6 h-6" />
-            </button>
+            </NavLink>
 
             <button className="text-gray-700 hover:text-green-500 transition-colors">
               <CircleQuestionMark className="w-6 h-6 mr-35" />
@@ -68,7 +86,7 @@ export function Transferencia() {
           </div>
 
           <img
-            src="imagens/logocriancas.png"
+            src={imagem}
             alt="Logo"
             className="fixed top-0 right-0 w-35 h-auto object-contain z-50 pointer-events-none"
           />
@@ -94,22 +112,20 @@ export function Transferencia() {
           <div className="flex gap-6 mb-4 ml-5">
             <button
               onClick={() => setAbaAtiva("recentes")}
-              className={`font-semibold transition-colors ${
-                abaAtiva === "recentes"
-                  ? "text-white border-b-2 border-[#6dd63a]"
-                  : "text-gray-300 hover:text-white hover:border-b-2 hover:border-[#6dd63a]"
-              }`}
+              className={`font-semibold transition-colors ${abaAtiva === "recentes"
+                ? "text-white border-b-2 border-[#6dd63a]"
+                : "text-gray-300 hover:text-white hover:border-b-2 hover:border-[#6dd63a]"
+                }`}
             >
               Recentes
             </button>
 
             <button
               onClick={() => setAbaAtiva("favoritos")}
-              className={`font-semibold transition-colors ${
-                abaAtiva === "favoritos"
-                  ? "text-white border-b-2 border-[#6dd63a]"
-                  : "text-gray-300 hover:text-white hover:border-b-2 hover:border-[#6dd63a]"
-              }`}
+              className={`font-semibold transition-colors ${abaAtiva === "favoritos"
+                ? "text-white border-b-2 border-[#6dd63a]"
+                : "text-gray-300 hover:text-white hover:border-b-2 hover:border-[#6dd63a]"
+                }`}
             >
               Favoritos
             </button>
@@ -134,11 +150,10 @@ export function Transferencia() {
                     </div>
                     <button onClick={() => toggleFavorito(contato)}>
                       <Star
-                        className={`w-5 h-5 cursor-pointer transition-colors ${
-                          favorito
-                            ? "text-yellow-400 fill-yellow-400"
-                            : "text-white"
-                        }`}
+                        className={`w-5 h-5 cursor-pointer transition-colors ${favorito
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-white"
+                          }`}
                       />
                     </button>
                   </div>

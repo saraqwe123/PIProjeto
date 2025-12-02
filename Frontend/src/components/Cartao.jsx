@@ -3,6 +3,7 @@ import {
   EyeOffIcon,
 } from "lucide-react";
 import { useState } from "react";
+import imagem from "/imagens/logoSite.svg"
 
 export function Cartao({nome, saldo}) {
     const [showBalance, setShowBalance] = useState(false);
@@ -13,7 +14,7 @@ export function Cartao({nome, saldo}) {
     <>
         <div className="w-130 h-80 bg-white rounded-4xl p-6 shadow-xl relative overflow-hidden flex justify-between items-start">
             <div className="flex flex-col gap-2">
-                <img src="imagens/logoSite.svg" alt="Logo" className="w-55" />
+                <img src={imagem} alt="Logo" className="w-55" />
                 <p className="text-lg text-gray-700">{nome}</p>
                 <h2 className="tracking-widest text-3xl font-semibold"> **** **** **** 0038 </h2>
                 <div className="flex flex-col gap-1 w-full mt-2">
