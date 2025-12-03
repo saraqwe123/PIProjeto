@@ -18,30 +18,35 @@ export function Caixinha() {
                 <div className="w-full md:w-2/3 flex flex-col items-center bg-black p-4">
                     <MenuSuperior />
                     <section className="mt-6 px-4 self-start">
-                        <h1 className="text-white mb-2">Minhas Caixinhas</h1>
-                        <div className="flex flex-row">
+                        <h1 className="text-white mb-2 text-2xl"><strong>Minhas Caixinhas</strong></h1>
+
+                        {/* Container com altura limitada e scroll */}
+                        <div className="flex flex-wrap  mx-2 max-h-[398px] overflow-y-auto">
                             {minhasCaixinhas.map((c) => (
                                 <div
                                     key={c.id}
-                                    className="w-44 h-44 m-2 lg:w-56 lg:h-56 bg-white flex justify-center items-center rounded-2xl cursor-pointer"
+                                    className="w-36 h-36 m-2 lg:w-56 lg:h-56 bg-white flex justify-center items-center rounded-2xl cursor-pointer"
                                     onClick={() => navigate(`/investimentos/caixinha/${c.id}`)}
                                 >
                                     <img
-                                        src={c.imagem} 
+                                        src={c.imagem}
                                         alt={`Caixinha ${c.id}`}
                                         className="object-cover w-full h-full rounded-2xl"
                                     />
                                 </div>
                             ))}
-                        </div>
-                        <div
-                            className="w-44 h-44 m-2 lg:w-56 lg:h-56 bg-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-300"
-                            onClick={() => navigate("/investimentos/caixinha/caixinhanova")}
-                        >
-                            <PlusIcon size={72} className="text-gray-500" />
+
+                            {/* Caixinha de + */}
+                            <div
+                                className="w-36 h-36 m-2 lg:w-56 lg:h-56 bg-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-300"
+                                onClick={() => navigate("/investimentos/caixinha/caixinhanova")}
+                            >
+                                <PlusIcon size={72} className="text-gray-500" />
+                            </div>
                         </div>
                     </section>
-                    <section className="mt-6 px-4 self-start w-full flex items-center">
+
+                    <section className="mt-6 px-4 self-start w-full flex items-center justify-end">
                         <NavLink
                             to='/investimentos'
                             className="mt-2 w-20 lg:w-1/8 p-5 flex justify-center bg-red-700 text-white py-2 border border-red-700/0 cursor-pointer rounded-2xl hover:border-red-700 hover:bg-white hover:text-red-700 transition-colors font-semibold"

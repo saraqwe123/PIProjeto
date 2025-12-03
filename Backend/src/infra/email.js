@@ -1,5 +1,5 @@
-import nodemailer from "nodemailer"
-import dotenv from "dotenv"
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -18,23 +18,24 @@ var transporter = nodemailer.createTransport({
 });
 
 var mailOptions = {
-  from: 'pedroutumi@gmail.com',
+  from: 'sara.cipriano12344@gmail.com',
+  replyTo: '',
   to: '',
   subject: '',
   text: ''
 };
 
-let enviarEmail = function(emailDestino, assunto, mensagem){
-    mailOptions.to = emailDestino;
-    mailOptions.subject = assunto;
-    mailOptions.text = mensagem;
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-    });
-}
+export function enviarEmail(emailDestino, assunto, mensagem, email) {
+  mailOptions.to = emailDestino;
+  mailOptions.subject = assunto;
+  mailOptions.text = mensagem;
+  mailOptions.replyTo = email;
 
-module.exports = enviarEmail;
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
