@@ -25,7 +25,7 @@ export function DadosProvider({ children }) {
   useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const response = await fetch("http://localhost:3000/Clientes");
+        const response = await fetch("http://localhost:3001/Clientes");
         if (!response.ok) throw new Error("Erro ao buscar clientes");
 
         const json = await response.json();
@@ -42,7 +42,7 @@ export function DadosProvider({ children }) {
   useEffect(() => {
     const fetchContas = async () => {
       try {
-        const response = await fetch("http://localhost:3000/Contas");
+        const response = await fetch("http://localhost:3001/Contas");
         if (!response.ok) throw new Error("Erro ao buscar contas");
 
         const json = await response.json();
@@ -58,7 +58,7 @@ export function DadosProvider({ children }) {
   useEffect(() => {
     const fetchEnderecos = async () => {
       try {
-        const response = await fetch("http://localhost:3000/Enderecos");
+        const response = await fetch("http://localhost:3001/Enderecos");
         if (!response.ok) throw new Error("Erro ao buscar Enderecos");
 
         const json = await response.json();

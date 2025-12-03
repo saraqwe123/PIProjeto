@@ -11,18 +11,26 @@ import { MenuSuperiorSemBarra } from "../components/MenuSuperiorSemBarra";
 export function CaixinhaNova() {
   const navigate = useNavigate();
 
+  const cliente = JSON.parse(localStorage.getItem("usuario"));
   const conta = JSON.parse(localStorage.getItem("conta"));
 
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState("imediato");
 
-  const criarCaixinha = () => {
+  async function pegarImagemCachorro() {
+    try {
+      const response = await fetch("https://dog.ceo/api/breeds/image/random");
+      const data = await response.json();
+      return data.message;
+    } catch (error) {
+      console.error("Erro ao pegar imagem do cachorro:", error);
+      return "/imagens/imagensCaixinha/imagem3.png"; 
+    }
+  }
+  
+const criarCaixinha = async() => {
 
-    const imagensDisponiveis = [
-      "/imagens/imagensCaixinha/imagem1.png",
-      "/imagens/imagensCaixinha/imagem2.png",
-      "/imagens/imagensCaixinha/imagem3.png"
-    ];
+  const imagemAleatoria = await pegarImagemCachorro();
 
     const numero = parseFloat(valor);
 
@@ -43,12 +51,24 @@ export function CaixinhaNova() {
       criadoEm: new Date(),
       totalDepositado: numero,
       totalResgatado: 0,
-      imagem: imagensDisponiveis[0]
+      imagem: imagemAleatoria
     };
 
     conta.caixinhas = [...(conta.caixinhas || []), nova];
     conta.saldo -= numero;
     localStorage.setItem("conta", JSON.stringify(conta));
+
+    try {
+      await fetch("http://localhost:3001/enviarCaixinhaEmail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: cliente.email
+        }),
+      });
+    } catch (error) {
+      console.error("Erro ao enviar email:", error);
+    }
 
     navigate("/investimentos/caixinha");
   };
