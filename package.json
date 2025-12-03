@@ -23,8 +23,10 @@
     "concurrently": "^9.2.1"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
     "expres": "^0.0.5",
     "express": "^5.1.0",
-    "lucide-react": "^0.544.0"
+    "lucide-react": "^0.544.0",
+    "react-chartjs-2": "^5.3.1"
   }
 }

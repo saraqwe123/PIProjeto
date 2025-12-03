@@ -27,7 +27,8 @@ export function CaixinhaDetalhe() {
         if (operacao === "depositar") {
             if (numero > conta.saldo) {
                 alert("Saldo insuficiente!");
-                return;
+                return;            setCaixinha((prev) => ({ ...prev, saldo: prev.saldo - numero }));
+                conta.saldo += numero;
             }
             setCaixinha((prev) => ({ ...prev, saldo: prev.saldo + numero }));
             conta.saldo -= numero;
@@ -38,10 +39,10 @@ export function CaixinhaDetalhe() {
                 return;
             }
             setCaixinha((prev) => ({ ...prev, saldo: prev.saldo - numero }));
-            conta.saldo += numero;
+            conta.saldo = conta.saldo + numero;
         }
         
-
+        localStorage.setItem("conta", JSON.stringify(conta));
         setValor("");
         setOperacao(null);
     };
