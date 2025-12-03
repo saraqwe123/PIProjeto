@@ -1,6 +1,7 @@
 import { BadgeQuestionMarkIcon, BellIcon, MessageCircleMoreIcon, SearchIcon, UserCircle2Icon } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DadosContext } from "../context/DadosContext";
 
 export function MenuSuperior() {
     const [showMenu, setShowMenu] = useState(false)
@@ -9,9 +10,14 @@ export function MenuSuperior() {
     const [showChangePix, setShowChangePix] = useState(false)
     const [showChangePhoto, setShowChangePhoto] = useState(false)
     const [imagePreview, setImagePreview] = useState(null);
+    const [deletados, setDeletados] = useState([])
+    const [atualizados, setAtualizados] = useState([])
+    const [novoUsuario, setNovoUsuario] = useState({ senha: "", login: "", email: "", telefone: "", cep: "", rua: "", numeroCasa: "", complemento: "", bairro: "", cidade: "", estado: ""})
     const navigate = useNavigate()
+    const { dados, adicionarDados } = useContext(DadosContext)
     const cliente = JSON.parse(localStorage.getItem("usuario"));
     const conta = JSON.parse(localStorage.getItem("conta"));
+    const endereco = JSON.parse(localStorage.getItem("endereco"));
 
 
 
@@ -21,7 +27,7 @@ export function MenuSuperior() {
 
     const toggleFormUpdate = () => {
         setShowFormUpdate((prev) => !prev);
-        
+
     };
 
     const toggleAccountData = () => {
@@ -54,6 +60,139 @@ export function MenuSuperior() {
         navigate("/")
     };
 
+    async function handleExcluir(e) {
+        try {
+
+            const resposta = await fetch(`http://localhost:3000/EnderecosExcluir/${endereco.id}`, {
+                method: "put",
+
+            })
+            if (!resposta.ok) {
+                console.error(resposta);
+                const texto = await resposta.text()
+            } else {
+
+                setDeletados((prevDeletados) => [...prevDeletados, endereco.id])
+                const novosDados = {
+                    ...dados,
+                    enderecos: dados.enderecos?.filter(dado => dado.id !== endereco.id),
+                };
+                adicionarDados(novosDados);
+            }
+            const respostaCliente = await fetch(`http://localhost:3000/ClientesExcluir/${cliente.id}`, {
+                method: "put",
+
+            })
+            if (!respostaCliente.ok) {
+                console.error(respostaCliente);
+                const texto = await respostaCliente.text()
+            } else {
+
+                setDeletados((prevDeletados) => [...prevDeletados, cliente.id])
+                const novosDados = {
+                    ...dados,
+                    clientes: dados.clientes?.filter(dado => dado.id !== cliente.id),
+                };
+                adicionarDados(novosDados);
+            }
+            const respostaConta = await fetch(`http://localhost:3000/ContasExcluir/${conta.id}`, {
+                method: "put",
+
+            })
+            if (!respostaConta.ok) {
+                console.error(respostaConta);
+                const texto = await respostaConta.text()
+            } else {
+
+                setDeletados((prevDeletados) => [...prevDeletados, conta.id])
+                const novosDados = {
+                    ...dados,
+                    contas: dados.contas?.filter(dado => dado.id !== conta.id),
+                };
+                adicionarDados(novosDados);
+            }
+            localStorage.clear()
+            navigate("/")
+
+        } catch (error) {
+            console.error(error);
+
+        }
+    };
+    async function handleAtualizar(e) {
+        try {
+            const enderecoData = {
+                rua: novoUsuario.rua,
+                numeroCasa: novoUsuario.numeroCasa,
+                complemento: novoUsuario.complemento,
+                bairro: novoUsuario.bairro,
+                cidade: novoUsuario.cidade,
+                estado: novoUsuario.estado,
+                cep: novoUsuario.cep,
+              };
+          
+              const clienteData = {
+                login: novoUsuario.login,
+                senha: novoUsuario.senha,
+                email: novoUsuario.email,
+                telefone: novoUsuario.telefone,
+              };
+          
+            const resposta = await fetch(`http://localhost:3000/Enderecos/${endereco.id}`, {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(enderecoData),
+            })
+            if (!resposta.ok) {
+                console.error(resposta);
+                const texto = await resposta.text()
+            } else {
+
+                setAtualizados((prevAtualizados) => [...prevAtualizados, endereco.id])
+                const novosDados = {
+                    ...dados,
+                    enderecos: dados.enderecos?.filter(dado => dado.id !== endereco.id),
+                };
+                adicionarDados(novosDados);
+            }
+            const respostaCliente = await fetch(`http://localhost:3000/Clientes/${cliente.id}`, {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(clienteData),
+
+            })
+            if (!respostaCliente.ok) {
+                console.error(respostaCliente);
+                const texto = await respostaCliente.text()
+            } else {
+
+                setAtualizados((prevAtualizados) => [...prevAtualizados, cliente.id])
+                const novosDados = {
+                    ...dados,
+                    clientes: dados.clientes?.filter(dado => dado.id !== cliente.id),
+                };
+                adicionarDados(novosDados);
+            }
+            localStorage.clear()
+            
+            const endereco = dados.enderecos?.find(e => String(e.id) === String(usuario.idendereco));
+            if (endereco) localStorage.setItem("endereco", JSON.stringify(endereco));
+            const usuario = dados.clientes.find(u => String(u.cpf) === String(login));
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+
+
+            navigate("/")
+
+        } catch (error) {
+            console.error(error);
+
+        }
+    };
+
     return (
         <>
             <div className="flex flex-col md:flex-row w-full items-center justify-between gap-4 mt-3">
@@ -79,64 +218,130 @@ export function MenuSuperior() {
                                 <li onClick={toggleAccountData} className="hover:text-[#6dd63a] cursor-pointer">
                                     Dados da conta
                                 </li>
-                                <li onClick={toggleChangePhoto} className="hover:text-[#6dd63a] cursor-pointer">
+                                {/* <li onClick={toggleChangePhoto} className="hover:text-[#6dd63a] cursor-pointer">
                                     Atualizar foto
-                                </li>
+                                </li> */}
                                 <li onClick={toggleChangePix} className="hover:text-[#6dd63a] cursor-pointer">
                                     Mudar chave pix
                                 </li>
                                 <li onClick={handleClose} className="hover:text-red-500 cursor-pointer">
                                     Sair
                                 </li>
+                                <li onClick={handleExcluir} className="hover:text-red-500 cursor-pointer">
+                                    Excluir conta
+                                </li>
                             </ul>
                         </div>
                     )}
 
                     {showFormUpdate && (
-                        <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
+                        <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80 max-h-[70vh] overflow-y-auto">
                             <h1 className="text-lg font-bold text-gray-800 mb-2">Atualize seu cadastro</h1>
                             <p className="text-sm text-gray-600 mb-4">
                                 Confirme se as informações sobre você estão atualizadas.
                             </p>
 
-                            <form className="flex flex-col gap-4">
+                            <form className="flex flex-col gap-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
-                                    <input
-                                        type="tel"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
-                                        placeholder="(xx) xxxxx-xxxx"
-                                    />
+                                    <h2 className="text-md font-semibold text-gray-700 mb-2">Endereço</h2>
+                                    <div className="flex flex-col gap-3">
+                                        <input
+                                            type="text"
+                                            placeholder="CEP"
+                                            value={novoUsuario.cep}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, cep: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Rua"
+                                            value={novoUsuario.rua}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, rua: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Número da casa"
+                                            value={novoUsuario.numeroCasa}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, numeroCasa: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Complemento"
+                                            value={novoUsuario.complemento}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, complemento: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Bairro"
+                                            value={novoUsuario.bairro}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, bairro: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Cidade"
+                                            value={novoUsuario.cidade}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, cidade: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Estado"
+                                            value={novoUsuario.estado}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, estado: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                    <input
-                                        type="email"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
-                                        placeholder="seuemail@exemplo.com"
-                                    />
+                                    <h2 className="text-md font-semibold text-gray-700 mb-2">Dados Pessoais</h2>
+                                    <div className="flex flex-col gap-3">
+                                        <input
+                                            type="text"
+                                            placeholder="Login"
+                                            value={novoUsuario.login}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, login: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="password"
+                                            placeholder="Senha"
+                                            value={novoUsuario.senha}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, senha: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="email"
+                                            placeholder="Email"
+                                            value={novoUsuario.email}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, email: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                        <input
+                                            type="tel"
+                                            placeholder="Telefone"
+                                            value={novoUsuario.telefone}
+                                            onChange={(e) => setNovoUsuario({ ...novoUsuario, telefone: e.target.value })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
+                                        />
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Endereço</label>
-                                    <input
-                                        type="text"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6dd63a] focus:border-transparent"
-                                        placeholder="Rua, número, bairro"
-                                    />
-                                </div>
-                                <div className="w-full">
-
+                                <div className="flex flex-col gap-2 mt-2">
                                     <button
                                         type="submit"
-                                        className="mt-2 w-full bg-[#6dd63a] text-white py-2 border cursor-pointer rounded-md hover:border-[#57b72e] hover:bg-white hover:text-[#57b72e] transition-colors font-semibold"
+                                        className="w-full bg-[#6dd63a] text-white py-2 border cursor-pointer rounded-md hover:border-[#57b72e] hover:bg-white hover:text-[#57b72e] transition-colors font-semibold"
                                     >
                                         Atualizar
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={() => setShowFormUpdate(false)}
-                                        className="mt-6 w-full bg-[#e21e1e] text-white py-2 border cursor-pointer rounded-md hover:bg-white hover:border-[#e21e1e] hover:text-[#e21e1e] transition-colors font-semibold"
+                                        className="w-full bg-[#e21e1e] text-white py-2 border cursor-pointer rounded-md hover:bg-white hover:border-[#e21e1e] hover:text-[#e21e1e] transition-colors font-semibold"
                                     >
                                         Fechar
                                     </button>
@@ -144,6 +349,7 @@ export function MenuSuperior() {
                             </form>
                         </div>
                     )}
+
 
                     {showAccountData && (
                         <div className="absolute left-[-130px] lg:left-0 top-12 bg-white text-black rounded-xl shadow-xl z-50 p-6 w-80">
@@ -165,6 +371,28 @@ export function MenuSuperior() {
                                     <span>{cliente?.telefone}</span>
                                 </div>
 
+                                <div className="flex justify-between items-start w-full">
+                                    <span className="font-medium">Chave pix:</span>
+
+                                    <details className="text-right w-fit cursor-pointer">
+                                        <summary className="list-none text-blue-600 hover:underline">
+                                            Mostrar
+                                        </summary>
+
+                                        <ul className="mt-1 flex flex-col gap-1 text-sm text-gray-700 max-w-[180px]">
+                                            {conta?.chavepixcpf && <li className="truncate">{conta.chavepixcpf}</li>}
+                                            {conta?.chavepixtel && <li className="truncate">{conta.chavepixtel}</li>}
+                                            {conta?.chavepixaleatorio && (
+                                                <li className="truncate" title={conta.chavepixaleatorio}>
+                                                    {conta.chavepixaleatorio}
+                                                </li>
+                                            )}
+                                            {conta?.chavepixemail && <li className="truncate">{conta.chavepixemail}</li>}
+                                        </ul>
+                                    </details>
+                                </div>
+
+
                                 <div className="flex justify-between">
                                     <span className="font-medium">Conta:</span>
                                     <span>{conta?.numerodaconta}</span>
@@ -179,6 +407,7 @@ export function MenuSuperior() {
                                     <span className="font-medium">Banco:</span>
                                     <span>MonoCoin</span>
                                 </div>
+
                             </div>
 
                             <button
@@ -284,7 +513,7 @@ export function MenuSuperior() {
                     <MessageCircleMoreIcon className="hover:text-[#6dd63a] transition-colors" />
                     <BellIcon className="hover:text-[#6dd63a] transition-colors" />
                 </div>
-            </div>                    
+            </div>
         </>
     )
 }

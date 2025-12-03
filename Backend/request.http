@@ -1,15 +1,5 @@
-POST http://localhost:3000/Enderecos
-Content-Type: application/json
+GET http://localhost:3000/Enderecos
 
-{
-  "rua": "Rua Mato Grosso",
-  "cep": "87300-355",
-  "numeroCasa": "390",
-  "complemento": "Sobrado",
-  "bairro": "Jd Gutierrez",
-  "estado": "PR",
-  "cidade": "Campo Mourão"
-}
 
 # POST http://localhost:3000/Clientes
 # Content-Type: application/json

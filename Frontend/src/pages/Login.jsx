@@ -22,7 +22,7 @@ export function Login() {
     }
 
     const usuario = dados.clientes.find(u => String(u.cpf) === String(login));
-    if (!usuario) {
+    if (!usuario || !usuario.isativo) {
       alert("Login ou senha inválidos!");
       return;
     }

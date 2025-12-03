@@ -21,9 +21,9 @@ export class EnderecoService {
         }
     }
 
-    async updateEndereco(id,enderecoData) {
+    async updateEndereco(id, enderecoData) {
         try {
-            if (validateCPF(enderecoData.cpf)) return await this.EnderecoRepository.update(id,enderecoData);
+            return await this.EnderecoRepository.update(id, enderecoData);
         } catch (e) {
             throw e
         }

@@ -52,10 +52,11 @@ export class CadastroRepository {
   }
 
   async remove(id) {
-    const result = await this.db.delete(cliente)
+    const result = await this.db.update(cliente)
+      .set({ isativo: false })
       .where(eq(cliente.id, id))
       .returning({ id: cliente.id });
-
+  
     return result.length > 0;
   }
 }

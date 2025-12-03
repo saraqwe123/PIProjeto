@@ -51,10 +51,11 @@ export class ContaRepository {
   }
 
   async remove(id) {
-    const result = await this.db.delete(conta)
+    const result = await this.db.update(conta)
+      .set({ isativo: false })
       .where(eq(conta.id, id))
       .returning({ id: conta.id });
-
+  
     return result.length > 0;
   }
 }

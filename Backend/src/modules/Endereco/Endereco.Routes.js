@@ -20,7 +20,7 @@ export async function EnderecoRoutes(fastify, options) {
   fastify.put('/Enderecos/:id', (request, reply) => 
     enderecoController.updateEndereco(request, reply)
   );
-  fastify.delete('/Enderecos/:id', (request, reply) => 
+  fastify.put('/EnderecosExcluir/:id', (request, reply) => 
     enderecoController.deleteEndereco(request, reply)
   );
 }

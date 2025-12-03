@@ -20,7 +20,7 @@ export async function ContaRoutes(fastify, options) {
   fastify.put('/Contas/:id', (request, reply) => 
     contaController.updateConta(request, reply)
   );
-  fastify.delete('/Contas/:id', (request, reply) => 
+  fastify.put('/ContasExcluir/:id', (request, reply) => 
     contaController.deleteConta(request, reply)
   );
 }

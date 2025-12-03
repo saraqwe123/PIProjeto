@@ -31,7 +31,7 @@ export class CadastroService {
 
     async updateCliente(id, clienteData) {
         try {
-            if (validateCPF(clienteData.cpf)) return await this.CadastroRepository.update(id, clienteData);
+            return await this.CadastroRepository.update(id, clienteData);
         } catch (e) {
             throw e
         }

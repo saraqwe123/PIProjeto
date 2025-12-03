@@ -62,8 +62,15 @@ export class CadastroController {
   
     async updateCliente(request, reply) {
       const { id } = request.params;
+      const { login, senha, email, telefone } = request.body
+      const clienteUpdate = {
+        login: login,
+        senha: senha,
+        email: email,
+        telefone: telefone
+      }
       try {
-        const updatedCliente = await this.CadastroService.updateCliente(id, request.body);
+        const updatedCliente = await this.CadastroService.updateCliente(id, clienteUpdate);
         if (!updatedCliente) return reply.code(404).send({ message: `Cliente com ID ${id} não encontrado para atualização.` });
         return reply.code(200).send(updatedCliente);
       } catch (error) {

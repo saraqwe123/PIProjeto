@@ -51,10 +51,11 @@ export class EnderecoRepository {
   }
 
   async remove(id) {
-    const result = await this.db.delete(endereco)
+    const result = await this.db.update(endereco)
+      .set({ isativo: false })
       .where(eq(endereco.id, id))
       .returning({ id: endereco.id });
-
+  
     return result.length > 0;
   }
 }

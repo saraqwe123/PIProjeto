@@ -1,3 +1,4 @@
+import { boolean } from "drizzle-orm/gel-core";
 import { pgTable, serial, varchar, char, date, integer, real, text   } from "drizzle-orm/pg-core";
 
 export const cliente = pgTable("cliente", {
@@ -10,27 +11,26 @@ export const cliente = pgTable("cliente", {
   datanasc: date("datanasc"),
   idendereco: integer("idendereco"),
   fotoperfil: varchar("fotoperfil", { length: 255 }),
+  isativo: boolean("isativo").default(true),  
 });
 
 export const conta = pgTable("conta", {
   id: serial("id").primaryKey(),
   idcliente: integer("idcliente").references(() => cliente.id),
-
   chavepixcpf: char("chavepixcpf", { length: 11 }),
   chavepixemail: varchar("chavepixemail", { length: 255 }),
   chavepixtel: char("chavepixtel", { length: 11 }),
   chavepixaleatorio: varchar("chavepixaleatorio", { length: 255 }),
-
   saldo: real("saldo"),
   numerodaconta: varchar("numerodaconta", { length: 255 }),
+  isativo: boolean("isativo").default(true),  
+
 });
 
 export const transferencia = pgTable("transferencia", {
   id: serial("id").primaryKey(),
-
   idconta: integer("idconta").references(() => conta.id),
   idcontadestino: integer("idcontadestino").references(() => conta.id),
-
   valor: real("valor"),
   datatransf: date("datatransf"),
   comentario: varchar("comentario", { length: 255 }),
@@ -45,10 +45,8 @@ export const tipocaixinha = pgTable("tipocaixinha", {
 
 export const caixinha = pgTable("caixinha", {
   id: serial("id").primaryKey(),
-
   idconta: integer("idconta").references(() => conta.id),
   idtipocaixinha: integer("idtipocaixinha").references(() => tipocaixinha.id),
-
   valorinvestido: real("valorinvestido"),
   valorresgatado: real("valorresgatado"),
   datacriacao: date("datacriacao"),
@@ -57,26 +55,20 @@ export const caixinha = pgTable("caixinha", {
 
 export const histrendcaixinha = pgTable("histrendcaixinha", {
   id: serial("id").primaryKey(),
-
   idcaixinha: integer("idcaixinha").references(() => caixinha.id),
-
   valorrendido: real("valorrendido"),
   datarendimento: date("datarendimento"),
 });
 
 export const histtranscaixinha = pgTable("histtranscaixinha", {
   id: serial("id").primaryKey(),
-
   idcaixinha: integer("idcaixinha").references(() => caixinha.id),
-
   valormovimentado: real("valormovimentado"),
 });
 
 export const acao = pgTable("acao", {
   id: serial("id").primaryKey(),
-
   idconta: integer("idconta").references(() => conta.id),
-
   valorinvestido: real("valorinvestido"),
   datacompra: date("datacompra"),
   valorvendido: real("valorvendido"),
@@ -85,35 +77,25 @@ export const acao = pgTable("acao", {
 
 export const histrendacao = pgTable("histrendacao", {
   id: serial("id").primaryKey(),
-
   idacao: integer("idacao").references(() => acao.id),
-
   valorrendido: real("valorrendido"),
   datarendimento: date("datarendimento"),
 });
 
 export const histtransfacao = pgTable("histtransfacao", {
   id: serial("id").primaryKey(),
-
   idacao: integer("idacao").references(() => acao.id),
-
   valormovimentado: real("valormovimentado"),
 });
 
 export const endereco = pgTable("endereco", {
   id: serial("id").primaryKey(),
-
   cep: char("cep", { length: 9 }),
-
   estado: char("estado", { length: 2 }),
-
   rua: varchar("rua", { length: 100 }),
-  
-  complemento: varchar("complemento", { length: 100 }),
-  
+  complemento: varchar("complemento", { length: 100 }),  
   cidade: varchar("cidade", { length: 100 }),
-  
   bairro: varchar("bairro", { length: 100 }),
-  
+  isativo: boolean("isativo").default(true),  
   numerocasa: varchar("numerocasa", { length: 100 }),  
 });

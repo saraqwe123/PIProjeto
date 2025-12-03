@@ -20,7 +20,7 @@ export async function CadastroRoutes(fastify, options) {
   fastify.put('/Clientes/:id', (request, reply) => 
     cadastroController.updateCliente(request, reply)
   );
-  fastify.delete('/Clientes/:id', (request, reply) => 
+  fastify.put('/ClientesExcluir/:id', (request, reply) => 
     cadastroController.deleteCliente(request, reply)
   );
 }
