@@ -63,9 +63,11 @@ export class CadastroController {
     async updateCliente(request, reply) {
       const { id } = request.params;
       const { login, senha, email, telefone } = request.body
+      const saltRounds = 10;
+      const senhaHash = await bcrypt.hash(senha, saltRounds);
       const clienteUpdate = {
         login: login,
-        senha: senha,
+        senha: senhaHash,
         email: email,
         telefone: telefone
       }

@@ -50,6 +50,7 @@ export class EnderecoController {
     async updateEndereco(request, reply) {
       const { id } = request.params;
       try {
+        console.log("CONTROLLERRRRRRRRRRRRRRRRRRRRRRRRRRRR",request.body)
         const updatedEndereco = await this.EnderecoService.updateEndereco(id, request.body);
         if (!updatedEndereco) return reply.code(404).send({ message: `Endereco com ID ${id} não encontrado para atualização.` });
         return reply.code(200).send(updatedEndereco);

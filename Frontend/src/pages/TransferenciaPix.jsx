@@ -41,7 +41,7 @@ export function TransferenciaPix() {
 
     const realizandoTransferencia = () => {
         const valorNumerico = Number(valor.replace(/\D/g, ""));
-        const valorReal = valorNumerico/100
+        const valorReal = valorNumerico / 100
         if (valorReal >= 0.01 && saldo >= valorReal) {
             navigate(`confirmarPagamento/${valorNumerico}`);
         } else {
@@ -102,45 +102,30 @@ export function TransferenciaPix() {
                         )}
                     </div>
                     <button onClick={realizandoTransferencia} className=" w-36 mt-4 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Avançar</button>
+                    <button onClick={() => navigate("/calculadora")} className=" w-36 ml-2 mt-4 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Calculadora</button>
                 </div>
 
-                <div className="bg-transparent w-full  flex flex-col items-center gap-4 mt-2">
+                <div className="bg-transparent w-full flex flex-colitems-center gap-4 mt-2">
 
-                    <div className="flex gap-4">
-                        <button
-                            onClick={() => adicionarValor(1000)}
-                            className="pix-btn"
-                        >
-                            +R$ 10
-                        </button>
+                    <div className="w-full mt-6 flex justify-center items-start gap-6">
+                        <div className="flex gap-4 flex-wrap">
+                            {[1000, 2000, 5000, 10000].map((val) => (
+                                <button
+                                    key={val}
+                                    onClick={() => adicionarValor(val)}
+                                    className="bg-[#003c0a] text-white px-6 py-2 rounded-xl hover:bg-[#4a8b00] transition"
+                                >
+                                    +R$ {(val / 100).toFixed(0)}
+                                </button>
+                            ))}
+                        </div>
 
-                        <button
-                            onClick={() => adicionarValor(2000)}
-                            className="pix-btn"
-                        >
-                            +R$ 20
-                        </button>
-
-                        <button
-                            onClick={() => adicionarValor(5000)}
-                            className="pix-btn"
-                        >
-                            +R$ 50
-                        </button>
-                    </div>
-
-                    <button
-                        onClick={() => adicionarValor(10000)}
-                        className="pix-btn w-40"
-                    >
-                        +R$ 100
-                    </button>
-
-                    <div className="w-full mt-6 flex justify-center">
-                        <div className="w-full max-w-md">
-                            <Cartao nome={cliente?.login} saldo={conta?.saldo} />
+                        <div className="w-64">
+                            <Cartao nome={cliente.login} saldo={conta.saldo} />
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </Pagina>

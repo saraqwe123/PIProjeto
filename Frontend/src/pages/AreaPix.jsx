@@ -1,23 +1,31 @@
+
+import { useState } from "react";
 import { Pagina } from "../components/Pagina";
-import { MoveUpRight } from "lucide-react";
-import { Key } from "lucide-react";
-import { Copy } from "lucide-react";
-import { DollarSign } from "lucide-react";
-import { CircleArrowLeft } from "lucide-react";
-import { CircleQuestionMark } from "lucide-react";
+import { CircleArrowLeft, CircleQuestionMark, Copy, Key, MoveUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-
 export function AreaPix() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [procura, setProcura] = useState("");
+
+  const historicoPix = [
+    { nome: "João Silva", hora: "09:14", tipo: "Pix", valor: -20 },
+    { nome: "Maria Souza", hora: "10:20", tipo: "Pix", valor: 50 },
+    { nome: "João Silva", hora: "11:30", tipo: "Pix", valor: -30 },
+  ];
+
+  const historicoFiltrado = historicoPix.filter((item) =>
+    item.nome.toLowerCase().includes(procura.toLowerCase())
+  );
+
   return (
     <Pagina>
       <div className="flex flex-col w-full h-screen">
         <header className="w-full h-15 bg-white flex items-center shadow-md relative z-10 px-6">
           <div className="flex justify-between items-center w-full">
             <button
-              onClick={() => window.location.href = "http://localhost:5173/inicio"}
-              className="text-gray-700 hover:text-green-500  transition-colors"
+              onClick={() => navigate("/inicio")}
+              className="text-gray-700 hover:text-green-500 transition-colors"
             >
               <CircleArrowLeft className="w-6 h-6" />
             </button>
@@ -36,7 +44,6 @@ export function AreaPix() {
 
         <main className="w-full flex-1 bg-[#259337] flex flex-col items-start p-10">
           <p className="text-white font-bold text-xl mb-6 ml-10">Área Pix</p>
-
           <div className="flex gap-10 ml-10 flex-wrap">
             <div className="flex flex-col items-center">
               <button
@@ -77,7 +84,7 @@ export function AreaPix() {
               </button>
               <p className="text-white mt-2">Agendar Pix</p>
             </div>
-            
+
           </div>
         </main>
 
@@ -85,49 +92,37 @@ export function AreaPix() {
 
         <div className="w-full flex-1 bg-[#003c0a] p-6 overflow-y-auto max-h-[300px]">
           <p className="text-white text-xl font-semibold mb-4 ml-5">Histórico</p>
+
           <div className="relative mb-4 ml-5">
             <input
               type="text"
-              placeholder="Pesquisar"
+              placeholder="Pesquisar por nome completo"
+              value={procura}
+              onChange={(e) => setProcura(e.target.value)}
               className="w-full rounded-full px-10 py-2 bg-[#d9d9d9] text-gray-700 focus:outline-none"
             />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5 absolute left-3 top-2.5 text-gray-500"
+          </div>
+
+          {historicoFiltrado.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between text-white border-b border-gray-400 py-3 ml-5"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-              />
-            </svg>
-          </div>
-
-          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3 ml-5">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 bg-gray-500 rounded-full"></div>
-              <div>
-                <p className="font-medium">Nome completo</p>
-                <p className="text-sm text-gray-300">09:14 - Pix</p>
+              <div className="flex items-center gap-3">
+                <div
+                  className={`w-5 h-5 rounded-full ${item.valor >= 0 ? "bg-green-400" : "bg-gray-500"
+                    }`}
+                ></div>
+                <div>
+                  <p className="font-medium">{item.nome}</p>
+                  <p className="text-sm text-gray-300">{item.hora} - {item.tipo}</p>
+                </div>
               </div>
+              <p className={item.valor >= 0 ? "text-green-400" : "text-red-400"}>
+                {item.valor >= 0 ? `+ R$ ${item.valor}` : `- R$ ${Math.abs(item.valor)}`}
+              </p>
             </div>
-            <p className="text-gray-300">- R$ 20,00</p>
-          </div>
-
-          <div className="flex items-center justify-between text-white border-b border-gray-400 py-3 ml-5">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 bg-green-400 rounded-full"></div>
-              <div>
-                <p className="font-medium">Nome completo</p>
-                <p className="text-sm text-gray-300">09:14 - Pix</p>
-              </div>
-            </div>
-            <p className="text-green-400">+ R$ 20,00</p>
-          </div>
+          ))}
         </div>
       </div>
     </Pagina>

@@ -119,7 +119,9 @@ export function MenuSuperior() {
 
         }
     };
+
     async function handleAtualizar(e) {
+        e.preventDefault();
         try {
             const enderecoData = {
                 rua: novoUsuario.rua,
@@ -129,69 +131,45 @@ export function MenuSuperior() {
                 cidade: novoUsuario.cidade,
                 estado: novoUsuario.estado,
                 cep: novoUsuario.cep,
-              };
-          
-              const clienteData = {
+            };
+    
+            const clienteData = {
                 login: novoUsuario.login,
                 senha: novoUsuario.senha,
                 email: novoUsuario.email,
                 telefone: novoUsuario.telefone,
-              };
-          
-            const resposta = await fetch(`http://localhost:3000/Enderecos/${endereco.id}`, {
+            };
+    
+            await fetch(`http://localhost:3000/Enderecos/${endereco.id}`, {
                 method: "put",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(enderecoData),
-            })
-            if (!resposta.ok) {
-                console.error(resposta);
-                const texto = await resposta.text()
-            } else {
-
-                setAtualizados((prevAtualizados) => [...prevAtualizados, endereco.id])
-                const novosDados = {
-                    ...dados,
-                    enderecos: dados.enderecos?.filter(dado => dado.id !== endereco.id),
-                };
-                adicionarDados(novosDados);
-            }
-            const respostaCliente = await fetch(`http://localhost:3000/Clientes/${cliente.id}`, {
+            });
+    
+            await fetch(`http://localhost:3000/Clientes/${cliente.id}`, {
                 method: "put",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(clienteData),
-
-            })
-            if (!respostaCliente.ok) {
-                console.error(respostaCliente);
-                const texto = await respostaCliente.text()
-            } else {
-
-                setAtualizados((prevAtualizados) => [...prevAtualizados, cliente.id])
-                const novosDados = {
-                    ...dados,
-                    clientes: dados.clientes?.filter(dado => dado.id !== cliente.id),
-                };
-                adicionarDados(novosDados);
-            }
-            localStorage.clear()
-            
-            const endereco = dados.enderecos?.find(e => String(e.id) === String(usuario.idendereco));
-            if (endereco) localStorage.setItem("endereco", JSON.stringify(endereco));
-            const usuario = dados.clientes.find(u => String(u.cpf) === String(login));
-            localStorage.setItem("usuario", JSON.stringify(usuario));
-
-
-            navigate("/")
-
+            });
+    
+            const novosDados = {
+                ...dados,
+                enderecos: dados.enderecos?.map(e => e.id === endereco.id ? { ...e, ...enderecoData } : e),
+                clientes: dados.clientes?.map(c => c.id === cliente.id ? { ...c, ...clienteData } : c),
+            };
+            adicionarDados(novosDados);
+    
+            const enderecoAtualizado = novosDados.enderecos.find(e => e.id === endereco.id);
+            const usuarioAtualizado = novosDados.clientes.find(c => c.id === cliente.id);
+    
+            if (enderecoAtualizado) localStorage.setItem("endereco", JSON.stringify(enderecoAtualizado));
+            if (usuarioAtualizado) localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
+    
         } catch (error) {
             console.error(error);
-
         }
-    };
+    }
+    
 
     return (
         <>
@@ -241,7 +219,7 @@ export function MenuSuperior() {
                                 Confirme se as informações sobre você estão atualizadas.
                             </p>
 
-                            <form className="flex flex-col gap-6">
+                            <form className="flex flex-col gap-6" onSubmit={handleAtualizar}>
                                 <div>
                                     <h2 className="text-md font-semibold text-gray-700 mb-2">Endereço</h2>
                                     <div className="flex flex-col gap-3">
