@@ -53,7 +53,7 @@ export function Cadastro() {
     try {
 
 
-      const enderecoResponse = await fetch("http://localhost:3000/Enderecos", {
+      const enderecoResponse = await fetch("http://localhost:3001/Enderecos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export function Cadastro() {
 
       const endereco = await enderecoResponse.json();
 
-      const clienteResponse = await fetch("http://localhost:3000/Clientes", {
+      const clienteResponse = await fetch("http://localhost:3001/Clientes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export function Cadastro() {
 
       const cliente = await clienteResponse.json();
 
-      const contaResponse = await fetch("http://localhost:3000/Contas", {
+      const contaResponse = await fetch("http://localhost:3001/Contas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

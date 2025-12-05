@@ -34,47 +34,49 @@ export function Transferencia() {
     setAbaAtiva("favoritos");
   };
 
-  const realizandoTransferencia = () => {
-    let contaDestino = null;
+const realizandoTransferencia = () => {
+  let contaDestino = null;
 
-    for (let i = 0; i < dados?.contas.length; i++) {
-      const contasNoBanco = dados?.contas[i];
+  for (let i = 0; i < dados?.contas.length; i++) {
+    const contasNoBanco = dados?.contas[i];
 
-      const chaves = [
-        contasNoBanco?.chavepixcpf,
-        contasNoBanco?.chavepixemail,
-        contasNoBanco?.chavepixtel,
-        contasNoBanco?.chavepixaleatorio
-      ];
+    const chaves = [
+      contasNoBanco?.chavepixcpf,
+      contasNoBanco?.chavepixemail,
+      contasNoBanco?.chavepixtel,
+      contasNoBanco?.chavepixaleatorio
+    ];
 
-      const chavesLogadas = [
-        contaLogada?.chavepixcpf,
-        contaLogada?.chavepixemail,
-        contaLogada?.chavepixtel,
-        contaLogada?.chavepixaleatorio
-      ];
+    const chavesLogadas = [
+      contaLogada?.chavepixcpf,
+      contaLogada?.chavepixemail,
+      contaLogada?.chavepixtel,
+      contaLogada?.chavepixaleatorio
+    ];
 
-      if (chaves.includes(chaveInserida) && !chavesLogadas.includes(chaveInserida)) {
-        contaDestino = contasNoBanco;
-        break;
-      }
+    if (chaves.includes(chaveInserida) && !chavesLogadas.includes(chaveInserida)) {
+      contaDestino = contasNoBanco;
+      break;
     }
+  }
 
-    const clienteDestino = dados.clientes?.find(
-      c => c.id === contaDestino.idcliente
-    );
+  // SE NÃO ACHAR A CONTA, VAI PARA ERRO
+  if (!contaDestino) {
+    navigate("/erro");
+    return;
+  }
 
-    
-    
-    if (contaDestino) {
-      localStorage.setItem("contaDestino", JSON.stringify(contaDestino));
-      localStorage.setItem("clienteDestino", JSON.stringify(clienteDestino));
+  // AQUI JÁ É GARANTIDO QUE TEM CONTA
+  const clienteDestino = dados.clientes?.find(
+    c => c.id === contaDestino.idcliente
+  );
 
-      navigate(`transferenciapix`);
-    } else {
-      navigate("/erro");
-    }
-  };
+  localStorage.setItem("chaveInserida", JSON.stringify(chaveInserida));
+  localStorage.setItem("contaDestino", JSON.stringify(contaDestino));
+  localStorage.setItem("clienteDestino", JSON.stringify(clienteDestino));
+
+  navigate("transferenciapix");
+};
 
 
   return (

@@ -3,22 +3,49 @@ import { useState } from "react";
 
 export function Confirma(props) {
   const [showPass, setShowPass] = useState(false);
+  const informacoesTransferencia = props.informacoesTransferencia
+  const [transferencia, setTransferencia] = useState({ idconta: informacoesTransferencia.idconta, idcontadestino: informacoesTransferencia.idcontadestino, valor: informacoesTransferencia.valor, datatransf: informacoesTransferencia.datatransf, comentario: informacoesTransferencia.comentario, chavedestino: informacoesTransferencia.chavedestino, senha: "" })
+  async function realizarTransferencia(e) {
+    e.preventDefault();
+    try {
+
+
+      const resposta = await fetch("http://localhost:3001/Transferencia", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transferencia),
+
+      });
+
+      if (!resposta.ok) {
+        throw new Error("Erro ao cadastrar endereço");
+      }
+
+      const endereco = await resposta.json();
+
+    } catch (error) {
+      console.error("Erro no cadastro:", error);
+      alert("Ocorreu um erro ao realizar o cadastro.");
+    }
+  }
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 animate-fade-in">
-        
+      <form onSubmit={realizarTransferencia} className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 animate-fade-in">
+
         <header className="text-xl font-semibold text-gray-800 text-center mb-4">
-          Você vai pagar  
-          <span className="text-green-600 font-bold"> {props.dinheiro} </span>  
-          para  
+          Você vai pagar
+          <span className="text-green-600 font-bold"> {props.dinheiro} </span>
+          para
           <span className="font-bold"> {props.nome}</span>
         </header>
 
         <div className="bg-gray-100 rounded-xl p-4 mb-6">
           <h1 className="text-lg font-medium text-gray-700">Saldo</h1>
           <p className="text-gray-600">
-            Valor disponível:  
+            Valor disponível:
             <span className="font-semibold text-green-700"> R$ {props.saldoDisponivel}</span>
           </p>
         </div>
@@ -29,6 +56,8 @@ export function Confirma(props) {
           <div className="relative">
             <input
               type={showPass ? "text" : "password"}
+              value={transferencia.senha}
+              onChange={(e) => setTransferencia({ ...transferencia, senha: e.target.value })}
               placeholder="Digite sua senha"
               className="
                 w-full py-3 px-4 rounded-xl
@@ -44,15 +73,15 @@ export function Confirma(props) {
               onClick={() => setShowPass(!showPass)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
             >
-              {showPass ? <EyeOffIcon/> : <EyeIcon/>}
+              {showPass ? <EyeOffIcon /> : <EyeIcon />}
             </button>
           </div>
         </div>
 
-        <button className="w-full border border-green-500/0 hover:border-green-500 bg-green-600 hover:bg-white text-white hover:text-green-500 py-3 rounded-xl font-semibold transition-all shadow-md active:scale-95 cursor-pointer duration-300">
+        <button type="submit" className="w-full border border-green-500/0 hover:border-green-500 bg-green-600 hover:bg-white text-white hover:text-green-500 py-3 rounded-xl font-semibold transition-all shadow-md active:scale-95 cursor-pointer duration-300">
           Confirmar Pagamento
         </button>
-      </div>
+      </form>
 
       <style>{`
         .animate-fade-in {

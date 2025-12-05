@@ -4,14 +4,22 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import imagem from "/imagens/logocriancas.png";
 import { Cartao } from "../components/Cartao";
+import { Calculadora } from "../components/componentesAreaPix/Calculadora";
 
 export function TransferenciaPix() {
     const [valor, setValor] = useState("");
+    const [calculadora, setCalculadora] = useState(false);
+
     const navigate = useNavigate("");
     const clienteDestino = JSON.parse(localStorage.getItem("clienteDestino"));
     const cliente = JSON.parse(localStorage.getItem("usuario"));
     const conta = JSON.parse(localStorage.getItem("conta"));
     const [saldo, setSaldo] = useState(conta?.saldo || 0);
+
+
+    const toggleCalculadora = () => {
+        setCalculadora(!calculadora)
+    }
 
 
     function formatarValor(e) {
@@ -102,32 +110,32 @@ export function TransferenciaPix() {
                         )}
                     </div>
                     <button onClick={realizandoTransferencia} className=" w-36 mt-4 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Avançar</button>
-                    <button onClick={() => navigate("/calculadora")} className=" w-36 ml-2 mt-4 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Calculadora</button>
+                    <button onClick={toggleCalculadora} className=" w-36 ml-2 mt-4 h-12 border border-[#003c0a]/0 text-white bg-[#003c0a] hover:bg-white hover:text-[#003c0a] hover:border-[#003c0a] transition-colors duration-300 cursor-pointer rounded-4xl">Calculadora</button>
                 </div>
 
-                <div className="bg-transparent w-full flex flex-colitems-center gap-4 mt-2">
-
-                    <div className="w-full mt-6 flex justify-center items-start gap-6">
-                        <div className="flex gap-4 flex-wrap">
+                <div className="bg-transparent w-full flex flex-col items-center gap-6 mt-6">
+                    <div className="flex justify-center items-start gap-10 w-full">
+                        <div className="flex flex-col gap-3">
                             {[1000, 2000, 5000, 10000].map((val) => (
                                 <button
                                     key={val}
                                     onClick={() => adicionarValor(val)}
-                                    className="bg-[#003c0a] text-white px-6 py-2 rounded-xl hover:bg-[#4a8b00] transition"
+                                    className="bg-[#003c0a] text-white px-8 py-3 rounded-xl hover:bg-[#4a8b00] transition text-lg font-semibold"
                                 >
-                                    +R$ {(val / 100).toFixed(0)}
+                                    + R$ {(val / 100).toFixed(2)}
                                 </button>
                             ))}
                         </div>
-
-                        <div className="w-64">
+                        <div className="w flex justify-center">
                             <Cartao nome={cliente.login} saldo={conta.saldo} />
                         </div>
                     </div>
-
-
                 </div>
+
             </div>
+            {calculadora && (
+                <Calculadora funcao={toggleCalculadora} />
+            )}
         </Pagina>
     );
 }

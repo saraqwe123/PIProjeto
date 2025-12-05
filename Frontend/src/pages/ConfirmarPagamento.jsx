@@ -10,29 +10,33 @@ export function ConfirmarPagamento() {
     const { valor } = useParams();
     const [showBalance, setShowBalance] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-
+    
+    
     const cliente = JSON.parse(localStorage.getItem("usuario"));
     const conta = JSON.parse(localStorage.getItem("conta"));
+    const chaveInserida = JSON.parse(localStorage.getItem("chaveInserida"));
     const clienteDestino = JSON.parse(localStorage.getItem("clienteDestino"));
     const contaDestino = JSON.parse(localStorage.getItem("contaDestino"));
-
-
+    
+    
     const valorFormatado = (valor / 100).toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL"
     });
-
+    
     const toggleBalance = () => {
         setShowBalance(!showBalance)
     }
-
+    
     const hoje = new Date()
     const hojeFormatado = hoje.toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "long",
         year: "numeric"
     });
+    const hojeFormatadoBD = hoje.toISOString().split("T")[0];
 
+    const [transferencia, setTransferencia] = useState({idconta: conta.id, idcontadestino: contaDestino.id, valor: valor/100, datatransf: hojeFormatadoBD, comentario: "", chavedestino: chaveInserida}) 
 
     return (
         <Pagina>
@@ -112,12 +116,12 @@ export function ConfirmarPagamento() {
                     </div>
 
                     <div className="flex items-center justify-between py-3">
-                        <input className="text-gray-800 w-full" placeholder="Descrição (opcional)" />
+                        <input className="text-gray-800 w-full" placeholder="Descrição (opcional)" value={transferencia.comentario} onChange={(e) => setTransferencia({ ...transferencia, comentario: e.target.value })} />
                         <span className="text-gray-700 text-xl">✏️</span>
                     </div>
 
                     <div className="flex justify-end mt-4">
-                        <button onClick={() => setShowConfirm(true)} className="w-14 h-14 rounded-full bg-[#00c000] hover:bg-[#009900] transition flex justify-center items-center shadow-lg">
+                        <button onClick={() => setShowConfirm(true)} className="w-14 h-14 rounded-full bg-[#00c000] text-black border border-[#009900]/0 hover:text-[#009900] hover:border-[#009900] hover:bg-white transition-all duration-300 flex justify-center items-center shadow-lg cursor-pointer active:scale-95">
                             ➜
                         </button>
                     </div>
@@ -132,6 +136,7 @@ export function ConfirmarPagamento() {
                     dinheiro={valorFormatado}
                     nome={clienteDestino.login}
                     saldoDisponivel={conta?.saldo}
+                    informacoesTransferencia={transferencia}
                 />
             )}
 
