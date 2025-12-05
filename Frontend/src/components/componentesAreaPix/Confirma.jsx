@@ -8,26 +8,30 @@ export function Confirma(props) {
   async function realizarTransferencia(e) {
     e.preventDefault();
     try {
-
-
       const resposta = await fetch("http://localhost:3001/Transferencia", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(transferencia),
-
       });
 
       if (!resposta.ok) {
-        throw new Error("Erro ao cadastrar endereço");
+        throw new Error("Erro ao realizar transferência");
       }
 
-      const endereco = await resposta.json();
+      const transf = await resposta.json();
+
+      const contaAtualizadaResposta = await fetch(`http://localhost:3001/Contas/${transferencia.idconta}`);
+      const contaAtualizada = await contaAtualizadaResposta.json();
+
+      localStorage.setItem("conta", JSON.stringify(contaAtualizada));
+
+      if (props.onClose) props.onClose();
 
     } catch (error) {
       console.error("Erro no cadastro:", error);
-      alert("Ocorreu um erro ao realizar o cadastro.");
+      alert("Ocorreu um erro ao realizar o pagamento.");
     }
   }
 

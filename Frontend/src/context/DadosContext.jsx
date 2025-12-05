@@ -5,7 +5,6 @@ export const DadosContext = createContext();
 export function DadosProvider({ children }) {
   const [dados, setDados] = useState({ clientes: [], contas: [] });
 
-  // Adiciona novos clientes ou contas ao estado, sem duplicar
   function adicionarDados(novosDados, tabela) {
     if (!Array.isArray(novosDados)) return;
     if (!tabela) return;
@@ -21,7 +20,6 @@ export function DadosProvider({ children }) {
     });
   }
 
-  // Busca clientes
   useEffect(() => {
     const fetchClientes = async () => {
       try {
@@ -38,7 +36,6 @@ export function DadosProvider({ children }) {
     fetchClientes();
   }, []);
 
-  // Busca contas
   useEffect(() => {
     const fetchContas = async () => {
       try {
@@ -70,8 +67,23 @@ export function DadosProvider({ children }) {
     };
     fetchEnderecos();
   }, []);
+  
+  useEffect(() => {
+    const fetchTransferencias = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/Transferencia");
+        if (!response.ok) throw new Error("Erro ao buscar Transferencias");
 
-  // Debug
+        const json = await response.json();
+        const transferencias = Array.isArray(json.message) ? json.message : Array.isArray(json) ? json : [];
+        adicionarDados(transferencias, "transferencias");
+      } catch (err) {
+        console.error("❌ Erro enderecos:", err.message);
+      }
+    };
+    fetchTransferencias();
+  }, []);
+
   useEffect(() => {
     console.log("DADOS ATUALIZADOS:", dados);
   }, [dados]);

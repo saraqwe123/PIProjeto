@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import { Link, useNavigate } from "react-router-dom";
 import { DadosContext } from "../context/DadosContext";
 import { Eye, EyeOff } from "lucide-react";
+import { useEffect } from "react";
 
 
 export function Login() {
@@ -12,6 +13,10 @@ export function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const { dados } = useContext(DadosContext)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    localStorage.clear()
+  }, [])
 
   const verificarLogin = async (e) => {
     e.preventDefault();
@@ -49,6 +54,7 @@ export function Login() {
 
     const conta = dados.contas?.find(c => String(c.idcliente) === String(usuario.id) || String(c.chavepixcpf) === String(usuario.cpf));
     const endereco = dados.enderecos?.find(e => String(e.id) === String(usuario.idendereco));
+    const transferencia = dados.transferencias?.filter(t => String(t.idconta) === String(conta.id) || String(t.idcontadestino) === String(conta.id) );
 
     if (!conta) {
       console.warn("Conta vinculada não encontrada para este usuário.");
@@ -56,10 +62,14 @@ export function Login() {
     if (!endereco) {
       console.warn("Endereço vinculado não encontrado para este usuário.");
     }
-
+    if (!transferencia) {
+      console.warn("Tranferencia vinculada não encontrado para este usuário.");
+    }
+    console.log(transferencia)
     localStorage.setItem("usuario", JSON.stringify(usuario));
     if (conta) localStorage.setItem("conta", JSON.stringify(conta));
     if (endereco) localStorage.setItem("endereco", JSON.stringify(endereco));
+    if (transferencia) localStorage.setItem("transferencia", JSON.stringify(transferencia));
 
     navigate("/inicio");
   };

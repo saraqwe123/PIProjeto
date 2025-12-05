@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pagina } from "../components/Pagina";
 import {
     ArrowBigDown,
@@ -13,10 +13,16 @@ import { MenuLateral } from "../components/MenuLateral";
 import { MenuSuperior } from "../components/MenuSuperior";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { DadosContext } from "../context/DadosContext";
 
 export function Extrato() {
     const [showBalance, setShowBalance] = useState(false);
     const [showMovimentacoes, setShowMovimentacoes] = useState(false)
+    const { dados } = useContext(DadosContext)
+
+    const cliente = JSON.parse(localStorage.getItem("usuario"));
+    const conta = JSON.parse(localStorage.getItem("conta"));
+    const transferencia = JSON.parse(localStorage.getItem("transferencia"));
 
     const toggleBalance = () => {
         setShowBalance((prev) => !prev);
@@ -25,6 +31,18 @@ export function Extrato() {
     const toggleShowMovimentacoes = () => {
         setShowMovimentacoes((prev) => !prev);
     };
+function getNomeByIdConta(idConta) {
+    if (!cliente || !conta) return "Usuário";
+
+    if (String(idConta) === String(conta.id)) {
+        return cliente.login;
+    }
+    console.log("NAO ENTROU")
+    return "Usuário";
+}
+
+
+
 
     return (
         <Pagina>
@@ -36,7 +54,7 @@ export function Extrato() {
                         <div className="flex flex-col">
                             <span className="text-sm text-gray-400 uppercase tracking-wider">Saldo disponível</span>
                             <p className="text-3xl font-extrabold text-[#6dd63a] tracking-wide mt-1">
-                                {showBalance ? "R$ 2.450,00" : "R$ ••••••"}
+                                {showBalance ? `R$ ${conta?.saldo}` : "R$ ••••••"}
                             </p>
                         </div>
 
@@ -80,42 +98,57 @@ export function Extrato() {
                                     transition={{ duration: 0.4, ease: "circIn" }}
                                     className="mt-4 flex flex-col gap-3 text-gray-200"
                                 >
-                                    <div className="text-sm text-gray-400 mb-2">Hoje</div>
+                                    {transferencia.length === 0 ? (
+                                        <p className="text-gray-400">Nenhuma movimentação encontrada.</p>
+                                    ) : (
+                                        transferencia.map((t, index) => {
+                                            const enviada = t.idconta === conta.id;
 
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-3 sm:p-4 hover:border-[#6dd63a]/40 transition-all cursor-pointer">
-                                        <div className="flex items-center gap-3 mb-2 sm:mb-0">
-                                            <ArrowBigUp className="text-[#6dd63a] w-6 h-6 sm:w-7 sm:h-7" />
-                                            <div className="flex flex-col">
-                                                <span className="font-semibold text-white text-sm sm:text-base">Sara Guaiume</span>
-                                                <span className="text-xs text-gray-400">Transferência Recebida</span>
-                                            </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="text-[#6dd63a] font-semibold text-sm sm:text-base">
-                                                + R$ 3.000.000,00
-                                            </span>
-                                            <p className="text-xs text-gray-500">09:30</p>
-                                        </div>
-                                    </div>
+                                            const nome = enviada ? getNomeByIdConta(t.idcontadestino) : getNomeByIdConta(t.idconta);
 
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-3 sm:p-4 hover:border-[#bb2e29]/40 transition-all cursor-pointer">
-                                        <div className="flex items-center gap-3 mb-2 sm:mb-0">
-                                            <ArrowBigDown className="text-[#bb2e29] w-6 h-6 sm:w-7 sm:h-7" />
-                                            <div className="flex flex-col">
-                                                <span className="font-semibold text-white text-sm sm:text-base">Sara Guaiume</span>
-                                                <span className="text-xs text-gray-400">Transferência Realizada</span>
-                                            </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="text-[#bb2e29] font-semibold text-sm sm:text-base">
-                                                - R$ 1.003.000,00
-                                            </span>
-                                            <p className="text-xs text-gray-500">09:30</p>
-                                        </div>
-                                    </div>
+
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className={`flex flex-col sm:flex-row sm:items-center sm:justify-between 
+                            bg-[#1a1a1a] border border-[#2d2d2d] rounded-xl p-3 sm:p-4 
+                            hover:border-${enviada ? "[#bb2e29]" : "[#6dd63a]"}/40 
+                            transition-all cursor-pointer`}
+                                                >
+                                                    <div className="flex items-center gap-3 mb-2 sm:mb-0">
+
+                                                        {enviada ? (
+                                                            <ArrowBigDown className="text-[#bb2e29] w-6 h-6 sm:w-7 sm:h-7" />
+                                                        ) : (
+                                                            <ArrowBigUp className="text-[#6dd63a] w-6 h-6 sm:w-7 sm:h-7" />
+                                                        )}
+
+                                                        <div className="flex flex-col">
+                                                            <span className="font-semibold text-white text-sm sm:text-base">
+                                                                {nome || "Transferência"}
+                                                            </span>
+                                                            <span className="text-xs text-gray-400">
+                                                                {enviada ? "Transferência Enviada" : "Transferência Recebida"}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="text-right">
+                                                        <span className={`${enviada ? "text-[#bb2e29]" : "text-[#6dd63a]"} font-semibold text-sm sm:text-base`}>
+                                                            {enviada ? "-" : "+"} R$ {Number(t.valor).toFixed(2)}
+                                                        </span>
+                                                        <p className="text-xs text-gray-500">
+                                                            {new Date(t.datatransf).toLocaleString("pt-BR")}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    )}
                                 </motion.div>
                             )}
                         </AnimatePresence>
+
                     </section>
 
                     <NavLink to="/inicio" className="bg-red-600 border border-red-600/0 cursor-pointer rounded-2xl w-40 h-12 flex items-center justify-center text-white hover:bg-white hover:text-red-600 hover:border-red-600 sm:self-end mt-6 transition-colors duration-300"> <SkipBack /> </NavLink>

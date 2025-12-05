@@ -11,6 +11,7 @@ import { join } from 'path';
 
 import dotenv from 'dotenv'
 import { ContaRoutes } from "./modules/Conta/Conta.Routes.js";
+import { TransferenciaRoutes } from "./modules/Transferencia/Transferencia.Routes.js";
 dotenv.config()
 
 const server = fastify({
@@ -32,6 +33,7 @@ await server.register(cors, {
 await server.register(EnderecoRoutes); 
 await server.register(CadastroRoutes); 
 await server.register(ContaRoutes); 
+await server.register(TransferenciaRoutes); 
 // await server.register(CadastroCompletoRoutes); 
 
 server.get("/", async (request, reply) => {

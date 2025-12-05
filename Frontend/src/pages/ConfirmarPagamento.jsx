@@ -36,7 +36,7 @@ export function ConfirmarPagamento() {
     });
     const hojeFormatadoBD = hoje.toISOString().split("T")[0];
 
-    const [transferencia, setTransferencia] = useState({idconta: conta.id, idcontadestino: contaDestino.id, valor: valor/100, datatransf: hojeFormatadoBD, comentario: "", chavedestino: chaveInserida}) 
+    const [transferencia, setTransferencia] = useState({idconta: conta.id, idcontadestino: contaDestino.id, valor: valor/100, datatransf: hojeFormatadoBD, comentario: "", chavedestino: chaveInserida, senha: cliente.senha}) 
 
     return (
         <Pagina>
@@ -137,6 +137,8 @@ export function ConfirmarPagamento() {
                     nome={clienteDestino.login}
                     saldoDisponivel={conta?.saldo}
                     informacoesTransferencia={transferencia}
+                    onClose={() => setShowConfirm(false)}
+
                 />
             )}
 

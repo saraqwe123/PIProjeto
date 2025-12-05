@@ -1,43 +1,35 @@
-import cpfValidate from "cpf";
-
-
-function validateCPF(cpf) {
-    const valido = cpfValidate.isValid(cpf);
-    return valido
-}
-
-export class CadastroService {
-    constructor(CadastroRepository) {
-        this.CadastroRepository = CadastroRepository;
+export class TransferenciaService {
+    constructor(TransferenciaRepository) {
+        this.TransferenciaRepository = TransferenciaRepository;
     }
 
-    async getAllClientes() {
-        return await this.CadastroRepository.findAll();
+    async getAllTransferencias() {
+        return await this.TransferenciaRepository.findAll();
     }
 
-    async getClienteById(id) {
-        return await this.CadastroRepository.findById(id);
+    async getTransferenciaById(id) {
+        return await this.TransferenciaRepository.findById(id);
     }
 
-    async createCliente(clienteData) {
+    async createTransferencia(TransferenciaData) {
         try {
-            // console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", clienteData)
-            if (validateCPF(clienteData.cpf)) return await this.CadastroRepository.create(clienteData);
+            console.log("TRANSFERENCIAAAAAAAAAAAAAA SERVICEEEEEEEEEEEEEEEEEEEEE", TransferenciaData)
+            return await this.TransferenciaRepository.create(TransferenciaData);
         } catch (e) {
-            console.error('Erro ao inserir Cliente:', e);
+            console.error('Erro ao inserir Transferencia:', e);
             throw e;
         }
     }
 
-    async updateCliente(id, clienteData) {
+    async updateTransferencia(id, TransferenciaData) {
         try {
-            return await this.CadastroRepository.update(id, clienteData);
+            return await this.TransferenciaRepository.update(id, TransferenciaData);
         } catch (e) {
             throw e
         }
     }
 
-    async deleteCliente(id) {
-        return await this.CadastroRepository.remove(id);
+    async deleteTransferencia(id) {
+        return await this.TransferenciaRepository.remove(id);
     }
 }

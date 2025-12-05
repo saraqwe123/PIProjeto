@@ -31,16 +31,18 @@ export class TransferenciaController {
   
     async createTransferencia(request, reply) {
       try {
-        const { senha, cpf, ...rest } = request.body;
+        const { idconta, idcontadestino, valor, datatransf, comentario, chavedestino } = request.body;
 
-        const novoUsuario = {
-          ...rest,
-          senha: senhaHash,
-           ...(fileName && { fotoperfil: fileName }),
-          cpf: cpf,
+        const transferencia = {
+          idconta,
+          idcontadestino,
+          valor,
+          datatransf,
+          comentario,
+          chavedestino,
         };
-        // console.log("LOGGGGGGGGG AQQQQQQQQQQQQQQQQ", novoUsuario)
-        const novaTransferencia = await this.TransferenciaService.createTransferencia(novoUsuario);
+        console.log("TRANSFERENCIAAAAAAAAA CONTROLLERRRRRRRRRRRRRRR", transferencia)
+        const novaTransferencia = await this.TransferenciaService.createTransferencia(transferencia);
         return reply.code(201).send(novaTransferencia);
       } catch (error) {
         return reply.code(500).send({ message: 'Erro ao criar Transferencia', error: error.message });
