@@ -12,6 +12,8 @@ import { join } from 'path';
 import dotenv from 'dotenv'
 import { ContaRoutes } from "./modules/Conta/Conta.Routes.js";
 import { TransferenciaRoutes } from "./modules/Transferencia/Transferencia.Routes.js";
+import { CaixinhaRoutes } from "./modules/Caixinha/Caixinha.Routes.js";
+
 dotenv.config()
 
 const server = fastify({
@@ -55,6 +57,9 @@ server.post("/enviarCaixinhaEmail", async (request, reply) => {
     reply.status(500).send({ sucesso: false, erro: error.message });
   }
 });
+
+await server.register(CaixinhaRoutes);
+
 
 
 server.listen({ port, host: '0.0.0.0' }).then(() => {

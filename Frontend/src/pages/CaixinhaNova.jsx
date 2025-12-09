@@ -24,13 +24,13 @@ export function CaixinhaNova() {
       return data.message;
     } catch (error) {
       console.error("Erro ao pegar imagem do cachorro:", error);
-      return "/imagens/imagensCaixinha/imagem3.png"; 
+      return "/imagens/imagensCaixinha/imagem3.png";
     }
   }
-  
-const criarCaixinha = async() => {
 
-  const imagemAleatoria = await pegarImagemCachorro();
+  const criarCaixinha = async () => {
+
+    const imagemAleatoria = await pegarImagemCachorro();
 
     const numero = parseFloat(valor);
 
@@ -42,6 +42,24 @@ const criarCaixinha = async() => {
     if (numero > conta.saldo) {
       alert("Saldo insuficiente!");
       return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/caixinhas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idConta: conta.id,
+          idTipoCaixinha: tipo === "imediato" ? 1 : 2,
+          valorInvestido: numero
+        }),
+      });
+
+      const resultado = await response.json();
+      console.log(conta.id, "ess")
+      console.log("Caixinha criada no banco:", resultado);
+    } catch (error) {
+      console.error("Erro ao criar caixinha:", error);
     }
 
     const nova = {

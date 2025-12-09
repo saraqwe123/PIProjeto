@@ -10,7 +10,7 @@ export class CaixinhaController {
 
     async getAllcaixinhas(request, reply) {
         try {
-            const caixinhas = await this.CaixinhaService.getAllcaixinhas();
+            const caixinhas = await this.CaixinhaService.getAll();
             return reply.code(200).send(caixinhas);
         } catch (error) {
             return reply.code(500).send({ message: 'Erro ao buscar caixinhas', error: error.message });
@@ -21,7 +21,7 @@ export class CaixinhaController {
         const { id } = request.params;
 
         try {
-            const caixinha = await this.CaixinhaService.getcaixinhaById(id);
+            const caixinha = await this.CaixinhaService.getById(id);
             if (!caixinha) return reply.code(404).send({ message: `caixinha com ID ${id} não encontrado.` });
             return reply.code(200).send(caixinha);
         } catch (error) {
@@ -29,20 +29,21 @@ export class CaixinhaController {
         }
     }
 
-    async createcaixinha(request, reply) {
+    async create(request, reply) {
         try {
-            const { idConta, valorInvestido, tipo } = request.body;
+            const {caixinhaData } = request.body;
 
-            const novaCaixinha = {
-                idConta,
-                idTipoCaixinha: tipo,
-                valorInvestido,
-                valorResgatado: 0,
-                criadoEm: new Date(),
-                valorRendido: 0
-            };
+        const novaCaixinha = {
+            idconta: caixinhaData.idConta,
+            idtipocaixinha: caixinhaData.idTipoCaixinha,
+            valorinvestido: caixinhaData.valorInvestido,
+            valorresgatado: 0,
+            valorrendido: 0,
+            datacriacao: new Date()
+        };
 
-            const caixinhaCriada = await this.caixinhaService.createCaixinha(novaCaixinha);
+
+            const caixinhaCriada = await this.CaixinhaService.createcaixinha(novaCaixinha);
             return reply.code(201).send(caixinhaCriada);
         } catch (error) {
             return reply.code(500).send({ message: 'Erro ao criar caixinha', error: error.message });
@@ -54,7 +55,7 @@ export class CaixinhaController {
     async updatecaixinha(request, reply) {
         const { id } = request.params;
         try {
-            const updatedcaixinha = await this.CaixinhaService.updatecaixinha(id, request.body);
+            const updatedcaixinha = await this.CaixinhaService.update(id, request.body);
             if (!updatedcaixinha) return reply.code(404).send({ message: `caixinha com ID ${id} não encontrado para atualização.` });
             return reply.code(200).send(updatedcaixinha);
         } catch (error) {
@@ -65,7 +66,7 @@ export class CaixinhaController {
     async deletecaixinha(request, reply) {
         const { id } = request.params;
         try {
-            const deletedcaixinha = await this.CaixinhaService.deletecaixinha(id);
+            const deletedcaixinha = await this.CaixinhaService.delete(id);
             if (!deletedcaixinha) return reply.code(404).send({ message: `caixinha com ID ${id} não encontrado para exclusão.` });
             return reply.code(200).send({ message: `caixinha com ID ${id} deletado com sucesso.` });
         } catch (error) {

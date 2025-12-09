@@ -9,10 +9,9 @@ export function CaixinhaDetalhe() {
     const cliente = JSON.parse(localStorage.getItem("usuario"));
     const conta = JSON.parse(localStorage.getItem("conta"));
 
-    const [caixinha, setCaixinha] = useState({
-        id,
-        saldo: 50.00
-    });
+    const caixinhaEncontrada = conta.caixinhas.find(c => c.id == id);
+    const [caixinha, setCaixinha] = useState(caixinhaEncontrada);
+
 
     const [operacao, setOperacao] = useState(null);
     const [valor, setValor] = useState("");
@@ -27,11 +26,14 @@ export function CaixinhaDetalhe() {
         if (operacao === "depositar") {
             if (numero > conta.saldo) {
                 alert("Saldo insuficiente!");
-                return;            setCaixinha((prev) => ({ ...prev, saldo: prev.saldo - numero }));
-                conta.saldo += numero;
+                return;
             }
-            setCaixinha((prev) => ({ ...prev, saldo: prev.saldo + numero }));
+            setCaixinha(prev => ({ ...prev, saldo: prev.saldo + numero }));
             conta.saldo -= numero;
+
+            const index = conta.caixinhas.findIndex(c => c.id == id);
+            conta.caixinhas[index].saldo = caixinha.saldo + numero;
+
 
         } else if (operacao === "resgatar") {
             if (numero > caixinha.saldo) {
@@ -40,8 +42,11 @@ export function CaixinhaDetalhe() {
             }
             setCaixinha((prev) => ({ ...prev, saldo: prev.saldo - numero }));
             conta.saldo = conta.saldo + numero;
+
+            const index = conta.caixinhas.findIndex(c => c.id == id);
+            conta.caixinhas[index].saldo = caixinha.saldo - numero;
         }
-        
+
         localStorage.setItem("conta", JSON.stringify(conta));
         setValor("");
         setOperacao(null);
