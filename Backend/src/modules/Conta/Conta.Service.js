@@ -7,6 +7,10 @@ function validateCPF(cpf) {
     return valido
 }
 
+function gerarNumero8Digitos() {
+  return Math.floor(10000000 + Math.random() * 90000000);
+}
+
 export class ContaService {
     constructor(ContaRepository) {
         this.ContaRepository = ContaRepository;
@@ -24,7 +28,7 @@ export class ContaService {
         try {
             // console.log("SERVICEEEEEEEEEEEEEEEEEEEEE", ContaData)
             let chavePixAleatorio = randomUUID()
-            let numeroDaConta = randomUUID()
+            let numeroDaConta = gerarNumero8Digitos()
             // console.log("VALIDANDO PIXXXXXXXXXXX: ", validateCPF(ContaData.chavePixCpf));
             
             if (validateCPF(ContaData.chavepixcpf)) return await this.ContaRepository.create(ContaData, chavePixAleatorio, numeroDaConta);
