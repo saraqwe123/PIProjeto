@@ -5,11 +5,13 @@ import imagem from "/imagens/logocriancas.png";
 import { Cartao } from "../components/Cartao";
 import { useState } from "react";
 import { Confirma } from "../components/componentesAreaPix/Confirma";
+import { Comprovante } from "../components/componentesAreaPix/Comprovante";
 
 export function ConfirmarPagamento() {
     const { valor } = useParams();
     const [showBalance, setShowBalance] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const [showComprovante, setShowComprovante] = useState(false);
     
     
     const cliente = JSON.parse(localStorage.getItem("usuario"));
@@ -137,7 +139,22 @@ export function ConfirmarPagamento() {
                     nome={clienteDestino.login}
                     saldoDisponivel={conta?.saldo}
                     informacoesTransferencia={transferencia}
-                    onClose={() => setShowConfirm(false)}
+                    onClose={() => {
+                        setShowConfirm(false)
+                        setShowComprovante(true)
+                    }}
+
+                />
+            )}
+            {showComprovante && (
+                <Comprovante
+                    dinheiro={valorFormatado}
+                    nome={clienteDestino.login}
+                    saldoDisponivel={conta?.saldo}
+                    informacoesTransferencia={transferencia}
+                    onClose={() => {
+                        setShowComprovante(false)
+                    }}
 
                 />
             )}

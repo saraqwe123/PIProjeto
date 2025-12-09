@@ -31,15 +31,23 @@ export function Extrato() {
     const toggleShowMovimentacoes = () => {
         setShowMovimentacoes((prev) => !prev);
     };
-function getNomeByIdConta(idConta) {
-    if (!cliente || !conta) return "Usuário";
 
-    if (String(idConta) === String(conta.id)) {
-        return cliente.login;
+    function getNomeDestinatarioByIdConta(idConta) {
+        if (!dados?.contas || !dados?.clientes) return "Usuário";
+
+        const contaEncontrada = dados.contas.find(
+            c => String(c.id) === String(idConta)
+        );
+
+        if (!contaEncontrada) return "Usuário";
+
+        const clienteEncontrado = dados.clientes.find(
+            cl => String(cl.id) === String(contaEncontrada.idcliente)
+        );
+
+        return clienteEncontrado?.login || "Usuário";
     }
-    console.log("NAO ENTROU")
-    return "Usuário";
-}
+
 
 
 
@@ -54,7 +62,7 @@ function getNomeByIdConta(idConta) {
                         <div className="flex flex-col">
                             <span className="text-sm text-gray-400 uppercase tracking-wider">Saldo disponível</span>
                             <p className="text-3xl font-extrabold text-[#6dd63a] tracking-wide mt-1">
-                                {showBalance ? `R$ ${conta?.saldo}` : "R$ ••••••"}
+                                {showBalance ? `R$ ${conta?.saldo.toFixed(2)}` : "R$ ••••••"}
                             </p>
                         </div>
 
@@ -104,7 +112,7 @@ function getNomeByIdConta(idConta) {
                                         transferencia.map((t, index) => {
                                             const enviada = t.idconta === conta.id;
 
-                                            const nome = enviada ? getNomeByIdConta(t.idcontadestino) : getNomeByIdConta(t.idconta);
+                                            const nome = enviada ? getNomeDestinatarioByIdConta(t.idcontadestino) : getNomeDestinatarioByIdConta(t.idconta);
 
 
                                             return (
@@ -138,7 +146,7 @@ function getNomeByIdConta(idConta) {
                                                             {enviada ? "-" : "+"} R$ {Number(t.valor).toFixed(2)}
                                                         </span>
                                                         <p className="text-xs text-gray-500">
-                                                            {new Date(t.datatransf).toLocaleString("pt-BR")}
+                                                            {t.datatransf}
                                                         </p>
                                                     </div>
                                                 </div>

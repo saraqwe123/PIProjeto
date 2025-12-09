@@ -27,6 +27,17 @@ export function Confirma(props) {
 
       localStorage.setItem("conta", JSON.stringify(contaAtualizada));
 
+      const transferenciasAtuais = JSON.parse(
+        localStorage.getItem("transferencia")
+      ) || [];
+
+      transferenciasAtuais.push(transf);
+
+      localStorage.setItem(
+        "transferencia",
+        JSON.stringify(transferenciasAtuais)
+      );
+
       if (props.onClose) props.onClose();
 
     } catch (error) {

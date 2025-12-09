@@ -39,7 +39,7 @@ export function Cartao({nome, saldo}) {
                             )}
 
                             <p className="text-xl font-semibold text-gray-900 tracking-wide">
-                            {showBalance ? `R$ ${saldo}` : "R$ ******"}
+                            {showBalance ? `R$ ${saldo.toFixed(2)}` : "R$ ******"}
                             </p>
                             </div>
 
