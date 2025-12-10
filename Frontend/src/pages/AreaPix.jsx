@@ -129,11 +129,15 @@ export function AreaPix() {
           ))}
         </div>
       </div>
+<<<<<<< Updated upstream
       {
         showMudarPix &&  (
           <MudarChave chavepixcpf={conta.chavepixcpf}/>
         ) 
       }
+=======
+      
+>>>>>>> Stashed changes
     </Pagina>
   );
 }

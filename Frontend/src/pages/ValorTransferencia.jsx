@@ -3,7 +3,7 @@ import { CircleArrowLeft, CircleQuestionMark, EyeIcon, EyeOffIcon } from "lucide
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-export function valorTransferencia() {
+export function ValorTransferencia() {
     const [showBalance, setShowBalance] = useState(false);
     const toggleBalance = () => setShowBalance((prev) => !prev);
 

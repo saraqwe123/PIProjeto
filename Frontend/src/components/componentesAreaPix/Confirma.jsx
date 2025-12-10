@@ -65,34 +65,6 @@ export function Confirma(props) {
           </p>
         </div>
 
-        <div className="bg-gray-100 rounded-xl p-4 mb-6">
-          <h1 className="text-lg font-medium text-gray-700 mb-2">Senha</h1>
-
-          <div className="relative">
-            <input
-              type={showPass ? "text" : "password"}
-              value={transferencia.senha}
-              onChange={(e) => setTransferencia({ ...transferencia, senha: e.target.value })}
-              placeholder="Digite sua senha"
-              className="
-                w-full py-3 px-4 rounded-xl
-                border border-gray-300
-                text-gray-700
-                focus:ring-2 focus:ring-green-500 focus:border-green-500
-                outline-none transition
-              "
-            />
-
-            <button
-              type="button"
-              onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
-            >
-              {showPass ? <EyeOffIcon /> : <EyeIcon />}
-            </button>
-          </div>
-        </div>
-
         <button type="submit" className="w-full border border-green-500/0 hover:border-green-500 bg-green-600 hover:bg-white text-white hover:text-green-500 py-3 rounded-xl font-semibold transition-all shadow-md active:scale-95 cursor-pointer duration-300">
           Confirmar Pagamento
         </button>
