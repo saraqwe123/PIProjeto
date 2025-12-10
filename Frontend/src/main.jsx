@@ -12,7 +12,6 @@ import { Extrato } from './pages/Extrato';
 import { AgendarPix } from './pages/AgendarPix';
 import { Transferencia } from './pages/Transferencia';
 import { PixCopiaeCola } from './pages/PixCopiaECola';
-import { MudarChave } from './pages/MudarChave';
 import { Caixinha } from './pages/Caixinha';
 import { Acoes } from './pages/Acoes';
 import { TransferenciaPix } from './pages/TransferenciaPix';
@@ -43,7 +42,6 @@ const rotas = createBrowserRouter(
         <Route path="transferencia/transferenciapix" element={<TransferenciaPix />} />
         <Route path="transferencia/transferenciapix/confirmarPagamento/:valor" element={<ConfirmarPagamento />} />
         <Route path="pixcopiaecola" element={<PixCopiaeCola />} />
-        <Route path="mudarchave" element={<MudarChave />} />
         <Route path="investimentos/caixinha" element={<Caixinha />} />
         <Route path="investimentos/acoes" element={<Acoes />} />
         <Route path="transferenciapix" element={<TransferenciaPix />} />

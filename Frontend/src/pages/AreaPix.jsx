@@ -3,10 +3,14 @@ import { useState } from "react";
 import { Pagina } from "../components/Pagina";
 import { CircleArrowLeft, CircleQuestionMark, Copy, Key, MoveUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { MudarChave } from "../components/componentesAreaPix/MudarChave";
 
 export function AreaPix() {
   const navigate = useNavigate();
   const [procura, setProcura] = useState("");
+  const [showMudarPix, setShowMudarPix] = useState(false) 
+  const conta = JSON.parse(localStorage.getItem("conta"));
+
 
   const historicoPix = [
     { nome: "João Silva", hora: "09:14", tipo: "Pix", valor: -20 },
@@ -57,7 +61,7 @@ export function AreaPix() {
 
             <div className="flex flex-col items-center">
               <button
-                onClick={() => navigate('/mudarchave')}
+                onClick={() => setShowMudarPix(true)}
                 className="group w-50 h-50 bg-[#5ce1e6] rounded-2xl shadow-md flex justify-center items-center hover:bg-[#cfee9e] transition-colors"
               >
                 <Key className="w-20 h-50 transition-colors group-hover:text-[#4a8b00]" />
@@ -125,6 +129,11 @@ export function AreaPix() {
           ))}
         </div>
       </div>
+      {
+        showMudarPix &&  (
+          <MudarChave chavepixcpf={conta.chavepixcpf}/>
+        ) 
+      }
     </Pagina>
   );
 }
