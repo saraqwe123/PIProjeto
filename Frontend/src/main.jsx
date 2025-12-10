@@ -24,7 +24,6 @@ import { ChaveErrada } from './pages/ChaveErrada';
 import { Page404 } from './pages/Page404';
 import { ValorTransferencia } from './pages/ValorTransferencia';
 import { AgendarPixCola } from './pages/AgendarPixCola';
-import { InserirPix } from './pages/InserirPix';
 
 
 const rotas = createBrowserRouter(
@@ -52,7 +51,6 @@ const rotas = createBrowserRouter(
         <Route path="investimentos/caixinha/:id" element={<CaixinhaDetalhe />} />
         <Route path="valorTransferencia" element={<ValorTransferencia />} />
         <Route path="agendarpixcola" element={<AgendarPixCola />} />
-        <Route path="inserirpix" element={<InserirPix />} />
 
       </Route>
       <Route path="*" element={<Page404 />} />

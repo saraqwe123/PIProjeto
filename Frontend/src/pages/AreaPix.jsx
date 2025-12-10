@@ -1,15 +1,19 @@
-
 import { useState } from "react";
 import { Pagina } from "../components/Pagina";
 import { CircleArrowLeft, CircleQuestionMark, Copy, Key, MoveUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { MudarChave } from "../components/componentesAreaPix/MudarChave";
+import { InserirPix } from "../components/componentesAreaPix/InserirPix";
+
 
 export function AreaPix() {
   const navigate = useNavigate();
   const [procura, setProcura] = useState("");
-  const [showMudarPix, setShowMudarPix] = useState(false) 
+  const [showMudarPix, setShowMudarPix] = useState(false)
+  const [showInserirPix, setShowInserirPix] = useState(false)
   const conta = JSON.parse(localStorage.getItem("conta"));
+
+
 
 
   const historicoPix = [
@@ -18,9 +22,11 @@ export function AreaPix() {
     { nome: "João Silva", hora: "11:30", tipo: "Pix", valor: -30 },
   ];
 
+
   const historicoFiltrado = historicoPix.filter((item) =>
     item.nome.toLowerCase().includes(procura.toLowerCase())
   );
+
 
   return (
     <Pagina>
@@ -34,10 +40,12 @@ export function AreaPix() {
               <CircleArrowLeft className="w-6 h-6" />
             </button>
 
+
             <button className="text-gray-700 hover:text-green-500 transition-colors">
               <CircleQuestionMark className="w-6 h-6 mr-35" />
             </button>
           </div>
+
 
           <img
             src="imagens/logocriancas.png"
@@ -45,6 +53,7 @@ export function AreaPix() {
             className="fixed top-0 right-0 w-35 h-auto object-contain z-50 pointer-events-none"
           />
         </header>
+
 
         <main className="w-full flex-1 bg-[#259337] flex flex-col items-start p-10">
           <p className="text-white font-bold text-xl mb-6 ml-10">Área Pix</p>
@@ -59,6 +68,7 @@ export function AreaPix() {
               <p className="text-white mt-2">Transferência</p>
             </div>
 
+
             <div className="flex flex-col items-center">
               <button
                 onClick={() => setShowMudarPix(true)}
@@ -69,15 +79,17 @@ export function AreaPix() {
               <p className="text-white mt-2">Mudar Chave</p>
             </div>
 
+
             <div className="flex flex-col items-center">
               <button
-                onClick={() => navigate('/pixcopiaecola')}
+                onClick={() => setShowInserirPix(true)}
                 className="group w-50 h-50 bg-gradient-to-r from-[#5170ff] to-[#ff66e4] rounded-2xl shadow-md flex justify-center items-center hover:from-[#a1ff72] hover:to-[#cfee9e] transition-colors"
               >
                 <Copy className="w-20 h-50 transition-colors group-hover:text-[#4a8b00]" />
               </button>
               <p className="text-white mt-2">Pix Copia e Cola</p>
             </div>
+
 
             <div className="flex flex-col items-center">
               <button
@@ -89,13 +101,17 @@ export function AreaPix() {
               <p className="text-white mt-2">Agendar Pix</p>
             </div>
 
+
           </div>
         </main>
 
+
         <hr className="h-1 bg-[#d9d9d9] border-[#d9d9d9]" />
+
 
         <div className="w-full flex-1 bg-[#003c0a] p-6 overflow-y-auto max-h-[300px]">
           <p className="text-white text-xl font-semibold mb-4 ml-5">Histórico</p>
+
 
           <div className="relative mb-4 ml-5">
             <input
@@ -106,6 +122,7 @@ export function AreaPix() {
               className="w-full rounded-full px-10 py-2 bg-[#d9d9d9] text-gray-700 focus:outline-none"
             />
           </div>
+
 
           {historicoFiltrado.map((item, index) => (
             <div
@@ -129,15 +146,24 @@ export function AreaPix() {
           ))}
         </div>
       </div>
-<<<<<<< Updated upstream
+
+
       {
-        showMudarPix &&  (
-          <MudarChave chavepixcpf={conta.chavepixcpf}/>
-        ) 
+        showMudarPix && (
+          <MudarChave chavepixcpf={conta.chavepixcpf} />
+        )
       }
-=======
-      
->>>>>>> Stashed changes
+
+
+      {
+        showInserirPix && (
+          <InserirPix />
+        )
+      }
     </Pagina>
   );
 }
+
+
+
+
