@@ -23,6 +23,7 @@ import { CaixinhaNova } from './pages/CaixinhaNova';
 import { ConfirmarPagamento } from './pages/ConfirmarPagamento';
 import { ChaveErrada } from './pages/ChaveErrada';
 import { Page404 } from './pages/Page404';
+import { valorTransferencia } from './pages/valorTransferencia';
 
 
 const rotas = createBrowserRouter(
@@ -49,6 +50,8 @@ const rotas = createBrowserRouter(
         <Route path="investimentos/compraracao" element={<ComprarAcao />} />
         <Route path="investimentos/caixinha/caixinhanova" element={<CaixinhaNova />} />
         <Route path="investimentos/caixinha/:id" element={<CaixinhaDetalhe />} />
+        <Route path="valorTransferencia" element={<valorTransferencia />} />
+
       </Route>
       <Route path="*" element={<Page404 />} />
     </>
