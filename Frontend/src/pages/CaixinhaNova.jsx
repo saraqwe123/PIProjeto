@@ -45,7 +45,7 @@ export function CaixinhaNova() {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/caixinhas", {
+      const response = await fetch("https://piprojeto.onrender.com/caixinhas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -77,7 +77,7 @@ export function CaixinhaNova() {
     localStorage.setItem("conta", JSON.stringify(conta));
 
     try {
-      await fetch("http://localhost:3001/enviarCaixinhaEmail", {
+      await fetch("https://piprojeto.onrender.com/enviarCaixinhaEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

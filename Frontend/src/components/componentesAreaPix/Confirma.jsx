@@ -8,7 +8,7 @@ export function Confirma(props) {
   async function realizarTransferencia(e) {
     e.preventDefault();
     try {
-      const resposta = await fetch("http://localhost:3001/Transferencia", {
+      const resposta = await fetch("https://piprojeto.onrender.com/Transferencia", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export function Confirma(props) {
 
       const transf = await resposta.json();
 
-      const contaAtualizadaResposta = await fetch(`http://localhost:3001/Contas/${transferencia.idconta}`);
+      const contaAtualizadaResposta = await fetch(`https://piprojeto.onrender.com/Contas/${transferencia.idconta}`);
       const contaAtualizada = await contaAtualizadaResposta.json();
 
       localStorage.setItem("conta", JSON.stringify(contaAtualizada));
