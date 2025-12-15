@@ -1,4 +1,4 @@
-# Bibliofesta Frontend
+# Aplicação Monocoin
 
 ## 🚀 Descrição do Projeto
 Frontend e Backend do nosso banco **"MonoCoin"**, com uso das ferramentas Javascript **React Vite**, **React-Router**, **Node.js**, **Fastify** e **NeonDB** como banco de dados
